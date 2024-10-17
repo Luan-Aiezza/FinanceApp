@@ -25,7 +25,7 @@ struct FinanceAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProfilesView()
         }
         .modelContainer(sharedModelContainer)
     }

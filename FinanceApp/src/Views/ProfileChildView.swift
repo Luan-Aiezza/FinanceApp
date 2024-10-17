@@ -1,61 +1,40 @@
-//
-//  ContentView.swift
-//  FinanceApp
-//
-//  Created by Luan Aiezza on 16/10/24.
-//
-
 import SwiftUI
 import SwiftData
 
-struct CardChildView: View {
+struct ProfileChildView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        //PRIMEIRA CAMADA
+        NavigationStack {
+            ZStack{
+                Image("GreenBackground")
+                    .resizable()
+                    .ignoresSafeArea()
+                //SEGUNDA CAMADA
+                VStack{
+                    Text("BEM-VINDO DUDU!")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                    Spacer()
+                    HStack{
+                        // Botão com imagem
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .foregroundColor(.cyan)
                     }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+                    Spacer()
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        
     }
 }
 
 #Preview {
-    CardChildView()
+    ProfileChildView()
         .modelContainer(for: Item.self, inMemory: true)
 }
