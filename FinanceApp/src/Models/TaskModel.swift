@@ -13,7 +13,7 @@ class TaskModel {
     var value: Float
     var isDone: Bool
     var recurrent: Bool
-    var frequency: frequencyTypes = frequencyTypes.none
+//    var frequency: frequencyTypes = frequencyTypes.none
     var creationDate: Date
     var finishDate: Date?
     
@@ -29,7 +29,7 @@ class TaskModel {
         isDone = true
     }
     
-    enum frequencyTypes {
-        case daily, weekly, monthly, none
-    }
+//    enum frequencyTypes {
+//        case daily, weekly, monthly, none
+//    }
 }
