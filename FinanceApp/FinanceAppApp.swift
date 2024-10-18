@@ -12,7 +12,7 @@ import SwiftData
 struct FinanceAppApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            CashBoxModel.self, ChildModel.self, ParentModel.self , SpendModel.self, TaskModel.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,8 @@ struct FinanceAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            TaskCreateView()
         }
         .modelContainer(sharedModelContainer)
     }

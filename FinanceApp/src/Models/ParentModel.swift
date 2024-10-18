@@ -16,18 +16,5 @@ class ParentModel {
     init(name: String) {
         self.name = name
     }
-    
-    func changeCoinValue() -> Void {
-        print("changeCoinValue not implemented")
-    }
-    func createTask() -> Void {
-        print("createTask not implemented")
-    }
-    func updateTask() -> Void {
-        print("updateTask not implemented")
-    }
-    func removeTask() -> Void {
-        print("removeTask not implemented")
-    }
 }
 
