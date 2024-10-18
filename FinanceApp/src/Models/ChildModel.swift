@@ -11,7 +11,7 @@ import SwiftData
 @Model
 class ChildModel {
     var name: String
-    var task: [TaskModel] = []
+    var tasks: [TaskModel] = []
     var cashBoxes: [CashBoxModel] = []
     var spends: [SpendModel] = []
     

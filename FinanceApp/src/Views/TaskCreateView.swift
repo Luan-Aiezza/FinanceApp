@@ -6,14 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TaskCreateView: View {
+    @Environment(\.modelContext) private var modelcontext
+
     private var parentViewModel: ParentViewModel = .init()
     @State var taskDescription: String = ""
     @State var value: Float = 0.0
     @State var stringValue: String = "0.0"
     @State var recurrent: Bool = true
-    @State var child: ChildModel = .init(name: "Zezinho")
+    
+    @Query private var childs: [ChildModel]
+    @Query private var tasks: [TaskModel]
     
     func convertStrigToFloat(value: String) -> Float {
         if let value = Float(value){
@@ -33,12 +38,22 @@ struct TaskCreateView: View {
             }
             HStack{
                 Button("Create task"){
-                    parentViewModel.createTask(child: child, taskDescription: taskDescription, value: value, recurrent: recurrent)
+                    let newTask = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: stringValue), recurrent: recurrent)
+                    
+                    if let child = childs.first{
+                        parentViewModel.createTask(child: child, taskToAdd: newTask)
+                        
+                        modelcontext.insert(newTask)
+                    }
                 }
                 Button("Show Data"){
-                    if let value = child.task.first{
+                    if let value = childs.first?.tasks.first{
                         print(value.taskDescription)
                     }
+                }
+                Button("Create child"){
+                    let newChild = ChildModel(name: "Zé")
+                    modelcontext.insert(newChild)
                 }
             }
         }

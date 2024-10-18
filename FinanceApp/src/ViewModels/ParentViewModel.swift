@@ -12,10 +12,10 @@ struct ParentViewModel {
     func changeCoinValue() -> Void {
         print("changeCoinValue not implemented")
     }
-    func createTask(child: ChildModel, taskDescription: String, value: Float, recurrent: Bool) -> Void {
-        let newTask = TaskModel(taskDescription: taskDescription, value: value, recurrent: recurrent)
-        child.task.append(newTask)
+    func createTask(child: ChildModel, taskToAdd: TaskModel) -> Void {
+        child.tasks.append(taskToAdd)
     }
+    
     func updateTask() -> Void {
         print("updateTask not implemented")
     }
