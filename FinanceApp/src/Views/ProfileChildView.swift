@@ -3,7 +3,9 @@ import SwiftData
 
 struct ProfileChildView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    let id: UUID
+    @State var child: ChildModel?
+    @Query private var childs: [ChildModel]
     
     var body: some View {
         //PRIMEIRA CAMADA
@@ -14,7 +16,7 @@ struct ProfileChildView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack{
-                    Text("BEM-VINDO DUDU!")
+                    Text("BEM-VINDO \(child?.name ?? "Sem nome")!")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
@@ -29,12 +31,18 @@ struct ProfileChildView: View {
                     Spacer()
                 }
             }
+            .onAppear(){
+                if let child = childs.first(where: { $0.id == id }){
+                    self.child = child
+                }
+                else { return }
+            }
         }
         
     }
 }
 
 #Preview {
-    ProfileChildView()
+    ProfileChildView(id:UUID())
         .modelContainer(for: Item.self, inMemory: true)
 }

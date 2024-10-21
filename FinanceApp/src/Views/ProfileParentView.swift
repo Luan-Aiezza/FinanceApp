@@ -5,9 +5,6 @@ struct ProfileParentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var parent: [ParentModel]
     
-    //TODO: Remover variável "thisParent" depois
-    private let thisParent = ParentModel(name: "Luan")
-    
     func getName() -> String {
         if let name = parent.first?.name {
             return name
@@ -44,13 +41,6 @@ struct ProfileParentView: View {
                             .foregroundColor(.yellow)
                     }
                 }
-            }
-        }
-        .onAppear(){
-            if let _ = parent.first{
-                return
-            }else {
-            modelContext.insert(thisParent)
             }
         }
     }
