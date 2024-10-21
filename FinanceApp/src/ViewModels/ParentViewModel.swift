@@ -15,8 +15,7 @@ struct ParentViewModel {
     func createTask(child: ChildModel, taskToAdd: TaskModel) -> Void {
         child.tasks.append(taskToAdd)
     }
-    
-    func updateTask() -> Void {
+    func updateTask(taskToUpdate: TaskModel) {
         print("updateTask not implemented")
     }
     func removeTask() -> Void {

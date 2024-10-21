@@ -29,6 +29,7 @@ struct ProfilesView: View {
                     HStack{
                         // Botão com imagem
                         NavigationLink(destination: ProfileChildView()) {
+                            Text("Perfil do Filho")
                             Image(systemName: "person.fill")
                                 .resizable()
                                 .frame(width: 150, height: 150)
@@ -36,6 +37,7 @@ struct ProfilesView: View {
                         }
                         .padding()
                         NavigationLink(destination: ProfileParentView()) {
+                            Text("Perfil do Pai")
                             Image(systemName: "person.fill")
                                 .resizable()
                                 .frame(width: 150, height: 150)

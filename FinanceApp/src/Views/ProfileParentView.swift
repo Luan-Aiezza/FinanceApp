@@ -3,8 +3,17 @@ import SwiftData
 
 struct ProfileParentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var parent: [ParentModel]
     
+    //TODO: Remover variável "thisParent" depois
+    private let thisParent = ParentModel(name: "Luan")
+    
+    func getName() -> String {
+        if let name = parent.first?.name {
+            return name
+        }
+        return "No Name"
+    }
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
@@ -14,7 +23,7 @@ struct ProfileParentView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack{
-                    Text("BEM-VINDO SENHOR JOSÉ")
+                    Text("BEM-VINDO SENHOR \(getName())")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
@@ -27,10 +36,23 @@ struct ProfileParentView: View {
                             .foregroundColor(.yellow)
                     }
                     Spacer()
+                    NavigationLink(destination: TaskCreateView()){
+                        Text("Criar Tarefa")
+                        Image(systemName: "person.fill")
+                            .resizable()
+                            .frame(width: 150, height: 150)
+                            .foregroundColor(.yellow)
+                    }
                 }
             }
         }
-        
+        .onAppear(){
+            if let _ = parent.first{
+                return
+            }else {
+            modelContext.insert(thisParent)
+            }
+        }
     }
 }
 
