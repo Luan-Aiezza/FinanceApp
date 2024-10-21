@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 class ChildModel {
+    var id: UUID
     var name: String
     var tasks: [TaskModel] = []
     var cashBoxes: [CashBoxModel] = []
@@ -17,6 +18,7 @@ class ChildModel {
     
     init(name: String) {
         self.name = name
+        self.id = UUID()
     }
     
     func useCoins() -> Void {
