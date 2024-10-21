@@ -1,22 +1,22 @@
+////
+////  Untitled.swift
+////  FinanceApp
+////
+////  Created by Joseph Pereira on 16/10/24.
+////
 //
-//  Untitled.swift
-//  FinanceApp
+//import Foundation
+//import SwiftData
 //
-//  Created by Joseph Pereira on 16/10/24.
+//@Model
+//class ParentModel {
+//    var id: UUID
+//    var name: String
+//    var childs: [ChildModel] = []
+//    
+//    init(name: String) {
+//        self.name = name
+//        self.id = UUID()
+//    }
+//}
 //
-
-import Foundation
-import SwiftData
-
-@Model
-class ParentModel {
-    var id: UUID
-    var name: String
-    var childs: [ChildModel] = []
-    
-    init(name: String) {
-        self.name = name
-        self.id = UUID()
-    }
-}
-
