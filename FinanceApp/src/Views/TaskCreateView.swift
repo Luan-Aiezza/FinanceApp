@@ -16,9 +16,11 @@ struct TaskCreateView: View {
     @State var value: Float = 0.0
     @State var stringValue: String = "0.0"
     @State var recurrent: Bool = true
+    @State var selectedChild: ChildModel?
     
     @Query private var childs: [ChildModel]
     @Query private var tasks: [TaskModel]
+    @Query private var parents: [ParentModel]
     
     func convertStrigToFloat(value: String) -> Float {
         if let value = Float(value){
@@ -35,6 +37,16 @@ struct TaskCreateView: View {
                 TextField("Type the value of this task: ", text: $stringValue)
                     .keyboardType(.decimalPad)
                 Toggle("Is recurrent? ",isOn: $recurrent)
+                Section{
+                    // TODO: Trocar de picker para alguma outra coisa
+                    Picker("Selecione o filho",selection: $selectedChild){
+                        if let childs = parents.first?.childs{
+                            ForEach(childs){ child in
+                                Text(child.name).tag(child)
+                            }
+                        }
+                    }
+                }
             }
             HStack{
                 Button("Create task"){
@@ -45,15 +57,6 @@ struct TaskCreateView: View {
                         
                         modelcontext.insert(newTask)
                     }
-                }
-                Button("Show Data"){
-                    if let value = childs.first?.tasks.first{
-                        print(value.taskDescription)
-                    }
-                }
-                Button("Create child"){
-                    let newChild = ChildModel(name: "Zé")
-                    modelcontext.insert(newChild)
                 }
             }
         }

@@ -41,6 +41,12 @@ struct ProfilesView: View {
                         }
                     }
                     Spacer()
+                    Button(action: deleteChild){
+                        Text("Remover ultimo adicionado")
+                    }
+                    Button(action: addChild){
+                        Text("Adiciona um Filho")
+                    }
                 }
             }
         }
@@ -50,11 +56,14 @@ struct ProfilesView: View {
             }else {
                 modelContext.insert(thisParent)
             }
-            if let _ = childs.first{
+            if let child = childs.first{
+                print(child.name)
                 return
             }else {
+                parents.first?.childs.append(thisChild)
                 modelContext.insert(thisChild)
             }
+            try! modelContext.save()
         }
     }
     
@@ -89,6 +98,22 @@ struct ProfilesView: View {
             }
         }
         .padding()
+    }
+    
+     func deleteChild(){
+        if let delete = childs.first{
+            modelContext.delete(delete)
+        }
+         childs.forEach(){ child in
+            print(child.name)
+        }
+    }
+    func addChild(){
+        let newChild = ChildModel(name: "Teste")
+        if let parent = parents.first{
+            parent.childs.append(newChild)
+        }
+        try! modelContext.save()
     }
 }
 

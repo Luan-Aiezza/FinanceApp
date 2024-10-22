@@ -94,6 +94,11 @@ struct ProfileChildView: View {
 //                    }
                     
                     Spacer()
+                    if let child = childs.first(where: {$0.id == id}){
+                        ForEach(child.tasks){ task in
+                            Text(task.taskDescription)
+                        }
+                    }
                 }
             }
             .onAppear(){
