@@ -2,21 +2,21 @@
 import Foundation
 import SwiftData
 
-@Model
-class CashBoxModel {
-    var coins: Int
-//    var cashBoxDescription: String
-    
-    init() {
-        self.coins = 0
-    }
-    
-    func addCoins(amount: Int) {
-            if amount > 0 {
-                self.coins += amount
-            }
-        }
-}
+//@Model
+//class CashBoxModel {
+//    var coins: Int
+////    var cashBoxDescription: String
+//    
+//    init() {
+//        self.coins = 0
+//    }
+//    
+//    func addCoins(amount: Int) {
+//            if amount > 0 {
+//                self.coins += amount
+//            }
+//        }
+//}
 class Wallet : CashBoxModel {
     
     
