@@ -1,16 +1,4 @@
-//
-//  CashBoxModel.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 16/10/24.
-//
 
-//
-//  TaskModel.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 16/10/24.
-//
 import Foundation
 import SwiftData
 
