@@ -10,8 +10,14 @@ import SwiftData
 
 struct ProfilesView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    
+    @Query private var childs: [ChildModel]
+    @Query private var parents: [ParentModel]
+    
+    //TODO: Remover variável "thisParent" depois
+    private let thisParent = ParentModel(name: "Luan")
+    private let thisChild = ChildModel(name: "Rodrigo")
+    
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
@@ -27,30 +33,62 @@ struct ProfilesView: View {
                         .foregroundColor(Color.white)
                     Spacer()
                     HStack{
-                        // Botão com imagem
-                        NavigationLink(destination: ProfileChildView()) {
-                            Text("Perfil do Filho")
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(.cyan)
+                        ForEach(parents){ parent in
+                            createProfileView(parent)
                         }
-                        .padding()
-                        NavigationLink(destination: ProfileParentView()) {
-                            Text("Perfil do Pai")
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(.yellow)
+                        ForEach(childs) { child in
+                            createProfileView(child)
                         }
-                        .padding()
-                        
                     }
                     Spacer()
                 }
             }
         }
-        
+        .onAppear{
+            if let _ = parents.first{
+                return
+            }else {
+                modelContext.insert(thisParent)
+            }
+            if let _ = childs.first{
+                return
+            }else {
+                modelContext.insert(thisChild)
+            }
+        }
+    }
+    
+    
+    @ViewBuilder
+    private func createProfileView(_ child: ChildModel) -> some View{
+        NavigationLink(destination: ProfileChildView(id: child.id)) {
+            VStack{
+                Text("Perfil de \(child.name)")
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.white)
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.cyan)
+            }
+        }
+        .padding()
+    }
+    
+    @ViewBuilder
+    private func createProfileView(_ parent: ParentModel) -> some View{
+        NavigationLink(destination: ProfileParentView()) {
+            VStack{
+                Text("Perfil de \(parent.name)")
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.white)
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.cyan)
+            }
+        }
+        .padding()
     }
 }
 

@@ -3,7 +3,9 @@ import SwiftData
 
 struct ProfileChildView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    let id: UUID
+    @State var child: ChildModel?
+    @Query private var childs: [ChildModel]
     
     var body: some View {
         NavigationStack {
@@ -94,6 +96,12 @@ struct ProfileChildView: View {
                     Spacer()
                 }
             }
+            .onAppear(){
+                if let child = childs.first(where: { $0.id == id }){
+                    self.child = child
+                }
+                else { return }
+            }
         }
     }
 }
@@ -113,6 +121,6 @@ struct ProfileChildView: View {
 //}
 
 #Preview {
-    ProfileChildView()
+    ProfileChildView(id:UUID())
         .modelContainer(for: Item.self, inMemory: true)
 }
