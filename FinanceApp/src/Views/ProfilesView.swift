@@ -18,6 +18,8 @@ struct ProfilesView: View {
     private let thisParent = ParentModel(name: "Luan")
     private let thisChild = ChildModel(name: "Rodrigo")
     
+    let gridItem = [GridItem(.adaptive(minimum: 300))]
+    
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
@@ -33,20 +35,25 @@ struct ProfilesView: View {
                         .foregroundColor(Color.white)
                     Spacer()
                     HStack{
-                        ForEach(parents){ parent in
-                            createProfileView(parent)
-                        }
-                        ForEach(childs) { child in
-                            createProfileView(child)
+                        ScrollView{
+                            LazyVGrid(columns: gridItem, spacing: 20){
+                                ForEach(parents){ parent in
+                                    createProfileView(parent)
+                                }
+                                ForEach(childs) { child in
+                                    createProfileView(child)
+                                }
+                            }
                         }
                     }
                     Spacer()
                     Button(action: deleteChild){
                         Text("Remover ultimo adicionado")
                     }
-                    Button(action: addChild){
-                        Text("Adiciona um Filho")
-                    }
+                    
+//                    Button(action: addChild){
+//                        Text("Adiciona um Filho")
+//                    }
                 }
             }
         }
@@ -100,21 +107,16 @@ struct ProfilesView: View {
         .padding()
     }
     
-     func deleteChild(){
+    func deleteChild(){
         if let delete = childs.first{
             modelContext.delete(delete)
         }
-         childs.forEach(){ child in
+        childs.forEach(){ child in
             print(child.name)
-        }
-    }
-    func addChild(){
-        let newChild = ChildModel(name: "Teste")
-        if let parent = parents.first{
-            parent.childs.append(newChild)
         }
         try! modelContext.save()
     }
+
 }
 
 #Preview {
