@@ -29,5 +29,5 @@ struct TaskCard: View {
 }
 
 #Preview {
-    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0))
+    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0, effort: .easy, frequency: .daily))
 }
