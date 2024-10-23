@@ -6,11 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
+//TODO: naO CONSEGUIR ADD UM NUMERO DE MOEDAS MAIOR DO QUE A META PORTA
+//TODO: TODOS OS TEXTFIELDS DE GOALS ESTAO SENDO PREENCHIDOS
+//TODO: ESTA SALVANDO NO BANCO DE DADOS ? (fazer agr)
+//TODO: bOTAO desativar qiuandoa  anetrada nao cumprir os resquisistos
+//TODO: SALVAR DATA DA CONQUISTA DA META?
 
-//:TODO naO CONSEGUIR ADD UM NUMERO DE MOEDAS MAIOR DO QUE A META PORTA
 
 struct CashBoxView: View {
+    
+    @Environment(\.modelContext) private var modelContext
     @ObservedObject var viewModel = CashBoxViewModel()
     @State private var goalName = ""
     @State private var goalAmount = ""
@@ -32,9 +39,11 @@ struct CashBoxView: View {
                         .keyboardType(.numberPad)
                     
                     Button(action: {
+                        
                         if let amount = Int(addAmountToWallet), amount > 0 {
                             viewModel.addCoinsToWallet(amount: amount)
                             addAmountToWallet = ""
+                            
                         }
                     }) {
                         Text("Add to Wallet")
