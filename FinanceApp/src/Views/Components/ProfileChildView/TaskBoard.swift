@@ -7,27 +7,30 @@
 
 import SwiftUI
 
-struct TaskCard: View {
+struct TaskBoard: View {
     
-    let thisTask: TaskModel
+    let tasks: [TaskModel]
+    let gridItem = [GridItem(.adaptive(minimum: 300))]
     
     var body: some View {
         VStack{
-            Text("Effort Type")
-            Image(systemName: "person.fill")
-            Text(thisTask.taskDescription)
-            Button(action: {}){
-                Text("Mark as Done")
-                    .background(Color.blue)
-                    .foregroundStyle(.white)
+            ScrollView(.vertical) {
+                LazyVGrid(columns: gridItem) {
+                    ForEach(tasks) { task in
+                        TaskCard(thisTask: task)
+                            .frame(width: 300, height: 150)
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(radius: 5)
+                    }
+                }
+                .padding(.horizontal, 16)
             }
             
         }
-        .frame(width: 272, height: 304)
-        .background(Color.gray)
+        
+        //        #Preview {
+        //            TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0))
+        //        }
     }
-}
-
-#Preview {
-    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0))
 }

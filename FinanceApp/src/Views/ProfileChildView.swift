@@ -7,6 +7,14 @@ struct ProfileChildView: View {
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     
+    func getTasks() -> [TaskModel] {
+        if let child = childs.first(where: {$0.id == id}){
+            return child.tasks
+        } else {
+            return []
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -16,68 +24,7 @@ struct ProfileChildView: View {
                 
                 VStack {
                     // Toolbar com ícone da criança e caixa de moedas
-                    HStack {
-                        // Ícone da criança no canto superior esquerdo
-                        Button(action: {
-                            // Ação do botão (ex: abrir perfil da criança)
-                        }) {
-                            Image(systemName: "person.circle.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.white)
-                        }
-                        .padding(.leading, 16)
-                        
-                        Spacer()
-                        
-                        // Toolbar com três opções (exemplo de ícones)
-                        HStack(spacing: 20) {
-                            Button(action: {
-                                // Ação 1
-                            }) {
-                                Image(systemName: "gearshape.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Button(action: {
-                                // Ação 2
-                            }) {
-                                Image(systemName: "bell.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                            
-                            Button(action: {
-                                // Ação 3
-                            }) {
-                                Image(systemName: "questionmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        Spacer()
-
-                        // Ícone da Cash Box (moeda) no canto superior direito
-                        NavigationLink(destination: CashBoxView()) {
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.yellow)
-                        }
-                        .padding(.trailing, 16)
-                    }
-                    .padding(.top, 16)
-                    
-                    // Calendário simples (indicando mês)
-                    Text("Outubro 2024")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .padding()
+                    ProfileChildTopBar()
                     
                     // Carrossel vertical para exibir as tarefas
 //                    ScrollView(.vertical) {
@@ -92,13 +39,8 @@ struct ProfileChildView: View {
 //                        }
 //                        .padding(.horizontal, 16)
 //                    }
-                    
+                    TaskBoard(tasks: getTasks())
                     Spacer()
-                    if let child = childs.first(where: {$0.id == id}){
-                        ForEach(child.tasks){ task in
-                            Text(task.taskDescription)
-                        }
-                    }
                 }
             }
             .onAppear(){
