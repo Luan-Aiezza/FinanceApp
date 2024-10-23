@@ -3,9 +3,9 @@ import SwiftData
 
 enum FInanceAppSchemaV1: VersionedSchema {
     static var models: [any PersistentModel.Type] {
-        [ChildModel.self]
+        [ChildModel.self, ParentModel.self, TaskModel.self, CashBoxModel.self, SpendModel.self]
     }
-    static var versionIdentifier = Schema.Version(1,0,0)
+    static var versionIdentifier: Schema.Version = .init(1, 0, 0)
     
 }
 

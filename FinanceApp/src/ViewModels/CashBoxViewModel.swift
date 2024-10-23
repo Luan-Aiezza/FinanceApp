@@ -14,7 +14,7 @@ class CashBoxViewModel: ObservableObject {
     @Published var goalBanks: [GoalBank] = []
     
     init() {
-        self.wallet = Wallet()
+        self.wallet = Wallet(cashBoxDescription: "Wallet")
     }
     
     // Método para adicionar uma nova meta de poupança

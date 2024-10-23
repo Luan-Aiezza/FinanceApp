@@ -45,7 +45,7 @@ class GoalBank : CashBoxModel {
     init(goalName: String, goalAmount: Int) {
            self.goalName = goalName
            self.goalAmount = goalAmount
-           super.init()
+        super.init(cashBoxDescription: goalName)
        }
        
        // Método para adicionar moedas à meta

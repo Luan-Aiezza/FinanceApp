@@ -1,15 +1,15 @@
 import Foundation
 import SwiftData
 
-enum FInanceAppSchemaV1: VersionedSchema {
+enum FinanceAppSchemaV2: VersionedSchema {
     static var models: [any PersistentModel.Type] {
-        [ChildModel.self]
+        [ChildModel.self, ParentModel.self , SpendModel.self, TaskModel.self, CashBoxModel.self, GoalBankModel.self]
     }
-    static var versionIdentifier = Schema.Version(1,0,0)
+    static var versionIdentifier: Schema.Version = .init(1, 1, 0)
     
 }
 
-extension FInanceAppSchemaV1 {
+extension FinanceAppSchemaV2 {
     @Model
     class ChildModel {
         var id: UUID
@@ -39,10 +39,15 @@ extension FInanceAppSchemaV1 {
     @Model
     class CashBoxModel {
         var coins: Int
-    //    var cashBoxDescription: String
+        @Attribute(originalName: "cashBoxDescription")
+        var cashBoxDescription: String
+        @Attribute(originalName: "id")
+        var id: UUID
         
-        init() {
-            self.coins = 0
+        init(cashBoxDescription: String, coins: Int = 0) {
+            self.id = UUID()
+            self.coins = coins
+            self.cashBoxDescription = cashBoxDescription
         }
         
         func addCoins(amount: Int) {
@@ -71,26 +76,37 @@ extension FInanceAppSchemaV1 {
         var value: Float
         var isDone: Bool
         var recurrent: Bool
-    //    var frequency: frequencyTypes = frequencyTypes.none
+        @Attribute(originalName: "frequency")
+        var frequency: FrequencyTypes?
         var creationDate: Date
         var finishDate: Date?
+        @Attribute(originalName: "effort")
+        var effort: EffortTypes?
         
-        init(taskDescription: String, value: Float, recurrent: Bool = false) {
+        init(taskDescription: String, value: Float, recurrent: Bool = false, effort: EffortTypes = .easy, frequency: FrequencyTypes = .daily) {
             self.taskDescription = taskDescription
             self.value = value
             self.isDone = false
             self.recurrent = recurrent
             self.creationDate = Date()
+            self.effort = effort
+            self.frequency = frequency
         }
-        
-        func finishTask() -> Void {
-            isDone = true
-        }
-        
-    //    enum frequencyTypes {
-    //        case daily, weekly, monthly, none
-    //    }
     }
-
+    
+    @Model
+    class GoalBankModel {
+        var goalAmount: Int
+        var creationDate: Date
+        var finishDate: Date?
+        var cashBox: CashBoxModel
+        
+        init(goalName: String, goalAmount: Int) {
+            self.goalAmount = goalAmount
+            self.creationDate = Date()
+            self.cashBox = CashBoxModel(cashBoxDescription: goalName)
+        }
+        
+    }
     
 }

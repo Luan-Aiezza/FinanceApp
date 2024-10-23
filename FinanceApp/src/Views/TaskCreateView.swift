@@ -10,13 +10,14 @@ import SwiftData
 
 struct TaskCreateView: View {
     @Environment(\.modelContext) private var modelcontext
-
+    
     private var parentViewModel: ParentViewModel = .init()
     @State var taskDescription: String = ""
     @State var value: Float = 0.0
     @State var stringValue: String = "0.0"
     @State var recurrent: Bool = true
     @State var selectedChild: ChildModel?
+//    @State var witchFrequency: frequencyTypes = .daily
     
     @Query private var childs: [ChildModel]
     @Query private var tasks: [TaskModel]
@@ -47,22 +48,32 @@ struct TaskCreateView: View {
                         }
                     }
                 }
+//                Section{
+//                    // TODO: Refatorar depois
+//                    Picker("Diário?", selection: $witchFrequency){
+//                        Text("Daily").tag(frequencyTypes.daily)
+//                        Text("Weekly").tag(frequencyTypes.weekly)
+//                        Text("Montly").tag(frequencyTypes.monthly)
+//                        
+//                    }
+//                }
             }
-            HStack{
-                Button("Create task"){
-                    let newTask = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: stringValue), recurrent: recurrent)
+        }
+        HStack{
+            Button("Create task"){
+                let newTask = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: stringValue), recurrent: recurrent, effort: .easy, frequency: .daily)
+                
+                if let child = childs.first{
+                    parentViewModel.createTask(child: child, taskToAdd: newTask)
                     
-                    if let child = childs.first{
-                        parentViewModel.createTask(child: child, taskToAdd: newTask)
-                        
-                        modelcontext.insert(newTask)
-                    }
+                    modelcontext.insert(newTask)
                 }
             }
         }
-        
     }
+    
 }
+
 
 #Preview {
     TaskCreateView()
