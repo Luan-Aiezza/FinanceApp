@@ -9,27 +9,20 @@ import SwiftUI
 import SwiftData
 
 struct TaskCreateView: View {
-    @Environment(\.modelContext) private var modelcontext
+    @Environment(\.modelContext) private var modelContext
     
-    private var parentViewModel: ParentViewModel = .init()
+    @ObservedObject private var parentViewModel = ParentViewModel()
+    
     @State var taskDescription: String = ""
     @State var value: Float = 0.0
-    @State var stringValue: String = "0.0"
+    @State var stringValue: String = ""
     @State var recurrent: Bool = true
     @State var selectedChild: ChildModel?
-//    @State var witchFrequency: frequencyTypes = .daily
+    //    @State var witchFrequency: frequencyTypes = .daily
     
     @Query private var childs: [ChildModel]
     @Query private var tasks: [TaskModel]
     @Query private var parents: [ParentModel]
-    
-    func convertStrigToFloat(value: String) -> Float {
-        if let value = Float(value){
-            return value
-        } else {
-            return 0.0
-        }
-    }
     
     var body: some View {
         HStack{
@@ -48,31 +41,36 @@ struct TaskCreateView: View {
                         }
                     }
                 }
-//                Section{
-//                    // TODO: Refatorar depois
-//                    Picker("Diário?", selection: $witchFrequency){
-//                        Text("Daily").tag(frequencyTypes.daily)
-//                        Text("Weekly").tag(frequencyTypes.weekly)
-//                        Text("Montly").tag(frequencyTypes.monthly)
-//                        
-//                    }
-//                }
+                //                Section{
+                //                    // TODO: Refatorar depois
+                //                    Picker("Diário?", selection: $witchFrequency){
+                //                        Text("Daily").tag(frequencyTypes.daily)
+                //                        Text("Weekly").tag(frequencyTypes.weekly)
+                //                        Text("Montly").tag(frequencyTypes.monthly)
+                //
+                //                    }
+                //                }
             }
         }
         HStack{
             Button("Create task"){
-                let newTask = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: stringValue), recurrent: recurrent, effort: .easy, frequency: .daily)
-                
-                if let child = childs.first{
-                    parentViewModel.createTask(child: child, taskToAdd: newTask)
-                    
-                    modelcontext.insert(newTask)
+                if let child = selectedChild {
+                    let task = parentViewModel.addTaskChild(
+                        child: child,
+                        taskDescription: taskDescription,
+                        value: stringValue,
+                        recurrent: recurrent,
+                        effort: .easy,
+                        frequency: .daily
+                    )
+                    modelContext.insert(task)
+                    try! modelContext.save()
                 }
             }
         }
     }
-    
 }
+
 
 
 #Preview {

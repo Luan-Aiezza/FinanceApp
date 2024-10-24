@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 import SwiftData
 
-struct ParentViewModel {
+class ParentViewModel: ObservableObject{
+    @Environment(\.modelContext) private var modelContext
     @Query var parents: [ParentModel]
+    
     func changeCoinValue() -> Void {
         print("changeCoinValue not implemented")
-    }
-    func createTask(child: ChildModel, taskToAdd: TaskModel) -> Void {
-        child.tasks.append(taskToAdd)
     }
     func updateTask(taskToUpdate: TaskModel) {
         print("updateTask not implemented")
@@ -31,4 +30,23 @@ struct ParentViewModel {
         }
         return newChild
     }
+    
+    func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel {
+        let taskModel = createTask(taskDescription: taskDescription, value: value, recurrent: recurrent, effort: effort, frequency: frequency)
+        child.tasks.append(taskModel)
+        return taskModel
+    }
+    
+    private func createTask(taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel{
+        let taskModel = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: value), recurrent: recurrent, effort: effort, frequency: frequency)
+        return taskModel
+    }
+    private func convertStrigToFloat(value: String) -> Float {
+        if let value = Float(value){
+            return value
+        } else {
+            return 0.0
+        }
+    }
 }
+
