@@ -67,7 +67,7 @@ struct TaskCreateView: View {
                     try! modelContext.save()
                 }
             }
-        }
+        }   
     }
 }
 

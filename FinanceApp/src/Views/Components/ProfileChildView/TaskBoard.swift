@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskBoard: View {
     
-    let tasks: [TaskModel]
+    var tasks: [TaskModel]
     let gridItem = [GridItem(.adaptive(minimum: 300))]
     
     var body: some View {
@@ -17,7 +17,7 @@ struct TaskBoard: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: gridItem) {
                     ForEach(tasks) { task in
-                        TaskCard(thisTask: task)
+                        TaskCard(thisTask: task.persistentModelID)
                             .frame(width: 300, height: 150)
                             .background(Color.white)
                             .cornerRadius(12)
