@@ -17,11 +17,7 @@ struct TaskBoard: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: gridItem) {
                     ForEach(tasks) { task in
-                        TaskCard(thisTask: task.persistentModelID)
-                            .frame(width: 300, height: 150)
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .shadow(radius: 5)
+                        NewTaskCard(taskID: task.persistentModelID)
                     }
                 }
                 .padding(.horizontal, 16)
