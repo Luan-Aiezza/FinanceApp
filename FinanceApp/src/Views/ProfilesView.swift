@@ -18,42 +18,45 @@ struct ProfilesView: View {
     private let thisParent = ParentModel(name: "Luan")
     private let thisChild = ChildModel(name: "Rodrigo")
     
-    let gridItem = [GridItem(.adaptive(minimum: 300))]
+    let gridItem = [GridItem(.adaptive(minimum: 200))]
     
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
             ZStack{
-                Image("GreenBackground")
-                    .resizable()
+                Text("")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                VStack{
-                    Text("FINANCE APP")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color.white)
+                HStack(spacing: 50){
                     Spacer()
-                    HStack{
-                        ScrollView{
-                            LazyVGrid(columns: gridItem, spacing: 20){
-                                ForEach(parents){ parent in
-                                    createProfileView(parent)
-                                }
-                                ForEach(childs) { child in
-                                    createProfileView(child)
-                                }
+                    LazyVGrid(columns: gridItem){
+                        ForEach(parents){ parent in
+                            createProfileView(parent)
+                        }
+                        ForEach(childs) { child in
+                            createProfileView(child)
+                        }
+                        Button(action: deleteChild){
+                            VStack {
+                                Image("Add Profile")
+                                    .frame(width: 150, height: 150)
+                                    .aspectRatio(contentMode: .fill)
+                                    .background(Color.white) // Fundo branco do círculo
+                                    .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                                    .overlay(
+                                        Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
+                                    )
+                                    .shadow(radius: 5) // Sombra opcional para efeito
+                                Text("Delete last profile")
+                                    .fontWeight(.heavy)
+                                    .foregroundStyle(.white)
                             }
                         }
+                        Spacer()
                     }
                     Spacer()
-                    Button(action: deleteChild){
-                        Text("Remover ultimo adicionado")
-                    }
-                    
-//                    Button(action: addChild){
-//                        Text("Adiciona um Filho")
-//                    }
                 }
             }
         }
@@ -79,32 +82,38 @@ struct ProfilesView: View {
     private func createProfileView(_ child: ChildModel) -> some View{
         NavigationLink(destination: ProfileChildView(id: child.id)) {
             VStack{
-                Text("Perfil de \(child.name)")
-                    .fontWeight(.heavy)
-                    .foregroundStyle(.white)
-                Image(systemName: "person.fill")
+                Image("childIcon")
                     .resizable()
                     .frame(width: 150, height: 150)
                     .foregroundColor(.cyan)
+                    .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                    .overlay(
+                        Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
+                    )
+                Text(child.name)
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.white)
             }
         }
-        .padding()
     }
     
     @ViewBuilder
     private func createProfileView(_ parent: ParentModel) -> some View{
         NavigationLink(destination: ProfileParentView()) {
             VStack{
-                Text("Perfil de \(parent.name)")
-                    .fontWeight(.heavy)
-                    .foregroundStyle(.white)
-                Image(systemName: "person.fill")
+                Image("guardianIcon")
                     .resizable()
                     .frame(width: 150, height: 150)
                     .foregroundColor(.cyan)
+                    .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                    .overlay(
+                        Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
+                    )
+                Text("Guardian")
+                    .fontWeight(.heavy)
+                    .foregroundStyle(.white)
             }
         }
-        .padding()
     }
     
     func deleteChild(){
@@ -116,7 +125,7 @@ struct ProfilesView: View {
         }
         try! modelContext.save()
     }
-
+    
 }
 
 #Preview {
