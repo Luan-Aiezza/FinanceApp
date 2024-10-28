@@ -8,11 +8,9 @@
 import SwiftUI
 import SwiftData
 
-//TODO: naO CONSEGUIR ADD UM NUMERO DE MOEDAS MAIOR DO QUE A META PORTA
-//TODO: TODOS OS TEXTFIELDS DE GOALS ESTAO SENDO PREENCHIDOS
+
 //TODO: ESTA SALVANDO NO BANCO DE DADOS ? (fazer agr)
-//TODO: bOTAO desativar qiuandoa  anetrada nao cumprir os resquisistos
-//TODO: SALVAR DATA DA CONQUISTA DA META?
+
 
 
 struct CashBoxView: View {
@@ -88,30 +86,34 @@ struct CashBoxView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.black)
                                     .padding(.top, 5)
+                                if let goalAchievedDate = goal.goalAchievedDate {
+                                    Text("Achieved on: \(goalAchievedDate.formatted(.dateTime))")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
                             } else {
                                 HStack {
-                                    TextField("Transfer Coins", text: $transferAmountToGoal)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .keyboardType(.numberPad)
+                                    TextField("Transfer Coins", text: Binding(
+                                        get: { viewModel.transferAmounts[goal.goalName] ?? "" },
+                                        set: { viewModel.updateTransferAmount(for: goal.goalName, amount: $0) }
+                                    ))
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .keyboardType(.numberPad)
                                     
                                     Button(action: {
-                                        if let amount = Int(transferAmountToGoal), amount > 0 {
-                                            if amount <= viewModel.wallet.coins {
-                                                viewModel.addCoinsToGoal(goalName: goal.goalName, amount: amount)
-                                                transferAmountToGoal = ""
-                                            } else {
-                                                print("Erro: valor a transferir é maior que o saldo da Wallet")
-                                            }
+                                        if let amount = Int(viewModel.transferAmounts[goal.goalName] ?? "") {
+                                            viewModel.addCoinsToGoal(goalName: goal.goalName, amount: amount)
+                                            viewModel.transferAmounts[goal.goalName] = "" // Limpar o campo apos a add
                                         }
                                     }) {
                                         Text("Add to Goal")
                                     }
                                     .buttonStyle(.borderedProminent)
                                     .padding(.leading, 10)
+                                    .disabled(!viewModel.isTransferAmountValid(goalName: goal.goalName))
                                 }
                                 .padding(.top, 10)
                             }
-                            
                             
                             Button(action: {
                                 viewModel.removeGoal(goalName: goal.goalName)
@@ -126,6 +128,8 @@ struct CashBoxView: View {
                         .cornerRadius(10)
                     }
                 }
+
+
                 
                 
                 VStack {
@@ -147,6 +151,7 @@ struct CashBoxView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .padding()
+                    .disabled(goalName.isEmpty || Int(goalAmount) == nil || Int(goalAmount)! <= 0)
                 }
             }
             .padding()

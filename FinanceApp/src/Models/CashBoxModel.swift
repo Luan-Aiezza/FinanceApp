@@ -41,6 +41,7 @@ class GoalBank : CashBoxModel {
 
     var goalName: String
     var goalAmount: Int
+    var goalAchievedDate: Date?
     
     init(goalName: String, goalAmount: Int) {
            self.goalName = goalName
@@ -49,15 +50,16 @@ class GoalBank : CashBoxModel {
        }
        
        // Método para adicionar moedas à meta
-       override func addCoins(amount: Int) {
-           guard amount > 0 else { return }
-           self.coins += amount
-           print("Coins added: \(amount). Amount added to the box: \(self.coins)")
-           
-           if self.coins >= self.goalAmount {
-               print("CONGRATULATIONS! gOAL '\(goalName)' achived.")
-           }
-       }
+        override func addCoins(amount: Int) {
+            guard amount > 0 else { return }
+            let possibleAddition = min(amount, goalAmount - self.coins)
+            self.coins += possibleAddition
+
+            if self.coins >= self.goalAmount {
+                self.goalAchievedDate = Date()
+                print("CONGRATULATIONS! Goal '\(goalName)' achieved on \(self.goalAchievedDate!)")
+            }
+        }
     
     func spendCoins(amount: Int) {
         guard amount > 0, amount <= self.coins else {
