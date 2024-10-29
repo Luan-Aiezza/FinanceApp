@@ -50,6 +50,18 @@ struct ProfilesView: View {
                     Button(action: deleteChild){
                         Text("Remover ultimo adicionado")
                     }
+                    Button(action:{
+                        if let parent = parents.first{
+                            let newChild = ChildModel(name: "Rodrigo")
+                            parent.childs.append(newChild)
+                            modelContext.insert(newChild)
+                            try! modelContext.save()
+                            print(parent.name)
+                            print(parent.childs)
+                        }
+                    }){
+                        Text("Adicionar Filho")
+                    }
                     
 //                    Button(action: addChild){
 //                        Text("Adiciona um Filho")
@@ -62,13 +74,6 @@ struct ProfilesView: View {
                 return
             }else {
                 modelContext.insert(thisParent)
-            }
-            if let child = childs.first{
-                print(child.name)
-                return
-            }else {
-                parents.first?.childs.append(thisChild)
-                modelContext.insert(thisChild)
             }
             try! modelContext.save()
         }

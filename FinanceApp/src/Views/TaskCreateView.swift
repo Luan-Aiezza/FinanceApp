@@ -1,9 +1,3 @@
-//
-//  SwiftUIView.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 17/10/24.
-//
 
 import SwiftUI
 import SwiftData
@@ -41,15 +35,6 @@ struct TaskCreateView: View {
                         }
                     }
                 }
-                //                Section{
-                //                    // TODO: Refatorar depois
-                //                    Picker("Diário?", selection: $witchFrequency){
-                //                        Text("Daily").tag(frequencyTypes.daily)
-                //                        Text("Weekly").tag(frequencyTypes.weekly)
-                //                        Text("Montly").tag(frequencyTypes.monthly)
-                //
-                //                    }
-                //                }
             }
         }
         HStack{
