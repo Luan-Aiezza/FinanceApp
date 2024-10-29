@@ -1,16 +1,8 @@
 import SwiftUI
 import SwiftData
 
-struct ProfileParentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var parent: [ParentModel]
-    
-    func getName() -> String {
-        if let name = parent.first?.name {
-            return name
-        }
-        return "guardian"
-    }
+struct HistoryView: View {
+
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
@@ -21,7 +13,8 @@ struct ProfileParentView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack{
-                    Text("BEM-VINDO SENHOR \(getName())")
+                    
+                    Text("BEM-VINDO")
                         .font(.largeTitle)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
@@ -34,13 +27,7 @@ struct ProfileParentView: View {
                             .foregroundColor(.yellow)
                     }
                     Spacer()
-                    NavigationLink(destination: TaskCreateView()){
-                        Text("Criar Tarefa")
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.yellow)
-                    }
+
                 }
             }
         }
@@ -48,6 +35,6 @@ struct ProfileParentView: View {
 }
 
 #Preview {
-    ProfileParentView()
+    HistoryView()
         .modelContainer(for: Item.self, inMemory: true)
 }

@@ -14,7 +14,7 @@ struct CEffortTag: View {
     @State var effortStroke: Color = Color("EffortLowStroke")
     @State var effortColorText: Color = Color("EffortAnyText")
     @State var effortText: String = "LOW EFFORT"
-    @State var taskValue: Float = 5
+    @State var taskValue: Float
 
     
     var body: some View {
@@ -58,9 +58,9 @@ struct CEffortTag: View {
 }
 
 #Preview {
-    CEffortTag(effortType: .easy)
-    CEffortTag(effortType: .medium)
-    CEffortTag(effortType: .hard)
+    CEffortTag(effortType: .easy, taskValue: 2)
+    CEffortTag(effortType: .medium, taskValue: 2)
+    CEffortTag(effortType: .hard, taskValue: 2)
 }
 
 extension CEffortTag{

@@ -38,7 +38,7 @@ struct NewTaskCard: View {
     var body: some View{
         if let task = tasks.first(where: { $0.id == taskID }) {
             VStack(alignment: .center, spacing: 16) {
-                CEffortTag(effortType: task.effort ?? .easy)
+                CEffortTag(effortType: task.effort ?? .easy, taskValue: task.value)
                 renderImage()
                 renderDescription(description: task.taskDescription)
                 CButton(text: "Mark as Done", action:{print("Button Pressed")})

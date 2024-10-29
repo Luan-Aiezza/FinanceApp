@@ -51,6 +51,10 @@ struct TaskCreateView: View {
                     modelContext.insert(task)
                     try! modelContext.save()
                 }
+                if let parent = parents.first {
+                    print(parent.name)
+                    print(parent.childs)
+                }
             }
         }   
     }

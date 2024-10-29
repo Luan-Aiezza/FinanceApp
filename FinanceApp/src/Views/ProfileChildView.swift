@@ -6,6 +6,13 @@ struct ProfileChildView: View {
     let id: UUID
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
+    @ObservedObject var profileChildViewModel: ProfileChildViewModel
+//    @State var view: some View = HistoryView()
+    init(id: UUID) {
+        self.id = id
+        profileChildViewModel = .init(id: id)
+    }
+    
     
     func getTasks() -> [TaskModel] {
         if let child = childs.first(where: {$0.id == id}){
@@ -16,56 +23,31 @@ struct ProfileChildView: View {
     }
     
     var body: some View {
-        NavigationStack {
             ZStack {
-                Image("GreenBackground")
-                    .resizable()
+                Text("")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
-                
                 VStack {
                     // Toolbar com ícone da criança e caixa de moedas
-                    ProfileChildTopBar()
-                    
-                    // Carrossel vertical para exibir as tarefas
-//                    ScrollView(.vertical) {
-//                        VStack(spacing: 16) {
-//                            ForEach(items) { item in
-//                                TaskCardView(task: item)
-//                                    .frame(width: 300, height: 150)
-//                                    .background(Color.white)
-//                                    .cornerRadius(12)
-//                                    .shadow(radius: 5)
-//                            }
-//                        }
-//                        .padding(.horizontal, 16)
-//                    }
-                    TaskBoard(tasks: getTasks())
+                    ProfileChildPicker(viewModel: profileChildViewModel)
                     Spacer()
+                    profileChildViewModel.changeView(for: profileChildViewModel.actualView)
+                        .id(profileChildViewModel.actualView)
+                        .transition(.opacity)
                 }
             }
             .onAppear(){
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child
                 }
-                else { return }
             }
-        }
+            .onChange(of: profileChildViewModel.actualView){
+//                print(profileChildViewModel.actualView)
+            }
+//        }
     }
 }
-
-//struct TaskCardView: View {
-//    var task: Item
-//    
-//    var body: some View {
-//        VStack(alignment: .leading) {
-//            Text(task.name)
-//                .font(.headline)
-//            Text(task.description)
-//                .font(.subheadline)
-//        }
-//        .padding()
-//    }
-//}
 
 #Preview {
     ProfileChildView(id:UUID())
