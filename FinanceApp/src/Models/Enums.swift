@@ -14,3 +14,11 @@ public enum FrequencyTypes: String, Codable {
 enum EffortTypes: String, Codable{
     case easy, medium, hard
 }
+// Enum para opções do Picker
+enum PickerOptions: String, CaseIterable, Identifiable {
+    case profile = "Tasks"
+    case cashBox = "Piggy bank"
+    case history = "History"
+    
+    var id: Self { self }
+}

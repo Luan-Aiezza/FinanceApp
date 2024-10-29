@@ -1,23 +1,14 @@
 import SwiftUI
 
 struct ProfileChildPicker: View {
-    // Enum para opções do Picker
-    enum TopBarOption: String, CaseIterable, Identifiable {
-        case profile = "Tasks"
-        case cashBox = "Piggy bank"
-        case history = "History"
-        
-        var id: Self { self }
-    }
-    
     // Estado de seleção do Picker
-    @State private var selectedOption: TopBarOption = .profile
+    @ObservedObject var viewModel: ProfileChildViewModel
     
     var body: some View {
         VStack {
             // Picker no topo
-            Picker("Selecione uma opção", selection: $selectedOption) {
-                ForEach(TopBarOption.allCases) { option in
+            Picker("Selecione uma opção", selection: $viewModel.actualView) {
+                ForEach(PickerOptions.allCases) { option in
                     Text(option.rawValue)
                         .tag(option)
                 }
@@ -26,23 +17,23 @@ struct ProfileChildPicker: View {
             .padding(.horizontal)
             
             // Navegação condicional com base na seleção do Picker
-            if selectedOption == .profile {
-                NavigationLink(destination: ProfileChildContent()) {
-                    EmptyView()
-                }
-                .frame(width: 0, height: 0) // NavigationLink oculto para navegação automática
-            } else if selectedOption == .history {
-                NavigationLink(destination: HistoryView()) {
-                    HistoryView()
-                }
-                .frame(width: 0, height: 0) // NavigationLink oculto para navegação automática
-
-            } else if selectedOption == .cashBox {
-                NavigationLink(destination: CashBoxView()) {
-                    CashBoxView()
-                }
-                .frame(width: 0, height: 0)
-            }
+//            if selectedOption == .profile {
+//                NavigationLink(destination: ProfileChildContent()) {
+//                    EmptyView()
+//                }
+//                .frame(width: 0, height: 0) // NavigationLink oculto para navegação automática
+//            } else if selectedOption == .history {
+//                NavigationLink(destination: HistoryView()) {
+//                    HistoryView()
+//                }
+//                .frame(width: 0, height: 0) // NavigationLink oculto para navegação automática
+//
+//            } else if selectedOption == .cashBox {
+//                NavigationLink(destination: CashBoxView()) {
+//                    CashBoxView()
+//                }
+//                .frame(width: 0, height: 0)
+//            }
         }
     }
 }
@@ -76,6 +67,6 @@ struct ProfileChildContent: View {
 }
 
 // Visualização de teste
-#Preview {
-    ProfileChildPicker()
-}
+//#Preview {
+//    ProfileChildPicker()
+//}
