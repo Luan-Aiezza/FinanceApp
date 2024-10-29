@@ -18,10 +18,10 @@ struct ProfileChildView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("GreenBackground")
-                    .resizable()
+                Text("")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
-                
                 VStack {
                     // Toolbar com ícone da criança e caixa de moedas
                     ProfileChildTopBar()

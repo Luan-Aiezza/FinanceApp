@@ -1,9 +1,3 @@
-//
-//  SwiftUIView.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 17/10/24.
-//
 
 import SwiftUI
 import SwiftData
