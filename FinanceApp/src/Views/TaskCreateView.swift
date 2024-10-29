@@ -35,15 +35,6 @@ struct TaskCreateView: View {
                         }
                     }
                 }
-                //                Section{
-                //                    // TODO: Refatorar depois
-                //                    Picker("Diário?", selection: $witchFrequency){
-                //                        Text("Daily").tag(frequencyTypes.daily)
-                //                        Text("Weekly").tag(frequencyTypes.weekly)
-                //                        Text("Montly").tag(frequencyTypes.monthly)
-                //
-                //                    }
-                //                }
             }
         }
         HStack{
@@ -59,6 +50,10 @@ struct TaskCreateView: View {
                     )
                     modelContext.insert(task)
                     try! modelContext.save()
+                }
+                if let parent = parents.first {
+                    print(parent.name)
+                    print(parent.childs)
                 }
             }
         }   

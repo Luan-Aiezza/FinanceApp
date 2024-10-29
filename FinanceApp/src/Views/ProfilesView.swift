@@ -38,23 +38,28 @@ struct ProfilesView: View {
                         ForEach(childs) { child in
                             createProfileView(child)
                         }
-                        Button(action: deleteChild){
-                            VStack {
-                                Image("Add Profile")
-                                    .frame(width: 150, height: 150)
-                                    .aspectRatio(contentMode: .fill)
-                                    .background(Color.white) // Fundo branco do círculo
-                                    .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                                    .overlay(
-                                        Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
-                                    )
-                                    .shadow(radius: 5) // Sombra opcional para efeito
-                                Text("Delete last profile")
-                                    .fontWeight(.heavy)
-                                    .foregroundStyle(.white)
+                        Button(action:{
+                            if let parent = parents.first{
+                                let newChild = ChildModel(name: "Child")
+                                parent.childs.append(newChild)
+                                modelContext.insert(newChild)
+                                try! modelContext.save()
+                            }}){
+                                VStack {
+                                    Image("Add Profile")
+                                        .frame(width: 150, height: 150)
+                                        .aspectRatio(contentMode: .fill)
+                                        .background(Color.white) // Fundo branco do círculo
+                                        .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                                        .overlay(
+                                            Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
+                                        )
+                                        .shadow(radius: 5) // Sombra opcional para efeito
+                                    Text("Add profile")
+                                        .fontWeight(.heavy)
+                                        .foregroundStyle(.white)
+                                }
                             }
-                        }
-                        Spacer()
                     }
                     Spacer()
                 }
@@ -65,13 +70,6 @@ struct ProfilesView: View {
                 return
             }else {
                 modelContext.insert(thisParent)
-            }
-            if let child = childs.first{
-                print(child.name)
-                return
-            }else {
-                parents.first?.childs.append(thisChild)
-                modelContext.insert(thisChild)
             }
             try! modelContext.save()
         }

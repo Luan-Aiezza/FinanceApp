@@ -13,6 +13,7 @@ struct HistoryView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack{
+                    
                     Text("BEM-VINDO")
                         .font(.largeTitle)
                         .fontWeight(.heavy)

@@ -9,7 +9,7 @@ struct ProfileParentView: View {
         if let name = parent.first?.name {
             return name
         }
-        return "No Name"
+        return "guardian"
     }
     var body: some View {
         //PRIMEIRA CAMADA
