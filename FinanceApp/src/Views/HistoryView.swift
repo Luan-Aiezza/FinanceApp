@@ -2,6 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct HistoryView: View {
+    
+    @ObservedObject var viewModel = CashBoxViewModel()
+    @ObservedObject var viewModel2 = ParentViewModel()
 
     var body: some View {
         //PRIMEIRA CAMADA
@@ -31,28 +34,20 @@ struct HistoryView: View {
                                 .inset(by: 0.5)
                                 .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
                         )
+                    Spacer()
                     
-//                    VStack(alignment: .center, spacing: 12) {
-//                        RoundedRectangle(cornerRadius: 24)
-//                            .inset(by: -2)
-//                            .stroke(Color(red: 0.85, green: 0.76, blue: 0.89), lineWidth: 4)
-//                        RoundedRectangle(cornerRadius: 24)
-//                            .inset(by: -2)
-//                            .stroke(Color(red: 0.85, green: 0.76, blue: 0.89), lineWidth: 4)
-//                        RoundedRectangle(cornerRadius: 24)
-//                            .inset(by: -2)
-//                            .stroke(Color(red: 0.85, green: 0.76, blue: 0.89), lineWidth: 4)
-//                        RoundedRectangle(cornerRadius: 24)
-//                            .inset(by: -2)
-//                            .stroke(Color(red: 0.85, green: 0.76, blue: 0.89), lineWidth: 4)
-//                        RoundedRectangle(cornerRadius: 24)
-//                            .inset(by: -2)
-//                            .stroke(Color(red: 0.85, green: 0.76, blue: 0.89), lineWidth: 4)
-//                    }
-                    
-                    
-
-                    
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            HistoryCardView(
+                                mounthData: Data(),
+                                taskState: Bool(true),
+                                countTasks: Int(40),
+                                goalsInProgress: Int(10),
+                                totalCoins: Double(100),
+                                piggyCoinsTrans: Double(20)
+                            )
+                        }
+                    }
                     Spacer()
 
                 }
