@@ -30,6 +30,7 @@ struct ProfileChildView: View {
                 .ignoresSafeArea()
                 VStack {
                     // Toolbar com ícone da criança e caixa de moedas
+<<<<<<< HEAD
                     HStack{
 //                        Spacer(minLength: 85)
                         Image("iconChildMini")
@@ -44,6 +45,61 @@ struct ProfileChildView: View {
                                     .stroke(Color(red: 0.85, green: 0.67, blue: 0.01), lineWidth: 1)
                             )
 //                        Spacer(minLength: 85)
+=======
+                    HStack {
+                        // Ícone da criança no canto superior esquerdo
+                        Button(action: {
+                            // Ação do botão (ex: abrir perfil da criança)
+                        }) {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.leading, 16)
+                        
+                        Spacer()
+                        
+                        // Toolbar com três opções (exemplo de ícones)
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                // Ação 1
+                            }) {
+                                Image(systemName: "gearshape.fill")
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
+                            
+                            Button(action: {
+                                // Ação 2
+                            }) {
+                                Image(systemName: "bell.fill")
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
+                            
+                            Button(action: {
+                                // Ação 3
+                            }) {
+                                Image(systemName: "questionmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 24, height: 24)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        Spacer()
+
+                        // Ícone da Cash Box (moeda) no canto superior direito
+//                        NavigationLink(destination: CashBoxView2( id: //<#UUID#>)) {
+//                            Image(systemName: "person.fill")
+//                                .resizable()
+//                                .frame(width: 40, height: 40)
+//                                .foregroundColor(.yellow)
+//                        }
+//                        .padding(.trailing, 16)
+>>>>>>> CashBox_updates
                     }
                     Spacer()
                     profileChildViewModel.changeView(for: profileChildViewModel.actualView)
