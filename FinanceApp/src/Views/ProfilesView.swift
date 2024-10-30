@@ -29,7 +29,7 @@ struct ProfilesView: View {
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                HStack(spacing: 50){
+                VStack(){
                     Spacer()
                     LazyVGrid(columns: gridItem){
                         ForEach(parents){ parent in
@@ -63,25 +63,12 @@ struct ProfilesView: View {
                     }
                     Spacer()
                     Button(action: deleteChild){
-                        Text("Remover ultimo adicionado")
+                        Text("Remover ultimo filho adicionado")
+                            .foregroundStyle(.effortMedium)
                     }
-                    Button(action:{
-                        if let parent = parents.first{
-                            let newChild = ChildModel(name: "Rodrigo")
-                            parent.childs.append(newChild)
-                            modelContext.insert(newChild)
-                            try! modelContext.save()
-                            print(parent.name)
-                            print(parent.childs)
-                        }
-                    }){
-                        Text("Adicionar Filho")
-                    }
-                    
-//                    Button(action: addChild){
-//                        Text("Adiciona um Filho")
-//                    }
                 }
+                
+                
             }
         }
         .onAppear{
