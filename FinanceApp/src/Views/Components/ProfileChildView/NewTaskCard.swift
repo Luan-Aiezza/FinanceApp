@@ -52,6 +52,24 @@ struct NewTaskCard: View {
     }
 }
 
-#Preview {
-//    NewTaskCard(thisTask:)
-}
+
+//#Preview {
+//    // Criação de um mock de TaskModel
+//    @ViewBuilder
+//    func testPreview() -> some View {
+//        let mockTask = TaskModel(taskDescription: "Testar", value: 2)
+//
+//        // Instância do modelContainer para pré-visualização em memória
+//        let schema = Schema([TaskModel.self])
+//        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+//        let container = ModelContainer(configurations: config)
+//        container.mainContext.insert(mockTask)
+//
+//        // Identificador para ser usado na pré-visualização
+//        let mockTaskID = mockTask.id
+//
+//       NewTaskCard(taskID: mockTaskID)
+//            .modelContainer(container)
+//    }
+//    testPreview()
+//}
