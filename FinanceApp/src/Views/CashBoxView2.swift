@@ -4,72 +4,11 @@
 //
 //  Created by Grecia Cristina on 27/10/24.
 //
+
+
+
 import SwiftUI
 import SwiftData
-
-// Modelo da meta (Goal)
-struct Goal: Identifiable {
-    let id = UUID()
-    let name: String
-    let price: Double
-    let requiredCoins: Int
-    var savedCoins: Int
-    
-    var remainingCoins: Int {
-        requiredCoins - savedCoins
-    }
-    
-    var progress: Double {
-        Double(savedCoins) / Double(requiredCoins)
-    }
-}
-
-// Visualização de cada meta
-struct GoalView: View {
-    let goal: Goal
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Text(goal.name)
-                    .font(.headline)
-                Spacer()
-                Text("Price  R$\(String(format: "%.2f", goal.price))")
-                    .font(.subheadline)
-            }
-            
-            Text("You need \(goal.requiredCoins) coins")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            
-            // Barra de progresso
-            ProgressView(value: goal.progress)
-                .accentColor(.purple)
-            
-            HStack {
-                if goal.savedCoins >= goal.requiredCoins {
-                    Text(" You have saved \(goal.savedCoins) coins by now")
-                        .font(.subheadline)
-                        .foregroundColor(.purple)
-                } else {
-                    Text("You have saved \(goal.savedCoins) coins by now")
-                        .font(.subheadline)
-                        .foregroundColor(.purple)
-                    
-                    Spacer()
-                    
-                    Text("🔍 You still need \(goal.remainingCoins) to complete")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                }
-            }
-        }
-        .padding()
-        .background(Color.purple.opacity(0.1))
-        .cornerRadius(12)
-        .shadow(radius: 2)
-    }
-}
 
 struct CashBoxView2: View {
     @Environment(\.modelContext) private var modelContext
@@ -78,16 +17,10 @@ struct CashBoxView2: View {
     @State private var goalAmount = ""
     @State private var transferAmountToGoal = ""
     @State private var addAmountToWallet = ""
+    @State private var showNewPiggyBankModal = false
     let id: UUID
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
-    
-    // Lista de metas de exemplo
-    @State private var goals: [Goal] = [
-        Goal(name: "New bike 🚴‍♀️", price: 500.00, requiredCoins: 500, savedCoins: 250),
-        Goal(name: "Vacation 🌴", price: 1200.00, requiredCoins: 1200, savedCoins: 800),
-        Goal(name: "Laptop 💻", price: 3000.00, requiredCoins: 3000, savedCoins: 1000)
-    ]
     
     var body: some View {
         NavigationStack {
@@ -138,31 +71,56 @@ struct CashBoxView2: View {
                                 .foregroundColor(.yellowCoins)
                                 .frame(width: 90, height: 60)
                                 .cornerRadius(50.0)
-                            Image("CoinsImage")
-                                .resizable()
-                                .frame(width: 30, height: 30)
+                            
+                            HStack {
+                                Image("CoinsImage")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                Text("\(viewModel.wallet.coins)")
+                                    .font(.title2)
+                            }
                         }
                         .padding(.trailing, 16)
                     }
                     .padding(.top, 16)
                     
-                    // Rectangle roxo médio
-                    Rectangle()
-                        .foregroundColor(.mediumPurple)
-                        .frame(width: 870, height: 80)
-                        .cornerRadius(30.0)
-                        .padding()
+                    // Header e botão para adicionar novo objetivo
+                    HStack {
+                        Text("Active Piggy Banks")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showNewPiggyBankModal.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "plus")
+                                Text("New Piggy Bank")
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .foregroundColor(.purple)
+                            .cornerRadius(20)
+                        }
+                        .padding(.trailing)
+                    }
                     
-                    // Lista de metas
+                    // Lista de piggy banks
                     ScrollView {
                         VStack(spacing: 20) {
-                            ForEach(goals) { goal in
-                                GoalView(goal: goal)
+                            ForEach(viewModel.goalBanks, id: \.goalID) { goal in
+                                GoalCardView(
+                                    goalName: goal.goalName,
+                                    goalAmount: Double(goal.goalAmount),
+                                    savedAmount: Double(goal.coins)
+                                )
                             }
                         }
                         .padding(.horizontal, 16)
                     }
-                    
                     Spacer()
                 }
             }
@@ -173,7 +131,59 @@ struct CashBoxView2: View {
                     self.child = child
                 }
             }
+            .sheet(isPresented: $showNewPiggyBankModal) {
+                NewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
+            }
         }
+    }
+}
+
+
+struct NewPiggyBankModal: View {
+    @Binding var isPresented: Bool
+    @ObservedObject var viewModel: CashBoxViewModel
+    @State private var goalName = ""
+    @State private var goalAmount = ""
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Button("Cancel") {
+                    isPresented = false
+                }
+                .foregroundColor(.purple)
+                
+                Spacer()
+                
+                Text("New Piggy Bank")
+                    .font(.headline)
+                
+                Spacer()
+                
+                Button("Done") {
+                    if let amount = Int(goalAmount) {
+                        viewModel.addGoal(name: goalName, amount: amount)
+                        isPresented = false
+                    }
+                }
+                .foregroundColor(.purple)
+            }
+            .padding()
+            
+            TextField("What do you want to buy?", text: $goalName)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+            
+            TextField("How much does it cost?", text: $goalAmount)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(8)
+                .keyboardType(.numberPad)
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 

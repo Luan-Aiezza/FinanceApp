@@ -62,13 +62,13 @@ struct ProfileChildView: View {
                         Spacer()
 
                         // Ícone da Cash Box (moeda) no canto superior direito
-                        NavigationLink(destination: CashBoxView()) {
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.yellow)
-                        }
-                        .padding(.trailing, 16)
+//                        NavigationLink(destination: CashBoxView2( id: //<#UUID#>)) {
+//                            Image(systemName: "person.fill")
+//                                .resizable()
+//                                .frame(width: 40, height: 40)
+//                                .foregroundColor(.yellow)
+//                        }
+//                        .padding(.trailing, 16)
                     }
                     .padding(.top, 16)
                     
