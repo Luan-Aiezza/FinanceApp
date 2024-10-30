@@ -1,4 +1,3 @@
-
 import Foundation
 import SwiftData
 
@@ -29,29 +28,11 @@ class GoalBank: CashBoxModel {
     var goalAchievedDate: Date?
     
     init(goalName: String, goalAmount: Int) {
-<<<<<<< HEAD
-           self.goalName = goalName
-           self.goalAmount = goalAmount
-        super.init(cashBoxDescription: goalName)
-       }
-       
-       // Método para adicionar moedas à meta
-       override func addCoins(amount: Int) {
-           guard amount > 0 else { return }
-           self.coins += amount
-           print("Coins added: \(amount). Amount added to the box: \(self.coins)")
-           
-           if self.coins >= self.goalAmount {
-               print("CONGRATULATIONS! gOAL '\(goalName)' achived.")
-           }
-       }
-=======
-            self.goalID = UUID() 
+            self.goalID = UUID()
             self.goalName = goalName
             self.goalAmount = goalAmount
-            super.init()
+        super.init(cashBoxDescription: goalName)
         }
->>>>>>> CashBox_updates
     
     // Método para adicionar moedas à meta
     override func addCoins(amount: Int) {

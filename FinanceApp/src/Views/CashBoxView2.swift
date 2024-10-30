@@ -31,71 +31,14 @@ struct CashBoxView2: View {
         NavigationStack {
             ZStack {
                 Color.backgroundDarkPurple
-                    .ignoresSafeArea()
+                    //.ignoresSafeArea()
                 
                 VStack {
-                    // Toolbar com ícone da criança e caixa de moedas
-                    HStack {
-                        Button(action: {
-                            // Ação do botão (ex: abrir perfil da criança)
-                        }) {
-                            Image("ChildAvatar")
-                                .resizable()
-                                .frame(width: 80, height: 80)
-                                .foregroundColor(.white)
-                        }
-                        .padding(.leading, 16)
-                        
-                        Spacer()
-                        
-                        HStack(spacing: 20) {
-                            Button(action: { /* Ação 1 */ }) {
-                                Image(systemName: "gearshape.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                            Button(action: { /* Ação 2 */ }) {
-                                Image(systemName: "bell.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                            Button(action: { /* Ação 3 */ }) {
-                                Image(systemName: "questionmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.yellowCoins)
-                                .frame(width: 90, height: 60)
-                                .cornerRadius(50.0)
-                            
-                            HStack {
-                                Image("CoinsImage")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                Text("\(viewModel.wallet.coins)")
-                                    .font(.title2)
-                            }
-                        }
-                        .padding(.trailing, 16)
-                    }
-                    .padding(.top, 16)
-                    
-                    // Header e botão para adicionar novo objetivo
-                    
                     
                     ZStack {
                         Rectangle()
                             .foregroundColor(.mediumPurple)
-                            .frame(width: 900, height: 100)
+                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
                             .cornerRadius(50.0)
                         
                         HStack {
