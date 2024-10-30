@@ -7,7 +7,7 @@ struct ProfileChildView: View {
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     @ObservedObject var profileChildViewModel: ProfileChildViewModel
-//    @State var view: some View = HistoryView()
+    //    @State var view: some View = HistoryView()
     init(id: UUID) {
         self.id = id
         profileChildViewModel = .init(id: id)
@@ -23,29 +23,44 @@ struct ProfileChildView: View {
     }
     
     var body: some View {
-            ZStack {
-                Text("")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(red: 0.11, green: 0, blue: 0.16))
-                    .ignoresSafeArea()
+        ZStack {
+            Text("")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color(red: 0.11, green: 0, blue: 0.16))
+                .ignoresSafeArea()
                 VStack {
                     // Toolbar com ícone da criança e caixa de moedas
-                    ProfileChildPicker(viewModel: profileChildViewModel)
+                    HStack{
+//                        Spacer(minLength: 85)
+                        Image("iconChildMini")
+                        ProfileChildPicker(viewModel: profileChildViewModel)
+                        Image("blackIconCoin")
+                            .frame(width: 44, height: 33)
+                            .background(Color(red: 1, green: 0.83, blue: 0.21))
+                            .cornerRadius(24)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 24)
+                                    .inset(by: 0.5)
+                                    .stroke(Color(red: 0.85, green: 0.67, blue: 0.01), lineWidth: 1)
+                            )
+//                        Spacer(minLength: 85)
+                    }
                     Spacer()
                     profileChildViewModel.changeView(for: profileChildViewModel.actualView)
                         .id(profileChildViewModel.actualView)
                         .transition(.opacity)
-                }
+                }.padding(.horizontal, 85)
+            
+        }
+        .onAppear(){
+            if let child = childs.first(where: { $0.id == id }){
+                self.child = child
             }
-            .onAppear(){
-                if let child = childs.first(where: { $0.id == id }){
-                    self.child = child
-                }
-            }
-            .onChange(of: profileChildViewModel.actualView){
-//                print(profileChildViewModel.actualView)
-            }
-//        }
+        }
+        .onChange(of: profileChildViewModel.actualView){
+            //                print(profileChildViewModel.actualView)
+        }
+        //        }
     }
 }
 
