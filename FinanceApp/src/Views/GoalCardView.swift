@@ -30,11 +30,19 @@ struct GoalCardView: View {
             
             // Status de Moedas Necessárias
             HStack {
-                Image(systemName: "magnifyingglass")
+                Image("CoinsImage")
                 Text("You need \(String(format: "%.2f", goalAmount)) coincs")
                     .font(.subheadline)
             }
-
+            Spacer()
+            
+            HStack {
+                Spacer()
+                Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
+                    .font(.subheadline)
+            }
+           
+            
             // Barra de Progresso
             ProgressView(value: savedAmount, total: goalAmount)
                 .progressViewStyle(LinearProgressViewStyle(tint: Color.purple))
@@ -42,27 +50,28 @@ struct GoalCardView: View {
             // Progresso e Quantia Salva
             HStack {
                 if savedAmount >= goalAmount {
-                    Image(systemName: "checkmark")
+                    Image(systemName: "CheckMARK")
                     Text("Congratulations! Goal achieved!")
                         .font(.subheadline)
                 } else {
-                    Image(systemName: "checkmark")
+                    Image("CheckMARK")
                     Text("You have saved \(String(format: "%.2f", savedAmount)) coincs by now")
                         .font(.subheadline)
+                    
+                    Spacer()
+                    if savedAmount < goalAmount {
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                            Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
+                                .font(.subheadline)
+                        }
+                    }
                 }
-                Spacer()
-                Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
-                    .font(.subheadline)
+                
             }
             
             // Quantia Restante
-            if savedAmount < goalAmount {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
-                        .font(.subheadline)
-                }
-            }
+            
         }
         .padding()
         .background(Color(.systemGray6))

@@ -5,7 +5,12 @@
 //  Created by Grecia Cristina on 27/10/24.
 //
 
-
+//TODO: Sombreamento dos botoes
+//TODO: tAMANHO DO ROXO- 64 pixels e 85 de margem
+//TODO: FONTE DOS TEXTOS E COR DELES
+//TODO: CARD TAMANHO 211 DE ALTURA
+//TODO: FALTA A COR DO TESTO E DO CARD EM SI ASSIM COMO O SOMBREAMENTO DELE
+//TODO: ADD O BOTAO DE TRSNFER COINCS E FAZER UM POP OVER 
 
 import SwiftUI
 import SwiftData
@@ -85,28 +90,39 @@ struct CashBoxView2: View {
                     .padding(.top, 16)
                     
                     // Header e botão para adicionar novo objetivo
-                    HStack {
-                        Text("Active Piggy Banks")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.leading)
+                    
+                    
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.mediumPurple)
+                            .frame(width: 900, height: 100)
+                            .cornerRadius(50.0)
                         
-                        Spacer()
-                        
-                        Button(action: {
-                            showNewPiggyBankModal.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "plus")
-                                Text("New Piggy Bank")
+                        HStack {
+                            Text("Active Piggy Banks")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.leading)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showNewPiggyBankModal.toggle()
+                            }) {
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("New Piggy Bank")
+                                }
+                                .padding()
+                                .background(Color.white)
+                                .foregroundColor(.purple)
+                                .cornerRadius(20)
                             }
-                            .padding()
-                            .background(Color.white)
-                            .foregroundColor(.purple)
-                            .cornerRadius(20)
-                        }
-                        .padding(.trailing)
+                            .padding(.trailing)
+                        }.padding()
                     }
+                    
+                    
                     
                     // Lista de piggy banks
                     ScrollView {
@@ -117,7 +133,7 @@ struct CashBoxView2: View {
                                     goalAmount: Double(goal.goalAmount),
                                     savedAmount: Double(goal.coins)
                                 )
-                            }
+                            }.padding()
                         }
                         .padding(.horizontal, 16)
                     }
