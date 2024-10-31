@@ -6,6 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C06606712CD27B8A00E3283D /* FFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C066066E2CD27B8A00E3283D /* FFL.txt */; };
+		C06606722CD27B8A00E3283D /* Pally-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606532CD27B8A00E3283D /* Pally-Medium.otf */; };
+		C066067E2CD27B8A00E3283D /* Pally-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606542CD27B8A00E3283D /* Pally-Regular.otf */; };
+		C06606862CD27B8A00E3283D /* Pally-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606522CD27B8A00E3283D /* Pally-Bold.otf */; };
+		C06606882CD27B8A00E3283D /* FFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C066066E2CD27B8A00E3283D /* FFL.txt */; };
+		C06606892CD27B8A00E3283D /* Pally-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606532CD27B8A00E3283D /* Pally-Medium.otf */; };
+		C06606952CD27B8A00E3283D /* Pally-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606542CD27B8A00E3283D /* Pally-Regular.otf */; };
+		C066069D2CD27B8A00E3283D /* Pally-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606522CD27B8A00E3283D /* Pally-Bold.otf */; };
+		C066069F2CD27B8A00E3283D /* FFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C066066E2CD27B8A00E3283D /* FFL.txt */; };
+		C06606A02CD27B8A00E3283D /* Pally-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606532CD27B8A00E3283D /* Pally-Medium.otf */; };
+		C06606AC2CD27B8A00E3283D /* Pally-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606542CD27B8A00E3283D /* Pally-Regular.otf */; };
+		C06606B42CD27B8A00E3283D /* Pally-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606522CD27B8A00E3283D /* Pally-Bold.otf */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		CF88A3072CC00071005A5001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C06606522CD27B8A00E3283D /* Pally-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Bold.otf"; sourceTree = "<group>"; };
+		C06606532CD27B8A00E3283D /* Pally-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Medium.otf"; sourceTree = "<group>"; };
+		C06606542CD27B8A00E3283D /* Pally-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Regular.otf"; sourceTree = "<group>"; };
+		C066066E2CD27B8A00E3283D /* FFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FFL.txt; sourceTree = "<group>"; };
 		CF88A2F42CC00070005A5001 /* FinanceApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinanceApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF88A3062CC00071005A5001 /* FinanceAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinanceAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF88A3102CC00071005A5001 /* FinanceAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinanceAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,9 +91,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C06606552CD27B8A00E3283D /* OTF */ = {
+			isa = PBXGroup;
+			children = (
+				C06606542CD27B8A00E3283D /* Pally-Regular.otf */,
+				C06606522CD27B8A00E3283D /* Pally-Bold.otf */,
+				C06606532CD27B8A00E3283D /* Pally-Medium.otf */,
+			);
+			path = OTF;
+			sourceTree = "<group>";
+		};
+		C066066D2CD27B8A00E3283D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C06606552CD27B8A00E3283D /* OTF */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C066066F2CD27B8A00E3283D /* License */ = {
+			isa = PBXGroup;
+			children = (
+				C066066E2CD27B8A00E3283D /* FFL.txt */,
+			);
+			path = License;
+			sourceTree = "<group>";
+		};
+		C06606702CD27B8A00E3283D /* Pally_Complete */ = {
+			isa = PBXGroup;
+			children = (
+				C066066D2CD27B8A00E3283D /* Fonts */,
+				C066066F2CD27B8A00E3283D /* License */,
+			);
+			path = Pally_Complete;
+			sourceTree = "<group>";
+		};
 		CF88A2EB2CC00070005A5001 = {
 			isa = PBXGroup;
 			children = (
+				C06606702CD27B8A00E3283D /* Pally_Complete */,
 				CF88A2F62CC00070005A5001 /* FinanceApp */,
 				CF88A3092CC00071005A5001 /* FinanceAppTests */,
 				CF88A3132CC00071005A5001 /* FinanceAppUITests */,
@@ -212,6 +267,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C06606882CD27B8A00E3283D /* FFL.txt in Resources */,
+				C06606892CD27B8A00E3283D /* Pally-Medium.otf in Resources */,
+				C06606952CD27B8A00E3283D /* Pally-Regular.otf in Resources */,
+				C066069D2CD27B8A00E3283D /* Pally-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +278,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C066069F2CD27B8A00E3283D /* FFL.txt in Resources */,
+				C06606A02CD27B8A00E3283D /* Pally-Medium.otf in Resources */,
+				C06606AC2CD27B8A00E3283D /* Pally-Regular.otf in Resources */,
+				C06606B42CD27B8A00E3283D /* Pally-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +289,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C06606712CD27B8A00E3283D /* FFL.txt in Resources */,
+				C06606722CD27B8A00E3283D /* Pally-Medium.otf in Resources */,
+				C066067E2CD27B8A00E3283D /* Pally-Regular.otf in Resources */,
+				C06606862CD27B8A00E3283D /* Pally-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

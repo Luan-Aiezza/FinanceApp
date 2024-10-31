@@ -10,83 +10,76 @@
 import SwiftUI
 
 class CashBoxViewModel: ObservableObject {
+    @Environment(\.modelContext) private var modelContext
     @Published var wallet: Wallet
     @Published var goalBanks: [GoalBank] = []
+    @Published var goalBank: GoalBank?
+    @Published var transferAmounts: [UUID: String] = [:] // Mudança para usar `goalID` como chave
+
     
     init() {
         self.wallet = Wallet(cashBoxDescription: "Wallet")
     }
     
+    // Atualiza o valor de transferência para uma meta
+    func updateTransferAmount(for goalID: UUID, amount: String) {
+           transferAmounts[goalID] = amount
+       }
+    
     // Método para adicionar uma nova meta de poupança
     func addGoal(name: String, amount: Int) {
         let newGoal = GoalBank(goalName: name, goalAmount: amount)
         goalBanks.append(newGoal)
+        modelContext.insert(newGoal)
+        try? modelContext.save()
     }
     
     // Adiciona moedas à carteira
     func addCoinsToWallet(amount: Int) {
         wallet.addCoins(amount: amount)
+        try? modelContext.save()
     }
     
     // Gasta moedas da carteira
     func spendCoinsFromWallet(amount: Int) {
         wallet.spendCoins(amount: amount)
+        try? modelContext.save()
     }
     
     // Adiciona moedas a uma meta
-    func addCoinsToGoal(goalName: String, amount: Int) {
-        guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
-            print("Meta não encontrada")
-            return
+    func addCoinsToGoal(goalID: UUID, amount: Int) {
+            guard let goal = goalBanks.first(where: { $0.goalID == goalID }), amount <= wallet.coins else { return }
+            
+            let transferAmount = min(amount, goal.goalAmount - goal.coins)
+            wallet.spendCoins(amount: transferAmount)
+            goal.addCoins(amount: transferAmount)
+            try? modelContext.save()
         }
-        goal.addCoins(amount: amount)
-        wallet.spendCoins(amount: amount)
-    }
     
-    // Verifica o progresso de uma meta
-//    func goalProgress(goalName: String) -> Double {
-//        guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
-//            return 0.0
-//        }
-//        return Double(goal.coins) / Double(goal.goalAmount)
-//    }
-//    
-//    func goalProgressColor(goalName: String) -> Color {
-//        guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
-//            // Retorna a cor vermelha se a meta não for encontrada
-//            return .red
-//        }
-//        
-//        let progress = goalProgress(goalName: goalName)
-//        
-//        if progress >= 0.75 {
-//            // Retorna verde se o progresso for maior ou igual a 75%
-//            return .green
-//        } else if progress >= 0.5 {
-//            // Retorna amarelo se o progresso for entre 50% e 75%
-//            return .yellow
-//        } else {
-//            // Retorna laranja se o progresso for menor que 50%
-//            return .orange
-//        }
-//
-//    }
-
+    // Verifica se o valor de transferência é válido
+    func isTransferAmountValid(goalID: UUID) -> Bool {
+            guard let amountString = transferAmounts[goalID],
+                  let amount = Int(amountString),
+                  let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return false }
+            
+            let remainingAmount = goal.goalAmount - goal.coins
+            return amount > 0 && amount <= wallet.coins && amount <= remainingAmount
+        }
     
+    // Remove uma meta
+    func removeGoal(goalID: UUID) {
+            goalBanks.removeAll(where: { $0.goalID == goalID })
+            try? modelContext.save()
+        }
     
-    func removeGoal(goalName: String) {
-        goalBanks.removeAll(where: { $0.goalName == goalName })
-    }
-    
+    // Remove moedas de uma meta e as retorna para a carteira
     func removeCoinsFromGoal(goalName: String, amount: Int) {
         guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
             print("Meta não encontrada")
             return
         }
-        wallet.addCoins(amount: amount)
         goal.spendCoins(amount: amount)
+        wallet.addCoins(amount: amount)
+        try? modelContext.save()
     }
-    
-    
-    
 }

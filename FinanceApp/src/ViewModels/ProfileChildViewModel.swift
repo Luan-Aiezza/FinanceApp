@@ -21,7 +21,7 @@ class ProfileChildViewModel: ObservableObject{
     func changeView(for newView: PickerOptions) -> some View{
         switch newView {
         case .cashBox:
-            CashBoxView()
+            CashBoxView2(id: id)
         case .profile:
             TaskBoard(id: id)
         case .history:

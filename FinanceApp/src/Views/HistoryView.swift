@@ -2,6 +2,9 @@ import SwiftUI
 import SwiftData
 
 struct HistoryView: View {
+    
+    @ObservedObject var viewModel = CashBoxViewModel()
+    @ObservedObject var viewModel2 = ParentViewModel()
 
     var body: some View {
         //PRIMEIRA CAMADA
@@ -12,19 +15,38 @@ struct HistoryView: View {
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                VStack{
-                    
-                    Text("BEM-VINDO")
-                        .font(.largeTitle)
-                        .fontWeight(.heavy)
-                        .foregroundColor(Color.white)
+                VStack(alignment: .leading, spacing: 20){
                     Spacer()
-                    HStack{
-                        // Botão com imagem
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.yellow)
+                    //TITULO HISTORY
+                    Text("History")
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .font(
+                        Font.custom("Pally Variable", size: 24)
+                        .weight(.medium)
+                        )
+                        .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
+                        .foregroundColor(.white)
+                        .background(Color(red: 0.36, green: 0, blue: 0.55))
+                        .cornerRadius(24)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 24)
+                                .inset(by: 0.5)
+                                .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
+                        )
+                    Spacer()
+                    
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            HistoryCardView(
+                                mounthData: Data(),
+                                taskState: Bool(true),
+                                countTasks: Int(40),
+                                goalsInProgress: Int(10),
+                                totalCoins: Double(100),
+                                piggyCoinsTrans: Double(20)
+                            )
+                        }
                     }
                     Spacer()
 
