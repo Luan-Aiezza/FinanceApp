@@ -1,10 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct HistoryView: View {
-    
-    @ObservedObject var viewModel = CashBoxViewModel()
-    @ObservedObject var viewModel2 = ParentViewModel()
+struct SelectedChild: View {
 
     var body: some View {
         //PRIMEIRA CAMADA
@@ -15,10 +12,9 @@ struct HistoryView: View {
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                VStack(alignment: .leading, spacing: 20){
-                    Spacer()
+                VStack(alignment: .leading){
                     //TITULO HISTORY
-                    Text("History")
+                    Text("Create Task")
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .font(
@@ -34,27 +30,38 @@ struct HistoryView: View {
                                 .inset(by: 0.5)
                                 .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
                         )
+                    //Card da criança
+                    VStack(alignment: .leading) {
+                        Text("Selected children")
+                        HStack{
+                            Image("childIcon")
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .foregroundColor(.cyan)
+                                .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                            VStack{
+                                Text("Rodrigo")
+                                Text("8 anos")
+                            }
+                        }.padding(20)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(red: 0.94, green: 0.9, blue: 0.95))
+                            .cornerRadius(24)
+                    }
+                    
+                    Text("Tasks")
+                    
                     ScrollView {
-                        VStack(spacing: 20) {
-                            HistoryCardView(
-                                mounthData: Data(),
-                                taskState: Bool(true),
-                                countTasks: Int(40),
-                                goalsInProgress: Int(10),
-                                totalCoins: Double(100),
-                                piggyCoinsTrans: Double(20)
-                            )
+                        VStack() {
+                            ForEach(1..<8) { index in
+                                TaskCreateCard(dayCount: index)
+                            }.padding(.bottom, 20)
                         }
                     }
                     Spacer()
 
-                }
+                }.padding(.horizontal, 85)
             }
         }
     }
-}
-
-#Preview {
-    HistoryView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
