@@ -6,10 +6,8 @@
 //
 
 //TODO: Sombreamento dos botoes
-//TODO: tAMANHO DO ROXO- 64 pixels e 85 de margem
-//TODO: FONTE DOS TEXTOS E COR DELES
-//TODO: CARD TAMANHO 211 DE ALTURA
-//TODO: FALTA A COR DO TESTO E DO CARD EM SI ASSIM COMO O SOMBREAMENTO DELE
+//TODO: FONTE DOS TEXTOS
+//TODO: SOMBREAMENTO DELE
 //TODO: ADD O BOTAO DE TRSNFER COINCS E FAZER UM POP OVER 
 
 import SwiftUI
@@ -22,7 +20,7 @@ struct CashBoxView2: View {
     @State private var goalAmount = ""
     @State private var transferAmountToGoal = ""
     @State private var addAmountToWallet = ""
-    @State private var showNewPiggyBankModal = false
+    @State private var showNewPiggyBankPopover = false
     let id: UUID
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
@@ -31,10 +29,8 @@ struct CashBoxView2: View {
         NavigationStack {
             ZStack {
                 Color.backgroundDarkPurple
-                    //.ignoresSafeArea()
                 
                 VStack {
-                    
                     ZStack {
                         Rectangle()
                             .foregroundColor(.mediumPurple)
@@ -43,6 +39,7 @@ struct CashBoxView2: View {
                         
                         HStack {
                             Text("Active Piggy Banks")
+                                .font(.custom("Pally-Regular", size: 18))
                                 .font(.title)
                                 .foregroundColor(.white)
                                 .padding(.leading)
@@ -50,22 +47,28 @@ struct CashBoxView2: View {
                             Spacer()
                             
                             Button(action: {
-                                showNewPiggyBankModal.toggle()
+                                showNewPiggyBankPopover.toggle()
                             }) {
                                 HStack {
-                                    Image(systemName: "plus")
+                                    Image(systemName: "plus").foregroundColor(.cardTextTP)
                                     Text("New Piggy Bank")
+                                        .foregroundColor(.cardTextTP)
                                 }
                                 .padding()
                                 .background(Color.white)
                                 .foregroundColor(.purple)
                                 .cornerRadius(20)
+                                .frame(width: 193, height: 48)
                             }
                             .padding(.trailing)
-                        }.padding()
+                            
+                            .popover(isPresented: $showNewPiggyBankPopover) {
+                                NewPiggyBankModal(isPresented: $showNewPiggyBankPopover, viewModel: viewModel)
+                                    .frame(width: 400, height: 300)
+                            }.foregroundColor(.backgroundLightPurple)
+                        }
+                        .padding()
                     }
-                    
-                    
                     
                     // Lista de piggy banks
                     ScrollView {
@@ -90,9 +93,6 @@ struct CashBoxView2: View {
                     self.child = child
                 }
             }
-            .sheet(isPresented: $showNewPiggyBankModal) {
-                NewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
-            }
         }
     }
 }
@@ -103,19 +103,20 @@ struct NewPiggyBankModal: View {
     @ObservedObject var viewModel: CashBoxViewModel
     @State private var goalName = ""
     @State private var goalAmount = ""
-    
+
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             HStack {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.purple)
+                .foregroundColor(.mediumPurple)
                 
                 Spacer()
                 
                 Text("New Piggy Bank")
                     .font(.headline)
+                    .foregroundColor(.cardTextTP)
                 
                 Spacer()
                 
@@ -125,26 +126,46 @@ struct NewPiggyBankModal: View {
                         isPresented = false
                     }
                 }
-                .foregroundColor(.purple)
+                .foregroundColor(.mediumPurple)
+                .bold()
             }
-            .padding()
+            .padding([.top, .horizontal])
             
-            TextField("What do you want to buy?", text: $goalName)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
             
-            TextField("How much does it cost?", text: $goalAmount)
-                .padding()
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(8)
-                .keyboardType(.numberPad)
+            VStack(alignment: .leading, spacing: 8) {
+                Text("What do you want to buy?")
+                    .font(.subheadline)
+                    .foregroundColor(.cardTextTP)
+                
+                TextField("", text: $goalName)
+                    .padding()
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+                    .padding()
+                Text("How much does it cost?")
+                    .font(.subheadline)
+                    .foregroundColor(.cardTextTP)
+                
+                TextField("", text: $goalAmount)
+                    .padding()
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
+                    .keyboardType(.numberPad)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+            }
+            .padding(.horizontal)
             
             Spacer()
         }
         .padding()
+        .frame(width: 400, height: 300)
+        .foregroundColor(.backgroundLightPurple)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5) // Sombra suave para o efeito de profundidade
     }
 }
+
 
 // Preview
 #Preview {
