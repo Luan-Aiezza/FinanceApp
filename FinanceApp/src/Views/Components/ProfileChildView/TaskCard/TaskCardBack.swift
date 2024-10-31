@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TaskCardBack: View {
+    @State var task: TaskModel
     @State var yesAction: () -> Void
     @State var notYetAction: () -> Void
     
@@ -33,7 +34,7 @@ struct TaskCardBack: View {
                             .foregroundColor(Color("CardTextTP"))
                             .frame(maxWidth: .infinity, alignment: .center)
                         VStack(alignment: .center, spacing: 8) {
-                            Text("Take out the trash  🗑️")
+                            Text("\(task.taskDescription)")
                               .font(
                                 Font.custom("Pally Variable", size: 14)
                                   .weight(.medium)
@@ -57,5 +58,5 @@ struct TaskCardBack: View {
 }
 
 #Preview {
-    TaskCardBack(yesAction:{print("Yes Pressed")}, notYetAction: {print("Not Yet Pressed")})
+//    TaskCardBack(yesAction:{print("Yes Pressed")}, notYetAction: {print("Not Yet Pressed")})
 }

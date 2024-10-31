@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct TaskCardSuccess: View {
+    @State var task: TaskModel
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             renderTittle()
@@ -27,7 +28,7 @@ struct TaskCardSuccess: View {
               .foregroundColor(Color("CardTextTP"))
             Image("EffortCoinDark")
                 .frame(width: 20, height: 20)
-            Text("5")
+            Text("\(task.value.formatted(.number))")
               .font(
                 Font.custom("Pally Variable", size: 17)
                   .weight(.medium)
@@ -87,6 +88,6 @@ struct TaskCardSuccess: View {
     }
 }
 
-#Preview{
-    TaskCardSuccess()
-}
+//#Preview{
+//    TaskCardSuccess()
+//}

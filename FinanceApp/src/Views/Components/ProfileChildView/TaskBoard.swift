@@ -23,18 +23,18 @@ struct TaskBoard: View {
             VStack{
                 ScrollView(.vertical) {
                     LazyVGrid(columns: gridItem) {
-                        ForEach(tasks) { task in
-                            NewTaskCard(taskID: task.persistentModelID)
+                        ForEach(tasks) { actualTask in
+                            //                            NewTaskCard(taskID: task.persistentModelID)
+                            TaskCard(taskID: actualTask.persistentModelID)
+                                .onChange(of: actualTask.isDone){
+                                    try! modelContext.save()
+                                }
                         }
                     }
                     .padding(.horizontal, 16)
                 }
                 
             }
-            
-            //        #Preview {
-            //            TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0))
-            //        }
         }
     }
 }

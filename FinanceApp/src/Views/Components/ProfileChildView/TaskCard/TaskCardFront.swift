@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TaskCardFront: View {
     
-    var task = TaskModel(taskDescription: "Teste", value: 2)
+    @State var task: TaskModel
     var doneAction: () -> Void
     
     @ViewBuilder
@@ -44,5 +44,5 @@ struct TaskCardFront: View {
 }
 
 #Preview {
-    TaskCardFront(doneAction: {print("Done")})
+//    TaskCardFront(doneAction: {print("Done")})
 }
