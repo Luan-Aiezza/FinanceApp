@@ -23,11 +23,11 @@ struct TaskCard: View {
             TaskCardSuccess()
         } else {
             ZStack{
-                TaskCardFront(doneAction: {isFlipped.toggle()})
+                TaskCardFront(doneAction: {withAnimation(.easeInOut){isFlipped.toggle()}})
                     .rotation3DEffect(. degrees(isFlipped ? 0 : -90), axis: (x: 0.0, y: 1.0, z: 0.0))
                     .animation(isFlipped ? .linear.delay(0.35) : .linear, value: isFlipped)
                 
-                TaskCardBack(yesAction: { isDone.toggle() }, notYetAction: {isFlipped.toggle()})
+                TaskCardBack(yesAction: { withAnimation(.easeInOut){isDone.toggle()}}, notYetAction: {withAnimation(.easeInOut){isFlipped.toggle()}})
                     .rotation3DEffect(. degrees(isFlipped ? 90 : 0), axis: (x: 0.0, y: 1.0, z: 0.0))
                     .animation(isFlipped ? .linear : .linear.delay(0.35), value: isFlipped)
                     .allowsHitTesting(!isFlipped)
