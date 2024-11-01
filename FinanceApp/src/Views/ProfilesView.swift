@@ -41,7 +41,10 @@ struct ProfilesView: View {
                         Button(action:{
                             if let parent = parents.first{
                                 let newChild = ChildModel(name: "Child")
+                                let wallet = CashBoxModel(cashBoxDescription: "Wallet")
+                                newChild.cashBoxes.append(wallet)
                                 parent.childs.append(newChild)
+                                modelContext.insert(wallet)
                                 modelContext.insert(newChild)
                                 try! modelContext.save()
                             }}){
