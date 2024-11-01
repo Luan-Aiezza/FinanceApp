@@ -8,12 +8,12 @@
 import SwiftUI
 import SwiftData
 
-typealias ChildModel = FinanceAppSchemaV2.ChildModel
-typealias ParentModel = FinanceAppSchemaV2.ParentModel
-typealias SpendModel = FinanceAppSchemaV2.SpendModel
-typealias TaskModel = FinanceAppSchemaV2.TaskModel
-typealias CashBoxModel = FinanceAppSchemaV2.CashBoxModel
-typealias GoalBankModel = FinanceAppSchemaV2.GoalBankModel
+typealias ChildModel = FinanceAppSchemaV3.ChildModel
+typealias ParentModel = FinanceAppSchemaV3.ParentModel
+typealias SpendModel = FinanceAppSchemaV3.SpendModel
+typealias TaskModel = FinanceAppSchemaV3.TaskModel
+typealias CashBoxModel = FinanceAppSchemaV3.CashBoxModel
+typealias GoalBankModel = FinanceAppSchemaV3.GoalBankModel
 
 @main
 struct FinanceAppApp: App {
