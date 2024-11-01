@@ -26,6 +26,7 @@ class GoalBank: CashBoxModel {
     var goalName: String
     var goalAmount: Int
     var goalAchievedDate: Date?
+   // @Published var coins: Int = 0
     
     init(goalName: String, goalAmount: Int) {
             self.goalID = UUID()
@@ -54,5 +55,11 @@ class GoalBank: CashBoxModel {
         }
         self.coins -= amount
         print("Coins spented: \(amount). Current balance: \(self.coins)")
+        
     }
+    
+//    func addCoins(amount: Int) {
+//            coins += amount // Aumenta o saldo salvo com o valor transferido
+//        }
+    
 }

@@ -48,12 +48,18 @@ class CashBoxViewModel: ObservableObject {
     
     // Adiciona moedas a uma meta
     func addCoinsToGoal(goalID: UUID, amount: Int) {
-            guard let goal = goalBanks.first(where: { $0.goalID == goalID }), amount <= wallet.coins else { return }
+            guard let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return }
             
-            let transferAmount = min(amount, goal.goalAmount - goal.coins)
-            wallet.spendCoins(amount: transferAmount)
-            goal.addCoins(amount: transferAmount)
-            try? modelContext.save()
+            // Verifica se há moedas suficientes na carteira
+            if amount <= wallet.coins {
+                let transferAmount = min(amount, goal.goalAmount - goal.coins) // Limita a transferência ao valor necessário
+                wallet.spendCoins(amount: transferAmount) // Diminui as moedas da carteira
+                goal.addCoins(amount: transferAmount) // Adiciona as moedas na meta
+                
+                try? modelContext.save() // Salva as mudanças no contexto de dados
+            } else {
+                print("Saldo insuficiente na carteira.")
+            }
         }
     
     // Verifica se o valor de transferência é válido
