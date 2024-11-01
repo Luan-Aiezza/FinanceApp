@@ -26,22 +26,21 @@ struct ProfileParentView: View {
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
                     Spacer()
-                    HStack{
-                        // Botão com imagem
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.yellow)
+                    NavigationLink(destination: SelectedChild()){
+                        VStack{
+                            Image("childIcon")
+                                .resizable()
+                                .frame(width: 150, height: 150)
+                                .foregroundColor(.cyan)
+                                .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                                .overlay(
+                                    Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
+                                )
+                            Text("Criar Tarefa")
+                        }
                     }
                     Spacer()
-                    NavigationLink(destination: TaskCreateView()){
-                        Text("Criar Tarefa")
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.yellow)
-                    }
-                }
+                }.padding(.horizontal, 85)
             }
         }
     }

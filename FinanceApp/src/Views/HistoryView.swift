@@ -34,8 +34,6 @@ struct HistoryView: View {
                                 .inset(by: 0.5)
                                 .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
                         )
-                    Spacer()
-                    
                     ScrollView {
                         VStack(spacing: 20) {
                             HistoryCardView(

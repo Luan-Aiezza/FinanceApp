@@ -55,11 +55,10 @@ struct HistoryCardView: View {
                 Text("Total de moedas transferidas para o cofrinho")
             }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
-        .shadow(radius: 4)
-        .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 256, alignment: .leading)
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(red: 0.94, green: 0.9, blue: 0.95))
+        .cornerRadius(24)
     }
 }
 
