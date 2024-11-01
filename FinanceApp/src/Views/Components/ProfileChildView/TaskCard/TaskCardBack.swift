@@ -58,5 +58,5 @@ struct TaskCardBack: View {
 }
 
 #Preview {
-//    TaskCardBack(yesAction:{print("Yes Pressed")}, notYetAction: {print("Not Yet Pressed")})
+    TaskCardBack(task:  TaskModel(taskDescription: "Testing Task Card Back",value: 0.0), yesAction:{print("Yes Pressed")}, notYetAction: {print("Not Yet Pressed")})
 }

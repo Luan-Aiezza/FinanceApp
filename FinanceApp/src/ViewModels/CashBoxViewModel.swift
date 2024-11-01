@@ -70,45 +70,51 @@ class CashBoxViewModel: ObservableObject {
     }
     
     // Gasta moedas da carteira
-//    func spendCoinsFromWallet(amount: Int) {
-//        wallet.spendCoins(amount: amount)
-//        try? modelContext.save()
-//    }
-//    
-//    // Adiciona moedas a uma meta
-//    func addCoinsToGoal(goalID: UUID, amount: Int) {
-//        guard let goal = goalBanks.first(where: { $0.goalID == goalID }), amount <= wallet.coins else { return }
-//        
-//        let transferAmount = min(amount, goal.goalAmount - goal.coins)
-//        wallet.spendCoins(amount: transferAmount)
-//        goal.addCoins(amount: transferAmount)
-//        try? modelContext.save()
-//    }
-//    
-//    // Verifica se o valor de transferência é válido
-//    func isTransferAmountValid(goalID: UUID) -> Bool {
-//        guard let amountString = transferAmounts[goalID],
-//              let amount = Int(amountString),
-//              let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return false }
-//        
-//        let remainingAmount = goal.goalAmount - goal.coins
-//        return amount > 0 && amount <= wallet.coins && amount <= remainingAmount
-//    }
-//    
-//    // Remove uma meta
-//    func removeGoal(goalID: UUID) {
-//        goalBanks.removeAll(where: { $0.goalID == goalID })
-//        try? modelContext.save()
-//    }
-//    
-//    // Remove moedas de uma meta e as retorna para a carteira
-//    func removeCoinsFromGoal(goalName: String, amount: Int) {
-//        guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
-//            print("Meta não encontrada")
-//            return
-//        }
-//        goal.spendCoins(amount: amount)
-//        wallet.addCoins(amount: amount)
-//        try? modelContext.save()
-//    }
+    func spendCoinsFromWallet(amount: Int) {
+        wallet.spendCoins(amount: amount)
+        try? modelContext.save()
+    }
+    
+    // Adiciona moedas a uma meta
+    func addCoinsToGoal(goalID: UUID, amount: Int) {
+            guard let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return }
+            
+            // Verifica se há moedas suficientes na carteira
+            if amount <= wallet.coins {
+                let transferAmount = min(amount, goal.goalAmount - goal.coins) // Limita a transferência ao valor necessário
+                wallet.spendCoins(amount: transferAmount) // Diminui as moedas da carteira
+                goal.addCoins(amount: transferAmount) // Adiciona as moedas na meta
+                
+                try? modelContext.save() // Salva as mudanças no contexto de dados
+            } else {
+                print("Saldo insuficiente na carteira.")
+            }
+        }
+    
+    // Verifica se o valor de transferência é válido
+    func isTransferAmountValid(goalID: UUID) -> Bool {
+            guard let amountString = transferAmounts[goalID],
+                  let amount = Int(amountString),
+                  let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return false }
+            
+            let remainingAmount = goal.goalAmount - goal.coins
+            return amount > 0 && amount <= wallet.coins && amount <= remainingAmount
+        }
+    
+    // Remove uma meta
+    func removeGoal(goalID: UUID) {
+            goalBanks.removeAll(where: { $0.goalID == goalID })
+            try? modelContext.save()
+        }
+    
+    // Remove moedas de uma meta e as retorna para a carteira
+    func removeCoinsFromGoal(goalName: String, amount: Int) {
+        guard let goal = goalBanks.first(where: { $0.goalName == goalName }) else {
+            print("Meta não encontrada")
+            return
+        }
+        goal.spendCoins(amount: amount)
+        wallet.addCoins(amount: amount)
+        try? modelContext.save()
+    }
 }

@@ -21,11 +21,13 @@ struct GoalCardView: View {
                 Text(goalName)
                     .font(.headline)
                     .fontWeight(.bold)
+                    .foregroundColor(.cardTextTP)
                 
                 Spacer()
                 Text("Price \(String(format: "%.2f", goalAmount)) coincs")
                     .font(.subheadline)
                     .fontWeight(.bold)
+                    .foregroundColor(.cardTextTP)
             }
             
             // Status de Moedas Necessárias
@@ -33,6 +35,7 @@ struct GoalCardView: View {
                 Image("CoinsImage")
                 Text("You need \(String(format: "%.2f", goalAmount)) coincs")
                     .font(.subheadline)
+                    .foregroundColor(.cardTextTP)
             }
             Spacer()
             
@@ -40,6 +43,7 @@ struct GoalCardView: View {
                 Spacer()
                 Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
                     .font(.subheadline)
+                    .foregroundColor(.cardTextTP)
             }
            
             
@@ -53,10 +57,12 @@ struct GoalCardView: View {
                     Image(systemName: "CheckMARK")
                     Text("Congratulations! Goal achieved!")
                         .font(.subheadline)
+                        .foregroundColor(.cardTextTP)
                 } else {
                     Image("CheckMARK")
                     Text("You have saved \(String(format: "%.2f", savedAmount)) coincs by now")
                         .font(.subheadline)
+                        .foregroundColor(.cardTextTP)
                     
                     Spacer()
                     if savedAmount < goalAmount {
@@ -64,6 +70,7 @@ struct GoalCardView: View {
                             Image(systemName: "magnifyingglass")
                             Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
                                 .font(.subheadline)
+                                .foregroundColor(.cardTextTP)
                         }
                     }
                 }
@@ -74,9 +81,10 @@ struct GoalCardView: View {
             
         }
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color(.backgroundLightPurple))
         .cornerRadius(12)
         .shadow(radius: 4)
+        .frame( height: 211)
     }
 }
 
