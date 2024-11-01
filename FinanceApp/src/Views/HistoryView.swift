@@ -3,7 +3,7 @@ import SwiftData
 
 struct HistoryView: View {
     
-    @ObservedObject var viewModel = CashBoxViewModel()
+//    @ObservedObject var viewModel = CashBoxViewModel()
     @ObservedObject var viewModel2 = ParentViewModel()
 
     var body: some View {

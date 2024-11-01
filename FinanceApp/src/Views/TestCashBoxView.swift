@@ -15,9 +15,9 @@
 import SwiftUI
 import SwiftData
 
-struct CashBoxView2: View {
+struct TestCashBoxView: View {
     @Environment(\.modelContext) private var modelContext
-    @State var viewModel = CashBoxViewModel()
+    @State var viewModel: CashBoxViewModel
     
     @State private var goalName = ""
     @State private var goalAmount = ""
@@ -25,7 +25,10 @@ struct CashBoxView2: View {
     @State private var addAmountToWallet = ""
     @State private var showNewPiggyBankModal = false
     
-    let id: UUID
+    init(id: UUID){
+        viewModel = CashBoxViewModel(id: id)
+        
+    }
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     
@@ -66,18 +69,7 @@ struct CashBoxView2: View {
                         }.padding()
                     }
                     // Lista de piggy banks
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            ForEach(viewModel.goalBanks, id: \.cashBox.id) { goal in
-                                GoalCardView(
-                                    goalName: goal.goalName,
-                                    goalAmount: Double(goal.goalAmount),
-                                    savedAmount: Double(goal.coins)
-                                )
-                            }.padding()
-                        }
-                        .padding(.horizontal, 16)
-                    }
+                    TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()
                 }
             }
@@ -89,13 +81,32 @@ struct CashBoxView2: View {
             }
         }
         .sheet(isPresented: $showNewPiggyBankModal) {
-            NewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
+            TestNewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
         }
     }
 }
 
 
-struct NewPiggyBankModal: View {
+struct TestLoadCashBoxesModal: View {
+    @ObservedObject var viewModel: CashBoxViewModel
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 20) {
+                ForEach(viewModel.child.goals, id: \.cashBox.id) { goal in
+                    GoalCardView(
+                        goalName: goal.cashBox.cashBoxDescription,
+                        goalAmount: Double(goal.goalAmount),
+                        savedAmount: Double(goal.cashBox.coins)
+                    )
+                }.padding()
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+}
+
+
+struct TestNewPiggyBankModal: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
     @State private var goalName = ""
@@ -145,7 +156,7 @@ struct NewPiggyBankModal: View {
 
 // Preview
 #Preview {
-    CashBoxView2(id: UUID())
+    TestCashBoxView(id: UUID())
         .modelContainer(for: Item.self, inMemory: true)
 }
 
