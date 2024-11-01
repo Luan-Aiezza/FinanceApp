@@ -55,7 +55,8 @@ struct SelectedChild: View {
                         VStack() {
                             ForEach(1..<8) { index in
                                 TaskCreateCard(dayCount: index)
-                            }.padding(.bottom, 20)
+                            }
+                            .padding(.bottom, 20)
                         }
                     }
                     Spacer()
