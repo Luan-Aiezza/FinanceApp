@@ -44,5 +44,5 @@ struct TaskCardFront: View {
 }
 
 #Preview {
-//    TaskCardFront(doneAction: {print("Done")})
+    TaskCardFront(task: TaskModel(taskDescription: "aaaa", value: 2), doneAction: {print("Done")})
 }
