@@ -39,17 +39,14 @@ struct TestCashBoxView: View {
                 //.ignoresSafeArea()
                 VStack {
                     
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.mediumPurple)
-                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
-                            .cornerRadius(50.0)
-                        
+                    VStack {
                         HStack {
                             Text("Active Piggy Banks")
-                                .font(.title)
+                                .font(
+                                    Font.custom("Pally Variable", size: 24)
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(.white)
-                                .padding(.leading)
                             
                             Spacer()
                             
@@ -58,16 +55,39 @@ struct TestCashBoxView: View {
                             }) {
                                 HStack {
                                     Image(systemName: "plus")
+                                        .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                                     Text("New Piggy Bank")
+                                        .font(
+                                            Font.custom("Pally Variable", size: 17)
+                                                .weight(.medium)
+                                        )
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
+                                    
                                 }
                                 .padding()
                                 .background(Color.white)
                                 .foregroundColor(.purple)
                                 .cornerRadius(20)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color(red: 0.25, green: 0, blue: 0.39))
+                                        .offset(x:0, y: 6)
+                                )
                             }
                             .padding(.trailing)
                         }.padding()
                     }
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 8)
+                    .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .center)
+                    .background(Color(red: 0.36, green: 0, blue: 0.55))
+                    .clipShape(.rect(cornerRadius: 24.0))
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color(red: 0.25, green: 0, blue: 0.39))
+                            .offset(x:0, y: 6)
+                    )
                     // Lista de piggy banks
                     TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()

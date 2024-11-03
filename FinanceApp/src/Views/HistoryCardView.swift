@@ -59,6 +59,12 @@ struct HistoryCardView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)
+        .clipShape(.rect(cornerRadius: 24.0))
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color(red: 0.85, green: 0.76, blue: 0.89))
+                .offset(x:0, y: 6)
+                )
     }
 }
 

@@ -30,43 +30,45 @@ struct ProfilesView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack(){
-                    Spacer()
-                    LazyVGrid(columns: gridItem){
-                        ForEach(parents){ parent in
-                            createProfileView(parent)
-                        }
-                        ForEach(childs) { child in
-                            createProfileView(child)
-                        }
-                        Button(action:{
-                            if let parent = parents.first{
-                                let newChild = ChildModel(name: "Child")
-                                parent.childs.append(newChild)
-                                modelContext.insert(newChild)
-                                try! modelContext.save()
-                            }}){
-                                VStack {
-                                    Image("Add Profile")
-                                        .frame(width: 150, height: 150)
-                                        .aspectRatio(contentMode: .fill)
-                                        .background(Color.white) // Fundo branco do círculo
-                                        .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                                        .overlay(
-                                            Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
-                                        )
-                                        .shadow(radius: 5) // Sombra opcional para efeito
-                                    Text("Add profile")
-                                        .fontWeight(.heavy)
-                                        .foregroundStyle(.white)
-                                }
+                    ScrollView(.vertical) {
+                        LazyVGrid(columns: gridItem){
+                            ForEach(parents){ parent in
+                                createProfileView(parent)
                             }
-                    }
+                            ForEach(childs) { child in
+                                createProfileView(child)
+                            }
+                            Button(action:{
+                                if let parent = parents.first{
+                                    let newChild = ChildModel(name: "Child")
+                                    parent.childs.append(newChild)
+                                    modelContext.insert(newChild)
+                                    try! modelContext.save()
+                                }}){
+                                    VStack {
+                                        Image("Add Profile")
+                                            .frame(width: 150, height: 150)
+                                            .aspectRatio(contentMode: .fill)
+                                            .background(Color.white) // Fundo branco do círculo
+                                            .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                                            .overlay(
+                                                Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
+                                            )
+                                            .shadow(radius: 5) // Sombra opcional para efeito
+                                        Text("Add profile")
+                                            .fontWeight(.heavy)
+                                            .foregroundStyle(.white)
+                                    }
+                                }
+                        }
+                    }.padding(.horizontal, 32)
+                        .padding(.top, 500)
                     Spacer()
                     Button(action: deleteChild){
                         Text("Remover ultimo filho adicionado")
                             .foregroundStyle(.effortMedium)
                     }
-                }
+                }.padding(.horizontal, 32)
                 
                 
             }
@@ -103,7 +105,7 @@ struct ProfilesView: View {
     
     @ViewBuilder
     private func createProfileView(_ parent: ParentModel) -> some View{
-        NavigationLink(destination: ProfileParentView()) {
+        NavigationLink(destination: SelectedChild(id: parent.id)) {
             VStack{
                 Image("guardianIcon")
                     .resizable()

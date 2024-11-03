@@ -20,7 +20,7 @@ struct TaskBoard: View {
     
     var body: some View {
         if let tasks = childs.first(where:{$0.id == id})?.tasks {
-            VStack{
+            VStack(){
                 ScrollView(.vertical) {
                     LazyVGrid(columns: gridItem) {
                         ForEach(tasks) { actualTask in
@@ -31,7 +31,6 @@ struct TaskBoard: View {
                                 }
                         }
                     }
-                    .padding(.horizontal, 16)
                 }
                 
             }

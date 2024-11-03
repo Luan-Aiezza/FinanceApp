@@ -3,9 +3,9 @@ import SwiftData
 
 struct HistoryView: View {
     
-//    @ObservedObject var viewModel = CashBoxViewModel()
+    //    @ObservedObject var viewModel = CashBoxViewModel()
     @ObservedObject var viewModel2 = ParentViewModel()
-
+    
     var body: some View {
         //PRIMEIRA CAMADA
         NavigationStack {
@@ -15,24 +15,23 @@ struct HistoryView: View {
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                VStack(alignment: .leading, spacing: 20){
-                    Spacer()
+                VStack(spacing: 32){
                     //TITULO HISTORY
                     Text("History")
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .font(
-                        Font.custom("Pally Variable", size: 24)
-                        .weight(.medium)
+                            Font.custom("Pally-Bold", size: 24)
+                                .weight(.medium)
                         )
                         .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
                         .foregroundColor(.white)
                         .background(Color(red: 0.36, green: 0, blue: 0.55))
-                        .cornerRadius(24)
-                        .overlay(
+                        .clipShape(.rect(cornerRadius: 24.0))
+                        .background(
                             RoundedRectangle(cornerRadius: 24)
-                                .inset(by: 0.5)
-                                .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
+                                .fill(Color(red: 0.25, green: 0, blue: 0.39))
+                                .offset(x:0, y: 6)
                         )
                     ScrollView {
                         VStack(spacing: 20) {
@@ -47,7 +46,7 @@ struct HistoryView: View {
                         }
                     }
                     Spacer()
-
+                    
                 }
             }
         }

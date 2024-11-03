@@ -8,7 +8,7 @@ struct TaskCreateCard: View {
     
     var body: some View {
             HStack(alignment: .center) {
-                Text("Day \(dayCount)")
+                Text("Tasks for today")
                     .font(
                         Font.custom("Pally Variable", size: 22)
                             .weight(.bold)

@@ -3,18 +3,35 @@ import SwiftUI
 struct ProfileChildPicker: View {
     // Estado de seleção do Picker
     @ObservedObject var viewModel: ProfileChildViewModel
-    
+
     var body: some View {
         VStack {
-            // Picker no topo
-            Picker("Selecione uma opção", selection: $viewModel.actualView) {
+            HStack(spacing: 20) {
                 ForEach(PickerOptions.allCases) { option in
                     Text(option.rawValue)
-                        .tag(option)
+                        .font(.system(size: viewModel.actualView == option ? 18 : 14, weight: .bold))
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background(viewModel.actualView == option ? Color.white : Color.clear)
+                        .foregroundColor(viewModel.actualView == option ? Color.black : Color.white)
+                        .clipShape(Capsule())
+                        .onTapGesture {
+                            viewModel.actualView = option
+                        }
                 }
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .padding(.horizontal)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .background(Color(red: 0.36, green: 0, blue: 0.55))
+            .clipShape(.rect(cornerRadius: 24.0))
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.25, green: 0, blue: 0.39))
+                    .offset(x:0, y: 6)
+                    )
+            .padding(.top, 16)
         }
     }
 }

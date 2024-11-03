@@ -26,7 +26,7 @@ struct ProfileParentView: View {
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
                     Spacer()
-                    NavigationLink(destination: SelectedChild()){
+                    //NavigationLink(destination: SelectedChild()){
                         VStack{
                             Image("childIcon")
                                 .resizable()
@@ -44,7 +44,7 @@ struct ProfileParentView: View {
             }
         }
     }
-}
+//}
 
 #Preview {
     ProfileParentView()
