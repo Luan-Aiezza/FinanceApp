@@ -117,7 +117,20 @@ class CashBoxViewModel: ObservableObject {
             wallet.coins -= amount
         }
     }
-//
+
+    func removeGoal(goalID: UUID) {
+        if let goalIndex = goalBanks.firstIndex(where: { $0.cashBox.id == goalID }) {
+            let goal = goalBanks[goalIndex]
+            goalBanks.remove(at: goalIndex)
+            
+            // Remove a meta e seu CashBox do contexto
+            modelContext?.delete(goal)
+            modelContext?.delete(goal.cashBox)
+            try? modelContext?.save()
+        }
+    }
+
+    
 //    // Verifica se o valor de transferência é válido
 //    func isTransferAmountValid(goalID: UUID) -> Bool {
 //            guard let amountString = transferAmounts[goalID],

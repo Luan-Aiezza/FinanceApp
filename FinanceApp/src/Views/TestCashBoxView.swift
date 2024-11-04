@@ -250,13 +250,13 @@ struct TestLoadCashBoxesModal: View {
                     .alert(isPresented: $showDeleteConfirmation) {
                         Alert(
                             title: Text("Confirm delete"),
-                            message: Text("Do you want to delete this PigBank ? You cannot undo this action."),
+                            message: Text("Do you want to delete this PigBank? You cannot undo this action."),
                             primaryButton: .destructive(Text("Delete")) {
-                                // Função de exclusão no viewModel
-                               // deleteGoal(goal)
+                                deleteGoal(goal) // Chamando a função deleteGoal com o goal selecionado
                             },
                             secondaryButton: .cancel()
                         )
+
                     }
                 }
             }
@@ -265,9 +265,9 @@ struct TestLoadCashBoxesModal: View {
     }
 
     // Função para deletar o objetivo
-//    private func deleteGoal(_ goal: GoalModel) {
-//        viewModel.removeGoal(goal)
-//    }
+    private func deleteGoal(_ goal: GoalBankModel) {
+        viewModel.removeGoal(goalID: goal.cashBox.id)
+    }
 }
 
 
