@@ -26,6 +26,7 @@ struct TestCashBoxView: View {
 //    @State private var showNewPiggyBankModal = false
     @State private var showTransferCoinsPopover = false
     @State private var showNewPiggyBankPopover = false
+    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     
     init(id: UUID){
         viewModel = CashBoxViewModel(id: id)
@@ -178,21 +179,73 @@ struct TestButtonTransferCoins: View {
 
 struct TestLoadCashBoxesModal: View {
     @ObservedObject var viewModel: CashBoxViewModel
+    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
+
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
                 ForEach(viewModel.child.goals, id: \.cashBox.id) { goal in
-                    GoalCardView(
-                        goalName: goal.cashBox.cashBoxDescription,
-                        goalAmount: Double(goal.goalAmount),
-                        savedAmount: Double(goal.cashBox.coins)
-                    )
-                }.padding()
+                    ZStack {
+                        GoalCardView(
+                            goalName: goal.cashBox.cashBoxDescription,
+                            goalAmount: Double(goal.goalAmount),
+                            savedAmount: Double(goal.cashBox.coins)
+                        )
+                        .onLongPressGesture {
+                            showEditDeleteOptions = goal.cashBox.id
+                        }
+
+                        // Mostra os botões de editar e deletar quando o card é pressionado
+                        if showEditDeleteOptions == goal.cashBox.id {
+                            VStack {
+                                Button(action: {
+                                    // Lógica para editar o card
+                                    //editGoal(goal)
+                                    showEditDeleteOptions = nil // Fecha o modo de edição após uso
+                                }) {
+                                    Text("Edit")
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(10)
+                                }
+                                .padding(.bottom, 5)
+
+                                Button(action: {
+                                    // Lógica para deletar o card
+                                   // deleteGoal(goal)
+                                    showEditDeleteOptions = nil // Fecha o modo de exclusão após uso
+                                }) {
+                                    Text("Delete")
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .background(Color.red)
+                                        .cornerRadius(10)
+                                }
+                            }
+                            .transition(.scale)
+                            .padding()
+                            .background(Color.black.opacity(0.8))
+                            .cornerRadius(10)
+                        }
+                    }
+                    .padding()
+                }
             }
             .padding(.horizontal, 16)
         }
     }
+
+    // Funções para editar e deletar o objetivo
+//    private func editGoal(_ goal: GoalModel) {
+//        // Implementação da lógica de edição do objetivo
+//    }
+//
+//    private func deleteGoal(_ goal: GoalModel) {
+//        viewModel.removeGoal(goal)
+//    }
 }
+
 
 
 struct TestNewPiggyBankModal: View {
