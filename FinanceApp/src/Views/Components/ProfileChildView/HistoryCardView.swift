@@ -39,28 +39,22 @@ struct HistoryCardView: View {
                 Image(systemName: taskState ? "checkmark.circle.fill" : "circle")
                     .padding()
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
-<<<<<<< HEAD:FinanceApp/src/Views/HistoryCardView.swift
                 Text("\(countTasks)")
-=======
                 Text("Contador de quantas tasks foram feitas naquele mês")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                     )
->>>>>>> MergePiggyBankDeveloper:FinanceApp/src/Views/Components/ProfileChildView/HistoryCardView.swift
                 Spacer()
                 //(totalCoins)
                 Image("blackIconCoin")
                 VStack{
-<<<<<<< HEAD:FinanceApp/src/Views/HistoryCardView.swift
                     Text("\(totalCoins)")
-=======
                     Text("Valor de moedas que aquela tarefa concebeu")
                         .font(
                             Font.custom("Pally-Regular", size: 17)
                                 .weight(.medium)
                         )
->>>>>>> MergePiggyBankDeveloper:FinanceApp/src/Views/Components/ProfileChildView/HistoryCardView.swift
                     Text("Total")
                         .font(
                             Font.custom("Pally-Regular", size: 17)
@@ -77,28 +71,22 @@ struct HistoryCardView: View {
             HStack{
                 Image("blackIconCoin")
                 //(goalsInProgress)
-<<<<<<< HEAD:FinanceApp/src/Views/HistoryCardView.swift
                 Text("\(goalsInProgress)")
-=======
                 Text("Quantas metas ela tem atualmente")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                     )
->>>>>>> MergePiggyBankDeveloper:FinanceApp/src/Views/Components/ProfileChildView/HistoryCardView.swift
             }
             HStack{
                 Image("blackIconCoin")
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
-<<<<<<< HEAD:FinanceApp/src/Views/HistoryCardView.swift
                 Text("\(piggyCoinsTrans)")
-=======
                 Text("Total de moedas transferidas para o cofrinho")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                     )
->>>>>>> MergePiggyBankDeveloper:FinanceApp/src/Views/Components/ProfileChildView/HistoryCardView.swift
             }
         }
         .padding(16)
