@@ -12,10 +12,10 @@ import SwiftData
 
 class CashBoxViewModel: ObservableObject {
     var modelContext: ModelContext? = nil
-    @Published var wallet: Wallet
+    @Published var wallet: CashBoxModel
     @Published var goalBanks: [GoalBankModel] = []
     var cashBoxes: [CashBoxModel] = []
-    var child: ChildModel = ChildModel(name: "No Kid")
+    @Published var child: ChildModel = ChildModel(name: "No Kid")
     @Published var goalBank: GoalBank?
     @Published var transferAmounts: [UUID: String] = [:] // Mudança para usar `goalID` como chave
     let id: UUID
@@ -25,7 +25,7 @@ class CashBoxViewModel: ObservableObject {
         self.wallet = Wallet(cashBoxDescription: "Wallet")
         self.id = id
     }
-    
+    @MainActor
     func fetch(){
         do {
             let goalBankDescriptor = FetchDescriptor<GoalBankModel>(sortBy: [SortDescriptor(\.creationDate)])
@@ -35,15 +35,23 @@ class CashBoxViewModel: ObservableObject {
             let childDescriptor = FetchDescriptor<ChildModel>(sortBy: [SortDescriptor(\.name)])
             
             goalBanks = (try? (modelContext?.fetch(goalBankDescriptor) ?? [])) ?? []
-            cashBoxes = (try? (modelContext?.fetch(cashBoxDescriptor) ?? [])) ?? []
+            let cashBoxes = (try? (modelContext?.fetch(cashBoxDescriptor) ?? [])) ?? []
             let children = (try? (modelContext?.fetch(childDescriptor) ?? [])) ?? []
             child = children.first(where: {$0.id == id}) ?? ChildModel(name: "No Kid")
+            if let wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"}) {
+                self.wallet = wallet
+            } else {
+                let newCashBox = CashBoxModel(cashBoxDescription: "Wallet")
+                child.cashBoxes.append(newCashBox)
+                modelContext?.insert(newCashBox)
+                try? modelContext?.save()
+            }
         } catch {
             print("Fetch failed")
         }
     }
     
-    func addGoal(name: String, amount: Int) {
+    @MainActor func addGoal(name: String, amount: Int) {
         let cashBox = CashBoxModel(cashBoxDescription: name)
         let newGoal = GoalBankModel(goalName: name, goalAmount: amount)
         newGoal.cashBox = cashBox
@@ -52,7 +60,6 @@ class CashBoxViewModel: ObservableObject {
         modelContext?.insert(cashBox)
         modelContext?.insert(newGoal)
         try? modelContext?.save()
-        
         fetch()
     }
     
@@ -76,21 +83,41 @@ class CashBoxViewModel: ObservableObject {
 //    }
 //    
 //    // Adiciona moedas a uma meta
-//    func addCoinsToGoal(goalID: UUID, amount: Int) {
-//            guard let goal = goalBanks.first(where: { $0.goalID == goalID }) else { return }
-//            
-//            // Verifica se há moedas suficientes na carteira
-//            if amount <= wallet.coins {
-//                let transferAmount = min(amount, goal.goalAmount - goal.coins) // Limita a transferência ao valor necessário
-//                wallet.spendCoins(amount: transferAmount) // Diminui as moedas da carteira
-//                goal.addCoins(amount: transferAmount) // Adiciona as moedas na meta
-//                
-//                try? modelContext.save() // Salva as mudanças no contexto de dados
-//            } else {
-//                print("Saldo insuficiente na carteira.")
-//            }
-//        }
-//    
+    @MainActor func addCoinsToGoal(goalID: UUID, amount: Int) {
+        guard let goal = goalBanks.first(where: { $0.cashBox.id == goalID }) else { return }
+            
+            // Verifica se há moedas suficientes na carteira
+            if amount <= wallet.coins {
+                let transferAmount = min(amount, goal.goalAmount - goal.cashBox.coins) // Limita a transferência ao valor necessário
+                spendFromWallet(amount: transferAmount) // Diminui as moedas da carteira
+                addCoins(amount: transferAmount, goal: goal) // Adiciona as moedas na meta
+                
+//                try? modelContext?.save() // Salva as mudanças no contexto de dados
+            } else {
+                print("Saldo insuficiente na carteira.")
+            }
+        fetch()
+        }
+    
+    private func addCoins(amount: Int, goal: GoalBankModel) {
+        try? modelContext?.transaction {
+            goal.cashBox.coins += amount
+        }
+    }
+    
+    @MainActor func addCoinsOnWallet(amount: Int) {
+        try? modelContext?.transaction {
+         wallet.coins += amount
+        }
+        fetch()
+    }
+    
+    private func spendFromWallet(amount: Int){
+        try? modelContext?.transaction {
+            wallet.coins -= amount
+        }
+    }
+//
 //    // Verifica se o valor de transferência é válido
 //    func isTransferAmountValid(goalID: UUID) -> Bool {
 //            guard let amountString = transferAmounts[goalID],

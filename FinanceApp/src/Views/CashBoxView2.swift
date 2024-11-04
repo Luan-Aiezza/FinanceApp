@@ -294,3 +294,23 @@
 //}
 //
 //
+
+
+//Text("Transfer to which piggy?")
+//    .font(.subheadline)
+//    .foregroundColor(Color.black.opacity(0.7))
+//
+////TODO: Adicionar aqui o picker
+//TestPickerCash(selectedGoal: $selectedGoal, viewModel: viewModel)
+//}
+//.padding(.horizontal)
+//
+//Spacer()
+//}
+//.padding()
+//.frame(width: 500, height: 400)
+//.foregroundColor(.backgroundLightPurple)
+//.cornerRadius(20)
+////.shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+//}
+//}
