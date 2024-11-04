@@ -15,7 +15,11 @@ struct TaskBoard: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var childs: [ChildModel]
     let id: UUID
-    
+    @ObservedObject private var cashViewModel: CashBoxViewModel
+    init(id: UUID) {
+        self.cashViewModel = .init(id: id)
+        self.id = id
+    }
     let gridItem = [GridItem(.adaptive(minimum: 300))]
     
     var body: some View {
@@ -25,7 +29,7 @@ struct TaskBoard: View {
                     LazyVGrid(columns: gridItem) {
                         ForEach(tasks) { actualTask in
                             //                            NewTaskCard(taskID: task.persistentModelID)
-                            TaskCard(taskID: actualTask.persistentModelID)
+                            TaskCard(cashViewModel: cashViewModel, taskID: actualTask.persistentModelID)
                                 .onChange(of: actualTask.isDone){
                                     try! modelContext.save()
                                 }
@@ -34,6 +38,10 @@ struct TaskBoard: View {
                     .padding(.horizontal, 16)
                 }
                 
+            }
+            .onAppear{
+                cashViewModel.modelContext = modelContext
+                cashViewModel.fetch()
             }
         }
     }
