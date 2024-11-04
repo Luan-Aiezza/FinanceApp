@@ -5,10 +5,6 @@
 //  Created by Grecia Cristina on 27/10/24.
 //
 
-
-//TODO:  CARD EM SI ASSIM COMO O SOMBREAMENTO DELE
-
-
 import SwiftUI
 import SwiftData
 
@@ -47,9 +43,9 @@ struct TestCashBoxView: View {
 //                            .foregroundColor(.mediumPurple)
 //                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
 //                            .cornerRadius(50.0)
-                        
+                        //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack {
-                            Text("Active Piggy Banks \(viewModel.wallet.coins)")
+                            Text("Active Piggy Banks: \(viewModel.wallet.coins)")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -280,12 +276,20 @@ struct TestNewPiggyBankModal: View {
     @State private var goalAmount = ""
     
     var body: some View {
-        VStack (spacing: 20){
-            HStack(spacing: 100) {
+        VStack(spacing: 20) {
+            // Cabeçalho com os botões de "Cancel" e "Done"
+            HStack {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.mediumPurple)
+                .foregroundColor(.mediumPurple) // Cor personalizada para o botão Cancel
+                //.font(.headline)
+                .font(
+                    Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium)
+                )
+                
+                Spacer()
                 
                 Text("New Piggy Bank")
                     //.font(.headline)
@@ -294,7 +298,8 @@ struct TestNewPiggyBankModal: View {
                         Font.custom("Pally-Bold", size: 17)
                             .weight(.medium)
                     )
-
+                
+                Spacer()
                 
                 Button("Done") {
                     if let amount = Int(goalAmount) {
@@ -362,42 +367,20 @@ struct TestNewPiggyBankModal: View {
 //                        .foregroundColor(.gray)
 //                        .padding(.leading, 8)
                     
-                }.foregroundColor(.mediumPurple)
-                
-            }
-            
-            Divider()
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("What do you want to buy?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(.cardTextTP)
-                
-                TextField("", text: $goalName)
-                    .padding()
-                    .background(Color.white.opacity(0.1))
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
-                    .padding(.bottom)
-                
-                Text("How much does it cost?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(.cardTextTP)
-                
-                //.padding()
-                
-                TextField("", text: $goalAmount)
-                    .padding()
-                    .background(Color.white.opacity(0.1))
-                    .cornerRadius(8)
-                    .keyboardType(.numberPad)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+                    TextField("50,00", text: $goalAmount)
+                        .keyboardType(.numberPad)
+                        //.padding()
+                        .font(
+                            Font.custom("Pally-Bold", size: 17)
+                                .weight(.medium)
+                        )
+                }
+                .background(Color.white)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.5))
+                )
             }
             .padding(.horizontal)
             

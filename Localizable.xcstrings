@@ -2,7 +2,14 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%@" : {
       "localizations" : {
@@ -20,6 +27,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%f"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld coins have been transferred to the piggy!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld moedas foram transferidas para o cofrinho!"
+          }
+        }
+      }
+    },
+    "%lld piggy bank in progress!" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cofrinho em progresso!"
+          }
+        }
+      }
+    },
+    "%lld tasks done sucessfully" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld tarefas concluídas com sucesso"
           }
         }
       }
@@ -65,6 +112,7 @@
       }
     },
     "Active Piggy Banks %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -73,6 +121,9 @@
           }
         }
       }
+    },
+    "Active Piggy Banks: %lld" : {
+
     },
     "Add a description to this task: " : {
       "localizations" : {
@@ -114,12 +165,12 @@
         }
       }
     },
-    "Child" : {
+    "Cancelar" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Criança"
+            "value" : "Cancelar"
           }
         }
       }
@@ -130,6 +181,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirme deletar"
+          }
+        }
+      }
+    },
+    "Confirmação" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmação"
           }
         }
       }
@@ -150,22 +217,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Parabéns! Meta alcançada!"
-          }
-        }
-      }
-    },
-    "Contador de quantas tasks foram feitas naquele mês" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Counter of how many tasks were completed that month"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Contador de quantas tasks foram feitas naquele mês"
           }
         }
       }
@@ -196,22 +247,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Criar tarefa"
-          }
-        }
-      }
-    },
-    "Data do mes e ano" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Date of month and year"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Data do mes e ano"
           }
         }
       }
@@ -287,7 +322,14 @@
       }
     },
     "Hello, SwiftUI!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello, SwiftUI!"
+          }
+        }
+      }
     },
     "How many coincs do you want to transfer?" : {
       "localizations" : {
@@ -339,6 +381,16 @@
         }
       }
     },
+    "November, 2024" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Novembro, 2024"
+          }
+        }
+      }
+    },
     "Price %@ coincs" : {
       "localizations" : {
         "pt-BR" : {
@@ -349,23 +401,17 @@
         }
       }
     },
-    "Quantas metas ela tem atualmente" : {
+    "Remover" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "How many goals she currently has"
-          }
-        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Quantas metas ela tem atualmente"
+            "value" : "Remover"
           }
         }
       }
     },
-    "Remover ultimo filho adicionado" : {
+    "Remover último filho adicionado" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -376,7 +422,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remover ultimo filho adicionado"
+            "value" : "Remover último filho adicionado"
           }
         }
       }
@@ -437,21 +483,28 @@
         }
       }
     },
-    "Total" : {
-
-    },
-    "Total de moedas transferidas para o cofrinho" : {
+    "Tem certeza de que deseja remover o último filho adicionado?" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Total coins transferred to the piggy bank"
+            "value" : "Are you sure you want to remove the last added child?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Total de moedas transferidas para o cofrinho"
+            "value" : "Tem certeza de que deseja remover o último filho adicionado?"
+          }
+        }
+      }
+    },
+    "Total" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total"
           }
         }
       }
@@ -492,22 +545,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Digite o valor dessa tarefa:"
-          }
-        }
-      }
-    },
-    "Valor de moedas que aquela tarefa concebeu" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Amount of coins that task granted"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Valor de moedas que aquela tarefa concebeu"
           }
         }
       }
