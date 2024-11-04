@@ -51,8 +51,12 @@ struct SelectedChild: View {
                                     .foregroundColor(.white)
                                     .frame(maxWidth: .infinity, alignment: .center)
                             }
-                        }.padding(.horizontal, 250)
+                        }
+                        .frame(width: UIScreen.main.bounds.width / 2)
+                        //.position(y: UIScreen.main.bounds.height / 2)
                     }
+                    .frame(width: UIScreen.main.bounds.width / 2)
+                    
                     //Card da criança
                     HistoryCardView(
                         mounthData: Data(),

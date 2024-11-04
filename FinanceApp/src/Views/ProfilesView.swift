@@ -24,13 +24,11 @@ struct ProfilesView: View {
         //PRIMEIRA CAMADA
         NavigationStack {
             ZStack{
-                Text("")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(red: 0.11, green: 0, blue: 0.16))
+                Color.init(red: 0.11, green: 0, blue: 0.16)
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
-                VStack(){
-                    ScrollView(.vertical) {
+                VStack {
+                    ScrollView(.vertical, showsIndicators: false) {
                         LazyVGrid(columns: gridItem){
                             ForEach(parents){ parent in
                                 createProfileView(parent)
@@ -63,9 +61,11 @@ struct ProfilesView: View {
                                             .foregroundStyle(.white)
                                     }
                                 }
-                        }
-                    }.padding(.horizontal, 32)
-                        .padding(.top, 500)
+                        } .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+
+                    }
+                   
+//                        .padding(.top, 500)
                     Spacer()
                     Button(action: deleteChild){
                         Text("Remover ultimo filho adicionado")
