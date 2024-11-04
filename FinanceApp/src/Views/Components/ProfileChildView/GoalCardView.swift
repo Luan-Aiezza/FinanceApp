@@ -33,9 +33,9 @@ struct GoalCardView: View {
             // Status de Moedas Necessárias
             HStack {
                 Image("CoinsImage")
-                Text("You need \(String(format: "%.2f", goalAmount)) coincs")
-                    .font(.subheadline)
-                    .foregroundColor(.cardTextTP)
+                //Text("You need \(String(format: "%.2f", goalAmount)) coincs")
+                  //  .font(.subheadline)
+                   // .foregroundColor(.cardTextTP)
             }
             Spacer()
             
