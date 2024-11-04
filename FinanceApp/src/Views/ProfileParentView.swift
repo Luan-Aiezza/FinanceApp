@@ -26,7 +26,7 @@ struct ProfileParentView: View {
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
                     Spacer()
-                    NavigationLink(destination: SelectedChild()){
+                    //NavigationLink(destination: SelectedChild()){
                         VStack{
                             Image("childIcon")
                                 .resizable()
@@ -37,6 +37,10 @@ struct ProfileParentView: View {
                                     Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
                                 )
                             Text("Criar Tarefa")
+                                .font(
+                                    Font.custom("Pally-Bold", size: 17)
+                                        .weight(.medium)
+                                )
                         }
                     }
                     Spacer()
@@ -44,7 +48,7 @@ struct ProfileParentView: View {
             }
         }
     }
-}
+//}
 
 #Preview {
     ProfileParentView()

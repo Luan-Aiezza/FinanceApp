@@ -28,12 +28,14 @@ struct ProfileChildView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color(red: 0.11, green: 0, blue: 0.16))
                 .ignoresSafeArea()
-            VStack {
+            VStack(spacing: 32) {
                 // Toolbar com ícone da criança e caixa de moedas
-                HStack{
+                HStack(){
                     //                        Spacer(minLength: 85)
-                    Image("iconChildMini")
+                    Image("iconChildMIni")
+                    Spacer(minLength: 16)
                     ProfileChildPicker(viewModel: profileChildViewModel)
+                    Spacer(minLength: 16)
                     Image("blackIconCoin")
                         .frame(width: 44, height: 33)
                         .background(Color(red: 1, green: 0.83, blue: 0.21))
@@ -43,14 +45,14 @@ struct ProfileChildView: View {
                                 .inset(by: 0.5)
                                 .stroke(Color(red: 0.85, green: 0.67, blue: 0.01), lineWidth: 1)
                         )
-                    //                        Spacer(minLength: 85)
                 }
+                
                 profileChildViewModel.changeView(for: profileChildViewModel.actualView)
                     .id(profileChildViewModel.actualView)
                     .transition(.opacity)
                 
             }
-            .padding(.horizontal, 85)
+            .padding(.horizontal, 32)
             .onAppear(){
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child
