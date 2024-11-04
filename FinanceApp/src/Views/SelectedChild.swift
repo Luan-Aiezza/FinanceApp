@@ -2,27 +2,18 @@ import SwiftUI
 import SwiftData
 
 struct SelectedChild: View {
+    @Environment(\.modelContext) private var modelContext: ModelContext
+    @ObservedObject var historyViewModel: HistoryViewModel
+    @ObservedObject var parentViewModel: ParentViewModel
     
+    init(parentViewModel: ParentViewModel) {
+        self.historyViewModel = .init(id: parentViewModel.firstChildId ?? UUID())
+        self.parentViewModel = parentViewModel
+        
+    }
     
-//    @Environment(\.modelContext) private var modelContext
-//    let id: UUID
-//    @State var child: ChildModel?
-//    @Query private var childs: [ChildModel]
-//    @ObservedObject var profileChildViewModel: ProfileChildViewModel
-//    //    @State var view: some View = HistoryView()
-//    init(id: UUID) {
-//        self.id = id
-//        profileChildViewModel = .init(id: id)
-//    }
-//    
-//    
-//    func getTasks() -> [TaskModel] {
-//        if let child = childs.first(where: {$0.id == id}){
-//            return child.tasks
-//        } else {
-//            return []
-//        }
-//    }
+    @State private var currentChild: UUID?
+    @State private var selectedChild: ChildModel?
     
     let gridItem = [GridItem(.adaptive(minimum: 200))]
     
@@ -41,31 +32,54 @@ struct SelectedChild: View {
                     //Scroll horizontal das crianças
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: gridItem){
-                            VStack{
-                                Image("iconChildGrid")
-                                Text("Child")
-                                    .font(
-                                        Font.custom("Pally-Bold", size: 24)
-                                            .weight(.medium)
-                                    )
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity, alignment: .center)
+                            HStack(spacing: 40){
+                                ForEach(parentViewModel.childdren!){ child in
+                                    VStack(){
+                                        Button(action: {
+                                            historyViewModel.id = child.id
+                                            historyViewModel.fetch()
+                                        }){
+                                            VStack{
+                                                Image("iconChildGrid")
+                                                Text("\(child.name)")
+                                                    .font(
+                                                        Font.custom("Pally-Bold", size: 24)
+                                                            .weight(.medium)
+                                                    )
+                                                    .foregroundColor(.white)
+                                                    .frame(maxWidth: .infinity, alignment: .center)
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                         .frame(width: UIScreen.main.bounds.width / 2)
                         //.position(y: UIScreen.main.bounds.height / 2)
                     }
                     .frame(width: UIScreen.main.bounds.width / 2)
-                    
-                    //Card da criança
                     HistoryCardView(
                         mounthData: Data(),
                         taskState: Bool(true),
-                        countTasks: Int(40),
-                        goalsInProgress: Int(10),
-                        totalCoins: Double(100),
-                        piggyCoinsTrans: Double(20)
+                        //tasksDoneInCurrentMonth
+                        countTasks: historyViewModel.tasksDoneInCurrentMonth,
+                        //activePiggyBank
+                        goalsInProgress: historyViewModel.activePiggyBank,
+                        //valueOfTasksDoneInCurrentMonth
+                        totalCoins: Int(historyViewModel.valueOfTasksDoneInCurrentMonth),
+                        //coinsInPiggyBank
+                        piggyCoinsTrans: Int(historyViewModel.coinsInPiggyBank)
                     )
+                    
+                    //Card da criança
+                    //                    HistoryCardView(
+                    //                        mounthData: Data(),
+                    //                        taskState: Bool(true),
+                    //                        countTasks: Int(40),
+                    //                        goalsInProgress: Int(10),
+                    //                        totalCoins: Int(100),
+                    //                        piggyCoinsTrans: Int(20)
+                    //                    )
                     //TITULO TASK
                     Text("Tasks")
                         .font(
@@ -81,6 +95,10 @@ struct SelectedChild: View {
                     
                     
                 }.padding(.horizontal, 85)
+                    .onAppear{
+                        historyViewModel.modelContext = modelContext
+                        historyViewModel.fetch()
+                    }
             }
         }
     }

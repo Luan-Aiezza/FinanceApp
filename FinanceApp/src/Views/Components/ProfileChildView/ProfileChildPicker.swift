@@ -5,7 +5,7 @@ struct ProfileChildPicker: View {
     @ObservedObject var viewModel: ProfileChildViewModel
 
     var body: some View {
-        VStack {
+//        VStack {
             HStack(spacing: 20) {
                 ForEach(PickerOptions.allCases) { option in
                     Text(option.rawValue)
@@ -13,7 +13,7 @@ struct ProfileChildPicker: View {
                             Font.custom("Pally-Bold", size: 17)
                                 .weight(.medium)
                         )
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 4)
                         .padding(.horizontal, 16)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .background(viewModel.actualView == option ? Color.white : Color.clear)
@@ -25,7 +25,7 @@ struct ProfileChildPicker: View {
                 }
             }
             .padding(.horizontal, 24)
-            .padding(.vertical, 8)
+            .padding(.vertical, 4)
             .frame(maxWidth: .infinity, alignment: .center)
             .background(Color(red: 0.36, green: 0, blue: 0.55))
             .clipShape(.rect(cornerRadius: 24.0))
@@ -33,8 +33,8 @@ struct ProfileChildPicker: View {
                 RoundedRectangle(cornerRadius: 24)
                     .fill(Color(red: 0.25, green: 0, blue: 0.39))
                     .offset(x:0, y: 6)
-                    )
-            .padding(.top, 16)
+                )
+//            .padding(.top, 16)
         }
-    }
+//    }
 }

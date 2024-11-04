@@ -11,8 +11,8 @@ import SwiftUI
 
 struct GoalCardView: View {
     var goalName: String
-    var goalAmount: Double
-    var savedAmount: Double
+    var goalAmount: Float
+    var savedAmount: Float
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {

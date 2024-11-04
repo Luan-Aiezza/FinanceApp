@@ -10,8 +10,27 @@ import SwiftUI
 import SwiftData
 
 class ParentViewModel: ObservableObject{
-    @Environment(\.modelContext) private var modelContext
-    @Query var parents: [ParentModel]
+    
+    var modelContext: ModelContext? = nil
+    @Published var parent: ParentModel?
+    @Published var childdren: [ChildModel]?
+    @Published var firstChildId: UUID?
+    
+    init() {
+        self.fetch()
+    }
+    
+    func fetch() {
+        do{
+            let parentDescriptor = FetchDescriptor<ParentModel>()
+            let parents = (try? (modelContext?.fetch(parentDescriptor) ?? [])) ?? []
+            parent = parents.first ?? ParentModel(name: "No Parent")
+            childdren = parent?.childs
+            firstChildId = parent?.childs.first?.id
+        }
+    }
+    
+    
     
     func changeCoinValue() -> Void {
         print("changeCoinValue not implemented")
@@ -25,9 +44,7 @@ class ParentViewModel: ObservableObject{
     
     func addChild(name: String) -> ChildModel{
         let newChild = ChildModel(name: name)
-        if let parent = parents.first{
-            parent.childs.append(newChild)
-        }
+            parent?.childs.append(newChild)
         return newChild
     }
     

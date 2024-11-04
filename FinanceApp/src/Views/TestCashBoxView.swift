@@ -43,7 +43,7 @@ struct TestCashBoxView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
-                VStack {
+                VStack (spacing: 20){
                     
                     VStack {
 //                        Rectangle()
@@ -54,7 +54,7 @@ struct TestCashBoxView: View {
                         HStack {
                             Text("Active Piggy Banks \(viewModel.wallet.coins)")
                                 .font(
-                                    Font.custom("Pally-Bold", size: 17)
+                                    Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
                                 )
                                 .foregroundColor(.white)
@@ -81,28 +81,28 @@ struct TestCashBoxView: View {
 //                                .cornerRadius(20)
 //                            }
 //                            .padding(.trailing)
-                            TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
-                                .padding()
-                                .background(Color.white)
-                                .cornerRadius(20)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
-                                        .offset(x: 0, y: 6)
-                                    )
-                            
-                            
-                            
+
+
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
                                 .padding()
                                 .background(Color.white)
-                                .cornerRadius(20)
+                                .cornerRadius(24)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
                                         .offset(x:0,y: 6)
                                 )
+                            
+                            TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(24)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
+                                        .offset(x: 0, y: 6)
+                                    )
                             
                             
                         }
@@ -146,10 +146,15 @@ struct TestButtonCreatePiggyBank: View {
         }) {
             
             HStack {
-                Image(systemName: "plus").foregroundColor(.cardTextTP)
+                Image(systemName: "plus")
+                    .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                 Text("New Piggy Bank")
-                    .foregroundColor(.cardTextTP)
+                    .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                     .multilineTextAlignment(.center)
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
             }
             
         }
@@ -177,9 +182,13 @@ struct TestButtonTransferCoins: View {
         }) {
             HStack {
                 Image(systemName: "arrow.right.arrow.left")
-                    .foregroundColor(.cardTextTP)
+                    .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                 Text("Transfer Coincs")
-                    .foregroundColor(.cardTextTP)
+                    .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
             }
 //            .padding()
 //            .background(viewModel.goalBanks.isEmpty ? Color.gray : Color.white)
@@ -208,8 +217,8 @@ struct TestLoadCashBoxesModal: View {
                     ZStack {
                         GoalCardView(
                             goalName: goal.cashBox.cashBoxDescription,
-                            goalAmount: Double(goal.goalAmount),
-                            savedAmount: Double(goal.cashBox.coins)
+                            goalAmount: Float((goal.goalAmount)),
+                            savedAmount: Float(Int(goal.cashBox.coins))
                         )
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
@@ -249,10 +258,8 @@ struct TestLoadCashBoxesModal: View {
                             .cornerRadius(10)
                         }
                     }
-                    .padding()
                 }
             }
-            .padding(.horizontal, 16)
         }
     }
 
@@ -275,22 +282,19 @@ struct TestNewPiggyBankModal: View {
     @State private var goalAmount = ""
     
     var body: some View {
-        VStack {
-            HStack {
+        VStack (spacing: 20){
+            HStack(spacing: 100) {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.purple)
-                
-                Spacer()
+                .foregroundColor(.mediumPurple)
                 
                 Text("New Piggy Bank")
                     .font(
                         Font.custom("Pally-Bold", size: 17)
                             .weight(.medium)
                     )
-                
-                Spacer()
+
                 
                 Button("Done") {
                     if let amount = Int(goalAmount) {
@@ -298,63 +302,44 @@ struct TestNewPiggyBankModal: View {
                         isPresented = false
                     }
                     
-                    Text("New Piggy Bank")
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                    
-                    
-                    Button("Done") {
-                        if let amount = Int(goalAmount) {
-                            viewModel.addGoal(name: goalName, amount: amount)
-                            isPresented = false
-                        }
-                    }
-                }
-                .padding([.top, .horizontal])
+                }.foregroundColor(.mediumPurple)
                 
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("What do you want to buy?")
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                        .foregroundColor(.cardTextTP)
-                    
-                    TextField("", text: $goalName)
-                        .padding()
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
-                        .padding(.bottom)
-                    
-                    Text("How much does it cost?")
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                        .foregroundColor(.cardTextTP)
-                    
-                    //.padding()
-                    
-                    TextField("", text: $goalAmount)
-                        .padding()
-                        .background(Color.white.opacity(0.1))
-                        .cornerRadius(8)
-                        .keyboardType(.numberPad)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
-                }
-                .padding(.horizontal)
-                
-                Spacer()
             }
-            .padding()
-            .frame(width: 500, height: 350)
-            .foregroundColor(.backgroundLightPurple)
-            .cornerRadius(20)
             
+            Divider()
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("What do you want to buy?")
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(.cardTextTP)
+                
+                TextField("", text: $goalName)
+                    .padding()
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+                    .padding(.bottom)
+                
+                Text("How much does it cost?")
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(.cardTextTP)
+                
+                //.padding()
+                
+                TextField("", text: $goalAmount)
+                    .padding()
+                    .background(Color.white.opacity(0.1))
+                    .cornerRadius(8)
+                    .keyboardType(.numberPad)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+            }
+            .padding(.horizontal)
         }
     }
     
@@ -458,17 +443,18 @@ struct TestPickerCash: View {
     var body: some View {
         HStack {
             Image(systemName: "arrowshape.turn.up.right.circle.fill")
-                .foregroundColor(.purple)
+                .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
             
             Picker("Select piggy bank", selection: $selectedGoal) {
                 Text("Select piggy bank").tag(UUID?.none)
+                
                 ForEach(viewModel.child.goals) { goal in
                     Text(goal.cashBox.cashBoxDescription).tag(goal.cashBox.id)
-                }.foregroundColor(.cardTextTP)
+                }
             }
             .pickerStyle(MenuPickerStyle())
             .padding(.leading, 8)
-            .foregroundColor(.cardTextTP)
+            .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
         }
         .padding()
         .background(Color.white)

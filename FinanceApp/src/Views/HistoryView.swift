@@ -49,9 +49,9 @@ struct HistoryView: View {
                                 //activePiggyBank
                                 goalsInProgress: viewModel.activePiggyBank,
                                 //valueOfTasksDoneInCurrentMonth
-                                totalCoins: Double(viewModel.valueOfTasksDoneInCurrentMonth),
+                                totalCoins: Int(viewModel.valueOfTasksDoneInCurrentMonth),
                                 //coinsInPiggyBank
-                                piggyCoinsTrans: Double(viewModel.coinsInPiggyBank)
+                                piggyCoinsTrans: Int(viewModel.coinsInPiggyBank)
                             )
                         }
                     }

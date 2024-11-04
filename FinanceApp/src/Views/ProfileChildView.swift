@@ -30,20 +30,23 @@ struct ProfileChildView: View {
                 .ignoresSafeArea()
             VStack(spacing: 32) {
                 // Toolbar com ícone da criança e caixa de moedas
-                HStack(){
-                    //                        Spacer(minLength: 85)
+                HStack(alignment: .center){
+                    
                     Image("iconChildMIni")
-                    Spacer(minLength: 16)
+                        .resizable()
+                        .frame(width: 48, height: 48)
+                    Spacer(minLength: 20)
+                    
                     ProfileChildPicker(viewModel: profileChildViewModel)
-                    Spacer(minLength: 16)
+                    Spacer(minLength: 20)
+                    
                     Image("blackIconCoin")
-                        .frame(width: 44, height: 33)
+                        .frame(width: 83, height: 44)
                         .background(Color(red: 1, green: 0.83, blue: 0.21))
                         .cornerRadius(24)
-                        .overlay(
+                        .background(
                             RoundedRectangle(cornerRadius: 24)
-                                .inset(by: 0.5)
-                                .stroke(Color(red: 0.85, green: 0.67, blue: 0.01), lineWidth: 1)
+                                .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
                         )
                 }
                 

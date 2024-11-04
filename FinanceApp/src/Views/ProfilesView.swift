@@ -10,6 +10,9 @@ import SwiftData
 
 struct ProfilesView: View {
     @Environment(\.modelContext) private var modelContext
+    @ObservedObject private var parentViewModel: ParentViewModel
+    
+    @State private var showWarning = false
     
     @Query private var childs: [ChildModel]
     @Query private var parents: [ParentModel]
@@ -19,6 +22,10 @@ struct ProfilesView: View {
     private let thisChild = ChildModel(name: "Rodrigo")
     
     let gridItem = [GridItem(.adaptive(minimum: 200))]
+    
+    init() {
+        parentViewModel = .init()
+    }
     
     var body: some View {
         //PRIMEIRA CAMADA
@@ -62,15 +69,24 @@ struct ProfilesView: View {
                                     }
                                 }
                         } .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-
                     }
                    
 //                        .padding(.top, 500)
                     Spacer()
-                    Button(action: deleteChild){
-                        Text("Remover ultimo filho adicionado")
-                            .foregroundStyle(.effortMedium)
-                    }
+                    Button(action: {
+                                showWarning = true
+                            }) {
+                                Text("Remover último filho adicionado")
+                                    .foregroundStyle(.red)
+                            }
+                            .alert("Confirmação", isPresented: $showWarning) {
+                                Button("Remover", role: .destructive) {
+                                    deleteChild()
+                                }
+                                Button("Cancelar", role: .cancel) {}
+                            } message: {
+                                Text("Tem certeza de que deseja remover o último filho adicionado?")
+                            }
                 }.padding(.horizontal, 32)
                 
                 
@@ -78,6 +94,9 @@ struct ProfilesView: View {
         }
         .tint(Color(red: 0.73, green: 0.57, blue: 0.8))
         .onAppear{
+            parentViewModel.modelContext = modelContext
+            parentViewModel.fetch()
+            
             if let _ = parents.first{
                 return
             }else {
@@ -112,7 +131,7 @@ struct ProfilesView: View {
     
     @ViewBuilder
     private func createProfileView(_ parent: ParentModel) -> some View{
-        NavigationLink(destination: SelectedChild()) {
+        NavigationLink(destination: SelectedChild(parentViewModel: parentViewModel)) {
             VStack{
                 Image("guardianIcon")
                     .resizable()

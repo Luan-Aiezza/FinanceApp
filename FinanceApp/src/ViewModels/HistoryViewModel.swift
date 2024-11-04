@@ -14,7 +14,7 @@ class HistoryViewModel: ObservableObject {
     var modelContext: ModelContext? = nil
     var cashBoxes: [CashBoxModel] = []
     @Published var child: ChildModel = ChildModel(name: "No Kid")
-    let id: UUID
+    @Published var id: UUID
     
     @Published var activePiggyBank: Int = 0
     @Published var coinsInPiggyBank: Int = 0
