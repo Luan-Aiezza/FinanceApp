@@ -18,7 +18,7 @@ struct HistoryCardView: View {
     var piggyCoinsTrans: Double
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading) {
             // Data do mes e ano em que da tarefa (mounthData)
             Text("Data do mes e ano")
                 .font(
@@ -86,7 +86,7 @@ struct HistoryCardView: View {
             }
         }
         .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: 256, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)
         .clipShape(.rect(cornerRadius: 24.0))

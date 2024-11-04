@@ -76,6 +76,7 @@ struct ProfilesView: View {
                 
             }
         }
+        .tint(Color(red: 0.73, green: 0.57, blue: 0.8))
         .onAppear{
             if let _ = parents.first{
                 return
@@ -111,7 +112,7 @@ struct ProfilesView: View {
     
     @ViewBuilder
     private func createProfileView(_ parent: ParentModel) -> some View{
-        NavigationLink(destination: SelectedChild(id: parent.id)) {
+        NavigationLink(destination: SelectedChild()) {
             VStack{
                 Image("guardianIcon")
                     .resizable()

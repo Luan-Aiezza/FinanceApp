@@ -35,13 +35,14 @@ struct TestCashBoxView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.backgroundDarkPurple
-                //.ignoresSafeArea()
+                Text("")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(red: 0.11, green: 0, blue: 0.16))
+                    .ignoresSafeArea()
                 VStack {
-                    
                     VStack {
                         HStack {
-                            Text("Active Piggy Banks")
+                            Text("Active Piggy banks!")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -76,7 +77,7 @@ struct TestCashBoxView: View {
                                 )
                             }
                             .padding(.trailing)
-                        }.padding()
+                        }
                     }
                     .padding(.horizontal, 24)
                     .padding(.vertical, 8)
@@ -93,8 +94,6 @@ struct TestCashBoxView: View {
                     Spacer()
                 }
             }
-            .padding(.horizontal, 70)
-            .background(Color.backgroundDarkPurple)
             .onAppear {
                 viewModel.modelContext = modelContext
                 viewModel.fetch()

@@ -17,7 +17,7 @@ struct HistoryView: View {
                 //SEGUNDA CAMADA
                 VStack(spacing: 32){
                     //TITULO HISTORY
-                    Text("History")
+                    Text("Your history!")
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .font(

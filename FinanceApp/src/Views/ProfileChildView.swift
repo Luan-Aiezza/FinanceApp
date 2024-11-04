@@ -30,10 +30,12 @@ struct ProfileChildView: View {
                 .ignoresSafeArea()
             VStack(spacing: 32) {
                 // Toolbar com ícone da criança e caixa de moedas
-                HStack{
+                HStack(){
                     //                        Spacer(minLength: 85)
                     Image("iconChildMIni")
+                    Spacer(minLength: 16)
                     ProfileChildPicker(viewModel: profileChildViewModel)
+                    Spacer(minLength: 16)
                     Image("blackIconCoin")
                         .frame(width: 44, height: 33)
                         .background(Color(red: 1, green: 0.83, blue: 0.21))
@@ -44,6 +46,7 @@ struct ProfileChildView: View {
                                 .stroke(Color(red: 0.85, green: 0.67, blue: 0.01), lineWidth: 1)
                         )
                 }
+                
                 profileChildViewModel.changeView(for: profileChildViewModel.actualView)
                     .id(profileChildViewModel.actualView)
                     .transition(.opacity)
