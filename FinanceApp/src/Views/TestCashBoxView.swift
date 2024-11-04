@@ -53,7 +53,10 @@ struct TestCashBoxView: View {
                         
                         HStack {
                             Text("Active Piggy Banks \(viewModel.wallet.coins)")
-                                .font(.title)
+                                .font(
+                                    Font.custom("Pally-Bold", size: 17)
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(.white)
                                // .padding(.leading)
                             
@@ -79,24 +82,32 @@ struct TestCashBoxView: View {
 //                            }
 //                            .padding(.trailing)
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
-//                                .background(
-//                                    RoundedRectangle(cornerRadius: 24)
-//                                        .fill(Color(red:0.85, green:0.76, blue:0.89))
-//                                        .offset(x:0,y: 6)
-//                                        
-//                                )
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(20)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
+                                        .offset(x: 0, y: 6)
+                                    )
                             
                             
                             
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(20)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
-                                        .fill(Color(red:0.85, green:0.76, blue:0.89))
+                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
                                         .offset(x:0,y: 6)
-                                        
                                 )
-                        }.padding(.trailing)
+                            
+                            
+                        }
+                        
+                        
                     }
                     .padding(.horizontal,24)
                     .padding(.vertical,8 )
@@ -140,17 +151,6 @@ struct TestButtonCreatePiggyBank: View {
                     .foregroundColor(.cardTextTP)
                     .multilineTextAlignment(.center)
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(20)
-            .frame(width: 200, height: 40)
-            
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red:0.73, green:0.57, blue:0.8))
-                    .offset(x:0,y: 6)
-            )
-            
             
         }
 //        .background(
@@ -186,15 +186,6 @@ struct TestButtonTransferCoins: View {
 //            .cornerRadius(20)
 //            .frame(width: 200, height: 40)
 //            .shadow(color: viewModel.goalBanks.isEmpty ? Color.clear : Color.purple.opacity(0.4), radius: 8, x: 0, y: 4)
-            .padding()
-            .background(Color.white)
-            .cornerRadius(20)
-            .frame(width: 200, height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red:0.73, green:0.57, blue:0.8))
-                    .offset(x:0,y: 6)
-            )
             }
         .disabled(viewModel.goalBanks.isEmpty) // Desativa o botão se não houver metas
         .popover(isPresented: $showTransferCoinsPopover) {
@@ -306,34 +297,32 @@ struct TestNewPiggyBankModal: View {
                         viewModel.addGoal(name: goalName, amount: amount)
                         isPresented = false
                     }
-                    .foregroundColor(.mediumPurple)
-    
-                    Spacer()
-    
+                    
                     Text("New Piggy Bank")
-                        .font(.headline)
-                        .foregroundColor(.cardTextTP)
-                        
-    
-                    Spacer()
-    
+                        .font(
+                            Font.custom("Pally-Bold", size: 17)
+                                .weight(.medium)
+                        )
+                    
+                    
                     Button("Done") {
                         if let amount = Int(goalAmount) {
                             viewModel.addGoal(name: goalName, amount: amount)
                             isPresented = false
                         }
                     }
-                    .foregroundColor(.mediumPurple)
-                    .bold()
                 }
                 .padding([.top, .horizontal])
-    
-    
+                
+                
                 VStack(alignment: .leading, spacing: 8) {
                     Text("What do you want to buy?")
-                        .font(.subheadline)
+                        .font(
+                            Font.custom("Pally-Bold", size: 17)
+                                .weight(.medium)
+                        )
                         .foregroundColor(.cardTextTP)
-    
+                    
                     TextField("", text: $goalName)
                         .padding()
                         .background(Color.white.opacity(0.1))
@@ -342,11 +331,14 @@ struct TestNewPiggyBankModal: View {
                         .padding(.bottom)
                     
                     Text("How much does it cost?")
-                        .font(.subheadline)
+                        .font(
+                            Font.custom("Pally-Bold", size: 17)
+                                .weight(.medium)
+                        )
                         .foregroundColor(.cardTextTP)
                     
                     //.padding()
-    
+                    
                     TextField("", text: $goalAmount)
                         .padding()
                         .background(Color.white.opacity(0.1))
@@ -355,93 +347,109 @@ struct TestNewPiggyBankModal: View {
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
                 }
                 .padding(.horizontal)
-    
-               Spacer()
+                
+                Spacer()
             }
             .padding()
             .frame(width: 500, height: 350)
             .foregroundColor(.backgroundLightPurple)
             .cornerRadius(20)
-    
+            
         }
     }
-
+    
+    #Preview {
+        TestCashBoxView(id: UUID())
+            .modelContainer(for: Item.self, inMemory: true)
+    }
+    
+    
+}
 
 struct TransferCoinsPopover: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
     @State private var transferAmount = ""
     @State private var selectedGoal: UUID? = nil // Identificador para a meta selecionada
-
-        var body: some View {
-            VStack(spacing: 20) {
-                // Cabeçalho com os botões de Cancel e Done
-                HStack {
-                    Button("Cancel") {
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            // Cabeçalho com os botões de Cancel e Done
+            HStack {
+                Button("Cancel") {
+                    isPresented = false
+                }
+                .foregroundColor(.mediumPurple)
+                
+                Spacer()
+                
+                Text("Transfer coins")
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(.cardTextTP)
+                
+                Spacer()
+                
+                Button("Done") {
+                    if let goalID = selectedGoal, let amount = Int(transferAmount) {
+                        viewModel.addCoinsToGoal(goalID: goalID, amount: amount)
                         isPresented = false
                     }
-                    .foregroundColor(.mediumPurple)
-    
-                    Spacer()
-    
-                    Text("Transfer coins")
-                        .font(.headline)
-                        .foregroundColor(.cardTextTP)
-    
-                    Spacer()
-    
-                    Button("Done") {
-                        if let goalID = selectedGoal, let amount = Int(transferAmount) {
-                            viewModel.addCoinsToGoal(goalID: goalID, amount: amount)
-                            isPresented = false
-                        }
-                    }
-                    .foregroundColor(.mediumPurple)
-                    .bold()
-                    .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
                 }
-                .padding([.top, .horizontal])
-    
-                Divider() // Linha divisória abaixo do cabeçalho
-    
-                VStack(alignment: .leading, spacing: 16) {
-                    // Campo de entrada para o valor a ser transferido
-                    Text("How many coins do you want to transfer?")
-                        .font(.subheadline)
-                        .foregroundColor(Color.black.opacity(0.7))
-    
-                    HStack {
-                        Image("blackIconCoin")
-                            .foregroundColor(.purple)
-    
-                        TextField("Enter amount", text: $transferAmount)
-                            .keyboardType(.numberPad)
-                            .padding(.leading, 8)
-                    }
-                    .padding()
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
-    
-                    // Picker para selecionar a meta
-                    Text("Transfer to which piggy?")
-                        .font(.subheadline)
-                        .foregroundColor(Color.black.opacity(0.7))
+                .foregroundColor(.mediumPurple)
+                .bold()
+                .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
+            }
+            .padding([.top, .horizontal])
+            
+            Divider() // Linha divisória abaixo do cabeçalho
+            
+            VStack(alignment: .leading, spacing: 16) {
+                // Campo de entrada para o valor a ser transferido
+                Text("How many coins do you want to transfer?")
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(Color.black.opacity(0.7))
+                
+                HStack {
+                    Image("blackIconCoin")
+                        .foregroundColor(.purple)
                     
-                    //TODO: Adicionar aqui o picker
-                    TestPickerCash(selectedGoal: $selectedGoal, viewModel: viewModel)
-                    }
-                    .padding(.horizontal)
-                    
-                    Spacer()
-                    }
-                    .padding()
-                    .frame(width: 500, height: 400)
-                    .foregroundColor(.backgroundLightPurple)
-                    .cornerRadius(20)
-                    //.shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
-                    }
-                    }
+                    TextField("Enter amount", text: $transferAmount)
+                        .keyboardType(.numberPad)
+                        .padding(.leading, 8)
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+                
+                // Picker para selecionar a meta
+                Text("Transfer to which piggy?")
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(Color.black.opacity(0.7))
+                
+                //TODO: Adicionar aqui o picker
+                TestPickerCash(selectedGoal: $selectedGoal, viewModel: viewModel)
+            }
+            .padding(.horizontal)
+            
+            Spacer()
+        }
+        .padding()
+        .frame(width: 500, height: 400)
+        .foregroundColor(.backgroundLightPurple)
+        .cornerRadius(20)
+        //.shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+    }
+}
 
 struct TestPickerCash: View {
     @Binding var selectedGoal: UUID?
@@ -451,7 +459,7 @@ struct TestPickerCash: View {
         HStack {
             Image(systemName: "arrowshape.turn.up.right.circle.fill")
                 .foregroundColor(.purple)
-
+            
             Picker("Select piggy bank", selection: $selectedGoal) {
                 Text("Select piggy bank").tag(UUID?.none)
                 ForEach(viewModel.child.goals) { goal in
@@ -468,9 +476,3 @@ struct TestPickerCash: View {
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
     }
 }
-#Preview {
-    TestCashBoxView(id: UUID())
-        .modelContainer(for: Item.self, inMemory: true)
-}
-
-
