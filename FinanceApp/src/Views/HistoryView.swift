@@ -3,6 +3,12 @@ import SwiftData
 
 struct HistoryView: View {
     
+    @Environment(\.modelContext) private var modelContext
+    @ObservedObject var viewModel: HistoryViewModel
+
+    init(id: UUID){
+        viewModel = HistoryViewModel(id: id)
+    }
     //    @ObservedObject var viewModel = CashBoxViewModel()
     @ObservedObject var viewModel2 = ParentViewModel()
     
@@ -38,10 +44,14 @@ struct HistoryView: View {
                             HistoryCardView(
                                 mounthData: Data(),
                                 taskState: Bool(true),
-                                countTasks: Int(40),
-                                goalsInProgress: Int(10),
-                                totalCoins: Double(100),
-                                piggyCoinsTrans: Double(20)
+                                //tasksDoneInCurrentMonth
+                                countTasks: viewModel.tasksDoneInCurrentMonth,
+                                //activePiggyBank
+                                goalsInProgress: viewModel.activePiggyBank,
+                                //valueOfTasksDoneInCurrentMonth
+                                totalCoins: Double(viewModel.valueOfTasksDoneInCurrentMonth),
+                                //coinsInPiggyBank
+                                piggyCoinsTrans: Double(viewModel.coinsInPiggyBank)
                             )
                         }
                     }
@@ -50,10 +60,14 @@ struct HistoryView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.modelContext = modelContext
+            viewModel.fetch()
+        }
     }
 }
 
-#Preview {
-    HistoryView()
-        .modelContainer(for: Item.self, inMemory: true)
-}
+//#Preview {
+//    HistoryView()
+//        .modelContainer(for: Item.self, inMemory: true)
+//}

@@ -26,7 +26,7 @@ class ProfileChildViewModel: ObservableObject{
         case .profile:
             TaskBoard(id: id)
         case .history:
-            HistoryView()
+            HistoryView(id: id)
         }
     }
     
