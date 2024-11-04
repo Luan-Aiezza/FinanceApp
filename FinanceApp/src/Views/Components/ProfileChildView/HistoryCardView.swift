@@ -40,7 +40,6 @@ struct HistoryCardView: View {
                     .padding()
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
                 Text("\(countTasks)")
-                Text("Contador de quantas tasks foram feitas naquele mês")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
@@ -50,7 +49,6 @@ struct HistoryCardView: View {
                 Image("blackIconCoin")
                 VStack{
                     Text("\(totalCoins)")
-                    Text("Valor de moedas que aquela tarefa concebeu")
                         .font(
                             Font.custom("Pally-Regular", size: 17)
                                 .weight(.medium)
@@ -72,7 +70,6 @@ struct HistoryCardView: View {
                 Image("blackIconCoin")
                 //(goalsInProgress)
                 Text("\(goalsInProgress)")
-                Text("Quantas metas ela tem atualmente")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
@@ -81,8 +78,7 @@ struct HistoryCardView: View {
             HStack{
                 Image("blackIconCoin")
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
-                Text("\(piggyCoinsTrans)")
-                Text("Total de moedas transferidas para o cofrinho")
+                Text("\(Int(piggyCoinsTrans))")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
