@@ -38,27 +38,30 @@ struct TestCashBoxView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Color.backgroundDarkPurple
-                //.ignoresSafeArea()
+                Text("")
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(red: 0.11, green: 0, blue: 0.16))
+                    .ignoresSafeArea()
                 VStack {
                     
-                    ZStack {
-                        Rectangle()
-                            .foregroundColor(.mediumPurple)
-                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
-                            .cornerRadius(50.0)
+                    VStack {
+//                        Rectangle()
+//                            .foregroundColor(.mediumPurple)
+//                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
+//                            .cornerRadius(50.0)
                         
                         HStack {
                             Text("Active Piggy Banks \(viewModel.wallet.coins)")
                                 .font(.title)
                                 .foregroundColor(.white)
-                                .padding(.leading)
+                               // .padding(.leading)
                             
-                            Text("\(viewModel.child.cashBoxes.count)")
-                            Text("\(viewModel.wallet.cashBoxDescription)")
-                            Button(action: {viewModel.addCoinsOnWallet(amount: 2)}){
-                                Text("Add 2 coins")
-                            }
+                            //Text("\(viewModel.child.cashBoxes.count)")
+                            //Text("\(viewModel.wallet.cashBoxDescription)")
+                            //Button(action: {viewModel.addCoinsOnWallet(amount: 2)}){
+                            //    Text("Add 2 coins")
+                            //}
                             
                             Spacer()
                             //TODO: Colocar botão de adicionar meta aqui
@@ -76,12 +79,15 @@ struct TestCashBoxView: View {
 //                            }
 //                            .padding(.trailing)
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 24)
-                                        .fill(Color(red:0.85, green:0.76, blue:0.89))
-                                        .offset(x:0,y: 6)
-                                        
-                                )
+//                                .background(
+//                                    RoundedRectangle(cornerRadius: 24)
+//                                        .fill(Color(red:0.85, green:0.76, blue:0.89))
+//                                        .offset(x:0,y: 6)
+//                                        
+//                                )
+                            
+                            
+                            
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
                                 .background(
@@ -90,8 +96,19 @@ struct TestCashBoxView: View {
                                         .offset(x:0,y: 6)
                                         
                                 )
-                        }.padding()
+                        }.padding(.trailing)
                     }
+                    .padding(.horizontal,24)
+                    .padding(.vertical,8 )
+                    .frame(maxWidth: .infinity,minHeight:64,maxHeight: 64, alignment: .center)
+                    .background(Color(red:0.36, green:0, blue:0.55))
+                    .clipShape(.rect(cornerRadius: 24))
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                        .fill(Color(red:0.25, green:0, blue:0.39))
+                    
+                        .offset(x: 0, y: 6)
+                        )
                     // Lista de piggy banks
                     TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()
@@ -123,22 +140,27 @@ struct TestButtonCreatePiggyBank: View {
                 Image(systemName: "plus").foregroundColor(.cardTextTP)
                 Text("New Piggy Bank")
                     .foregroundColor(.cardTextTP)
+                    .multilineTextAlignment(.center)
             }
             .padding()
             .background(Color.white)
             .cornerRadius(20)
             .frame(width: 200, height: 40)
             
-            
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red:0.73, green:0.57, blue:0.8))
+                    .offset(x:0,y: 6)
+            )
             
             
         }
-        .background(
-            RoundedRectangle(cornerRadius: 24)
-                .fill(Color(red:0.85, green:0.76, blue:0.89))
-                .offset(x:0,y: 6)
+//        .background(
+//            RoundedRectangle(cornerRadius: 24)
+//                .fill(Color(red:0.85, green:0.76, blue:0.89))
+//                .offset(x:0,y: 6)
                 
-        )
+        
         .popover(isPresented: $showNewPiggyBankPopover) {
             TestNewPiggyBankModal(isPresented: $showNewPiggyBankPopover, viewModel: viewModel)
                 .frame(width: 500, height: 400)
@@ -161,12 +183,21 @@ struct TestButtonTransferCoins: View {
                 Text("Transfer Coincs")
                     .foregroundColor(.cardTextTP)
             }
+//            .padding()
+//            .background(viewModel.goalBanks.isEmpty ? Color.gray : Color.white)
+//            .cornerRadius(20)
+//            .frame(width: 200, height: 40)
+//            .shadow(color: viewModel.goalBanks.isEmpty ? Color.clear : Color.purple.opacity(0.4), radius: 8, x: 0, y: 4)
             .padding()
-            .background(viewModel.goalBanks.isEmpty ? Color.gray : Color.white)
+            .background(Color.white)
             .cornerRadius(20)
             .frame(width: 200, height: 40)
-            .shadow(color: viewModel.goalBanks.isEmpty ? Color.clear : Color.purple.opacity(0.4), radius: 8, x: 0, y: 4)
-        }
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red:0.73, green:0.57, blue:0.8))
+                    .offset(x:0,y: 6)
+            )
+            }
         .disabled(viewModel.goalBanks.isEmpty) // Desativa o botão se não houver metas
         .popover(isPresented: $showTransferCoinsPopover) {
             TransferCoinsPopover(isPresented: $showTransferCoinsPopover, viewModel: viewModel)
