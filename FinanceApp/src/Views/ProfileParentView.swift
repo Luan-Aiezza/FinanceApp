@@ -37,6 +37,10 @@ struct ProfileParentView: View {
                                     Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
                                 )
                             Text("Criar Tarefa")
+                                .font(
+                                    Font.custom("Pally-Bold", size: 17)
+                                        .weight(.medium)
+                                )
                         }
                     }
                     Spacer()

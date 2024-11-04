@@ -56,7 +56,10 @@ struct ProfilesView: View {
                                             )
                                             .shadow(radius: 5) // Sombra opcional para efeito
                                         Text("Add profile")
-                                            .fontWeight(.heavy)
+                                            .font(
+                                                Font.custom("Pally-Bold", size: 17)
+                                                    .weight(.medium)
+                                            )
                                             .foregroundStyle(.white)
                                     }
                                 }
@@ -97,7 +100,10 @@ struct ProfilesView: View {
                         Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
                     )
                 Text(child.name)
-                    .fontWeight(.heavy)
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
                     .foregroundStyle(.white)
             }
         }
@@ -116,7 +122,10 @@ struct ProfilesView: View {
                         Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
                     )
                 Text("Guardian")
-                    .fontWeight(.heavy)
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
                     .foregroundStyle(.white)
             }
         }

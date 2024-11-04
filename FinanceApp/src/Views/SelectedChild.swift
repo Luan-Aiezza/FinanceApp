@@ -39,7 +39,7 @@ struct SelectedChild: View {
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
                         .font(
-                            Font.custom("Pally Variable", size: 24)
+                            Font.custom("Pally-Bold", size: 24)
                                 .weight(.medium)
                         )
                         .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
@@ -51,24 +51,6 @@ struct SelectedChild: View {
                                 .inset(by: 0.5)
                                 .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 1)
                         )
-                    //Card da criança
-                    //                    VStack(alignment: .leading) {
-                    //                        Text("Selected children")
-                    //                        HStack{
-                    //                            Image("childIcon")
-                    //                                .resizable()
-                    //                                .frame(width: 150, height: 150)
-                    //                                .foregroundColor(.cyan)
-                    //                                .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                    //                            VStack{
-                    //                                Text("Rodrigo")
-                    //                                Text("8 anos")
-                    //                            }
-                    //                        }.padding(20)
-                    //                            .frame(maxWidth: .infinity, alignment: .leading)
-                    //                            .background(Color(red: 0.94, green: 0.9, blue: 0.95))
-                    //                            .cornerRadius(24)
-                    //                    }
                     TaskCreateCard(dayCount: 1)
                     Spacer()
                     

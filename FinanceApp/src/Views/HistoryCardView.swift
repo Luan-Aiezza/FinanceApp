@@ -21,12 +21,18 @@ struct HistoryCardView: View {
         VStack(alignment: .leading, spacing: 12) {
             // Data do mes e ano em que da tarefa (mounthData)
             Text("Data do mes e ano")
-                .font(.headline)
+                .font(
+                    Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium)
+                )
                 .fontWeight(.bold)
             Spacer()
             // Verificar se a tarefa foi concluida (taskState)
             Text("Task's done")
-                .font(.subheadline)
+                .font(
+                    Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium)
+                )
             Spacer()
             HStack{
                 //simbolo de que a task está completa
@@ -34,25 +40,49 @@ struct HistoryCardView: View {
                     .padding()
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
                 Text("Contador de quantas tasks foram feitas naquele mês")
+                    .font(
+                        Font.custom("Pally-Regular", size: 17)
+                            .weight(.medium)
+                    )
                 Spacer()
                 //(totalCoins)
                 Image("blackIconCoin")
                 VStack{
                     Text("Valor de moedas que aquela tarefa concebeu")
+                        .font(
+                            Font.custom("Pally-Regular", size: 17)
+                                .weight(.medium)
+                        )
                     Text("Total")
+                        .font(
+                            Font.custom("Pally-Regular", size: 17)
+                                .weight(.medium)
+                        )
                 }
             }
             Spacer()
             Text("Active Piggy bank")
+                .font(
+                    Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium)
+                )
             HStack{
-                Image(systemName: "Person.fill")
+                Image("blackIconCoin")
                 //(goalsInProgress)
                 Text("Quantas metas ela tem atualmente")
+                    .font(
+                        Font.custom("Pally-Regular", size: 17)
+                            .weight(.medium)
+                    )
             }
             HStack{
                 Image("blackIconCoin")
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
                 Text("Total de moedas transferidas para o cofrinho")
+                    .font(
+                        Font.custom("Pally-Regular", size: 17)
+                            .weight(.medium)
+                    )
             }
         }
         .padding(16)

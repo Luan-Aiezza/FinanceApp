@@ -9,7 +9,10 @@ struct ProfileChildPicker: View {
             HStack(spacing: 20) {
                 ForEach(PickerOptions.allCases) { option in
                     Text(option.rawValue)
-                        .font(.system(size: viewModel.actualView == option ? 18 : 14, weight: .bold))
+                        .font(
+                            Font.custom("Pally-Bold", size: 17)
+                                .weight(.medium)
+                        )
                         .padding(.vertical, 8)
                         .padding(.horizontal, 16)
                         .frame(maxWidth: .infinity, alignment: .center)

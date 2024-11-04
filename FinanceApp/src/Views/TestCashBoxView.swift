@@ -43,7 +43,7 @@ struct TestCashBoxView: View {
                         HStack {
                             Text("Active Piggy Banks")
                                 .font(
-                                    Font.custom("Pally Variable", size: 24)
+                                    Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
                                 )
                                 .foregroundColor(.white)
@@ -58,7 +58,7 @@ struct TestCashBoxView: View {
                                         .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                                     Text("New Piggy Bank")
                                         .font(
-                                            Font.custom("Pally Variable", size: 17)
+                                            Font.custom("Pally-Bold", size: 17)
                                                 .weight(.medium)
                                         )
                                         .multilineTextAlignment(.center)
@@ -143,7 +143,10 @@ struct TestNewPiggyBankModal: View {
                 Spacer()
                 
                 Text("New Piggy Bank")
-                    .font(.headline)
+                    .font(
+                        Font.custom("Pally-Bold", size: 17)
+                            .weight(.medium)
+                    )
                 
                 Spacer()
                 

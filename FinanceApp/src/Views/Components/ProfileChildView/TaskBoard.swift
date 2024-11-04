@@ -22,7 +22,7 @@ struct TaskBoard: View {
         if let tasks = childs.first(where:{$0.id == id})?.tasks {
             VStack(){
                 ScrollView(.vertical) {
-                    LazyVGrid(columns: gridItem) {
+                    LazyVGrid(columns: gridItem, spacing: 40) {
                         ForEach(tasks) { actualTask in
                             //                            NewTaskCard(taskID: task.persistentModelID)
                             TaskCard(taskID: actualTask.persistentModelID)
@@ -30,7 +30,7 @@ struct TaskBoard: View {
                                     try! modelContext.save()
                                 }
                         }
-                    }
+                    }.padding(.horizontal, 80)
                 }
                 
             }
