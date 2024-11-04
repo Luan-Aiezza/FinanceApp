@@ -118,16 +118,13 @@ class CashBoxViewModel: ObservableObject {
         }
     }
 
-    func removeGoal(goalID: UUID) {
-        if let goalIndex = goalBanks.firstIndex(where: { $0.cashBox.id == goalID }) {
-            let goal = goalBanks[goalIndex]
-            goalBanks.remove(at: goalIndex)
-            
-            // Remove a meta e seu CashBox do contexto
+    @MainActor func removeGoal(goal: GoalBankModel) {
+        let cashBoxToDelete = goal.cashBox
+        try? modelContext?.transaction {
+            modelContext?.delete(cashBoxToDelete)
             modelContext?.delete(goal)
-            modelContext?.delete(goal.cashBox)
-            try? modelContext?.save()
         }
+        fetch()
     }
 
     
