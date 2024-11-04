@@ -33,12 +33,12 @@ struct HistoryCardView: View {
                 Image(systemName: taskState ? "checkmark.circle.fill" : "circle")
                     .padding()
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
-                Text("Contador de quantas tasks foram feitas naquele mês")
+                Text("\(countTasks)")
                 Spacer()
                 //(totalCoins)
                 Image("blackIconCoin")
                 VStack{
-                    Text("Valor de moedas que aquela tarefa concebeu")
+                    Text("\(totalCoins)")
                     Text("Total")
                 }
             }
@@ -47,12 +47,12 @@ struct HistoryCardView: View {
             HStack{
                 Image(systemName: "Person.fill")
                 //(goalsInProgress)
-                Text("Quantas metas ela tem atualmente")
+                Text("\(goalsInProgress)")
             }
             HStack{
                 Image("blackIconCoin")
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
-                Text("Total de moedas transferidas para o cofrinho")
+                Text("\(piggyCoinsTrans)")
             }
         }
         .padding(16)
