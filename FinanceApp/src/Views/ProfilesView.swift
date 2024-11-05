@@ -68,7 +68,8 @@ struct ProfilesView: View {
                                             .foregroundStyle(.white)
                                     }
                                 }
-                        } .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                        }
+                        .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 2)
                     }
                    
 //                        .padding(.top, 500)
@@ -77,7 +78,7 @@ struct ProfilesView: View {
                                 showWarning = true
                             }) {
                                 Text("Remover último filho adicionado")
-                                    .foregroundStyle(.red)
+                                    .foregroundStyle(Color.red)
                             }
                             .alert("Confirmação", isPresented: $showWarning) {
                                 Button("Remover", role: .destructive) {
@@ -116,8 +117,9 @@ struct ProfilesView: View {
                     .frame(width: 150, height: 150)
                     .foregroundColor(.cyan)
                     .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                    .overlay(
-                        Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
+                    .background(
+                        Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                            .offset(x:0, y: 6)// Borda branca opcional para destaque
                     )
                 Text(child.name)
                     .font(
@@ -138,8 +140,9 @@ struct ProfilesView: View {
                     .frame(width: 150, height: 150)
                     .foregroundColor(.cyan)
                     .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                    .overlay(
-                        Circle().stroke(Color.purple, lineWidth: 4) // Borda branca opcional para destaque
+                    .background(
+                        Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                            .offset(x:0, y: 6)// Borda branca opcional para destaque
                     )
                 Text("Guardian")
                     .font(

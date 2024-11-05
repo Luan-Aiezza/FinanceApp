@@ -49,7 +49,7 @@ struct TestCashBoxView: View {
 //                            .cornerRadius(50.0)
                         
                         HStack {
-                            Text("Active Piggy Banks \(viewModel.wallet.coins)")
+                            Text("Active Piggy Banks")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -82,6 +82,7 @@ struct TestCashBoxView: View {
 
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
+                                .frame(height: 17)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
@@ -92,6 +93,7 @@ struct TestCashBoxView: View {
                                 )
                             
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
+                                .frame(height: 17)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
@@ -312,59 +314,59 @@ struct TestNewPiggyBankModal: View {
             .padding([.top, .horizontal])
             Divider()
             // Campos de entrada com ícones e estilo
-            VStack(alignment: .leading, spacing: 8) {
-                Text("What do you want to buy?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.black.opacity(0.7))
-                
-                HStack {
-                    TextField("Enter item", text: $goalName)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                        .overlay(
-                            HStack {
-                                Spacer()
-                                if !goalName.isEmpty {
-                                    Button(action: { goalName = "" }) {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.gray)
-                                            .padding(.trailing, 8)
-                                    }
-                                }
-                            }
-                        )
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.5))
-                )
-                Spacer()
-                
-                Text("How much does it cost?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.black.opacity(0.7))
-                
-                HStack {
-                    Image("blackIconCoin" )
-                        .padding()
-//                    Text("R$")
-//                        .foregroundColor(.gray)
-//                        .padding(.leading, 8)
-                    
-                }.foregroundColor(.mediumPurple)
-                
-            }
+//            VStack(alignment: .leading, spacing: 8) {
+//                Text("What do you want to buy?")
+//                    .font(
+//                        Font.custom("Pally-Bold", size: 17)
+//                            .weight(.medium)
+//                    )
+//                    .foregroundColor(Color.black.opacity(0.7))
+//                
+//                HStack {
+//                    TextField("Enter item", text: $goalName)
+//                        .padding()
+//                        .background(Color.white)
+//                        .cornerRadius(10)
+//                        .font(
+//                            Font.custom("Pally-Bold", size: 17)
+//                                .weight(.medium)
+//                        )
+//                        .overlay(
+//                            HStack {
+//                                Spacer()
+//                                if !goalName.isEmpty {
+//                                    Button(action: { goalName = "" }) {
+//                                        Image(systemName: "xmark.circle.fill")
+//                                            .foregroundColor(.gray)
+//                                            .padding(.trailing, 8)
+//                                    }
+//                                }
+//                            }
+//                        )
+//                }
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: 10)
+//                        .stroke(Color.gray.opacity(0.5))
+//                )
+//                Spacer()
+//                
+//                Text("How much does it cost?")
+//                    .font(
+//                        Font.custom("Pally-Bold", size: 17)
+//                            .weight(.medium)
+//                    )
+//                    .foregroundColor(Color.black.opacity(0.7))
+//                
+//                HStack {
+//                    Image("blackIconCoin" )
+//                        .padding()
+////                    Text("R$")
+////                        .foregroundColor(.gray)
+////                        .padding(.leading, 8)
+//                    
+//                }.foregroundColor(.mediumPurple)
+//                
+//            }
             
             Divider()
             

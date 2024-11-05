@@ -39,15 +39,20 @@ struct ProfileChildView: View {
                     
                     ProfileChildPicker(viewModel: profileChildViewModel)
                     Spacer(minLength: 20)
+                    HStack{
+                        Image("blackIconCoin")
+                        Text("\(String(profileChildViewModel.wallet?.coins ?? 2))")
+                            .foregroundStyle(Color.black)
+                    }
+                            .frame(width: 83, height: 44)
+                            .background(Color(red: 1, green: 0.83, blue: 0.21))
+                            .cornerRadius(24)
+                            .background(
+                                RoundedRectangle(cornerRadius: 24)
+                                    .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
+                                
+                            )
                     
-                    Image("blackIconCoin")
-                        .frame(width: 83, height: 44)
-                        .background(Color(red: 1, green: 0.83, blue: 0.21))
-                        .cornerRadius(24)
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
-                        )
                 }
                 
                 profileChildViewModel.changeView(for: profileChildViewModel.actualView)
@@ -60,6 +65,8 @@ struct ProfileChildView: View {
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child
                 }
+                profileChildViewModel.modelContext = modelContext
+                profileChildViewModel.fetch()
             }
             .onChange(of: profileChildViewModel.actualView){
                 //                print(profileChildViewModel.actualView)
