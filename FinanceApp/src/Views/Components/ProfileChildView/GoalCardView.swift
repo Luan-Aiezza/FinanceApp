@@ -19,16 +19,21 @@ struct GoalCardView: View {
             // Nome da Meta e Ícone
             HStack {
                 Text(goalName)
-                    .font(.headline)
-                    .fontWeight(.bold)
+                    .font(
+                        Font.custom("Pally-Bold", size: 24)
+                            .weight(.medium)
+                    )
                     .foregroundColor(.cardTextTP)
                 
                 Spacer()
                 Text("Price \(String(format: "%.2f", goalAmount)) coincs")
-                    .font(.subheadline)
-                    .fontWeight(.bold)
+                    .font(
+                        Font.custom("Pally-Bold", size: 24)
+                            .weight(.medium)
+                    )
                     .foregroundColor(.cardTextTP)
             }
+
             
             // Status de Moedas Necessárias
             HStack {
@@ -42,7 +47,10 @@ struct GoalCardView: View {
             HStack {
                 Spacer()
                 Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
-                    .font(.subheadline)
+                    .font(
+                        Font.custom("Pally-Regular", size: 20)
+                            .weight(.medium)
+                    )
                     .foregroundColor(.cardTextTP)
             }
            
@@ -56,12 +64,18 @@ struct GoalCardView: View {
                 if savedAmount >= goalAmount {
                     Image(systemName: "CheckMARK")
                     Text("Congratulations! Goal achieved!")
-                        .font(.subheadline)
+                        .font(
+                            Font.custom("Pally-Bold", size: 20)
+                                .weight(.medium)
+                        )
                         .foregroundColor(.cardTextTP)
                 } else {
                     Image("CheckMARK")
                     Text("You have saved \(String(format: "%.2f", savedAmount)) coincs by now")
-                        .font(.subheadline)
+                        .font(
+                            Font.custom("Pally-Regular", size: 20)
+                                .weight(.medium)
+                        )
                         .foregroundColor(.cardTextTP)
                     
                     Spacer()
@@ -69,7 +83,10 @@ struct GoalCardView: View {
                         HStack {
                             Image(systemName: "magnifyingglass")
                             Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
-                                .font(.subheadline)
+                                .font(
+                                    Font.custom("Pally-Regular", size: 20)
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(.cardTextTP)
                         }
                     }
@@ -77,11 +94,9 @@ struct GoalCardView: View {
                 
             }
             
-            // Quantia Restante
-            
         }
-        .padding(20)
-        .frame(maxWidth: .infinity, alignment: .center)
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .clipShape(.rect(cornerRadius: 24.0))
         .background(

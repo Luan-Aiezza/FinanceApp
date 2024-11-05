@@ -50,7 +50,7 @@ struct TaskBoard: View {
                                     try! modelContext.save()
                                 }
                         }
-                    }.padding(.horizontal, 80)
+                    }.padding(.horizontal, 20)
                 }
                 
             }

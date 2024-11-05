@@ -214,14 +214,14 @@ struct TestLoadCashBoxesModal: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack() {
                 ForEach(viewModel.child.goals, id: \.cashBox.id) { goal in
                     ZStack {
                         GoalCardView(
                             goalName: goal.cashBox.cashBoxDescription,
                             goalAmount: Float(goal.goalAmount),
                             savedAmount: Float(goal.cashBox.coins)
-                        )
+                        ).padding(.horizontal, -28)
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
                         }
@@ -358,9 +358,11 @@ struct TestNewPiggyBankModal: View {
                         isPresented = false
                     }
                 }
-                .foregroundColor(.purple)
-                .bold()
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                .font(
+                    Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium)
+                )
+                .foregroundColor(.mediumPurple)
             }
             .padding([.top, .horizontal])
             
@@ -418,11 +420,8 @@ struct TransferCoinsPopover: View {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.mediumPurple) // Substitua por uma cor personalizada se necessário
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
+                .foregroundColor(.purple)
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
                 Spacer()
                 
@@ -446,7 +445,6 @@ struct TransferCoinsPopover: View {
                         .weight(.medium)
                 )
                 .foregroundColor(.mediumPurple)
-                .bold()
                 .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
             }
             .padding([.horizontal])
@@ -512,16 +510,15 @@ struct TestPickerCash: View {
             
             Picker("Select piggy bank", selection: $selectedGoal) {
                 Text("Select piggy bank").tag(UUID?.none)
-                
                 ForEach(viewModel.child.goals) { goal in
                     Text(goal.cashBox.cashBoxDescription).tag(goal.cashBox.id)
                 }
             }
             .pickerStyle(MenuPickerStyle())
             .padding(.leading, 8)
-            .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+            .foregroundColor(Color.black)
         }
-        .padding()
+        .padding(10)
         .background(Color.white)
         .cornerRadius(10)
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))

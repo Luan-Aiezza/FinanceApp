@@ -13,14 +13,16 @@ enum FinanceAppMigrationPlan: SchemaMigrationPlan {
         [
          FInanceAppSchemaV1.self,
          FinanceAppSchemaV2.self,
-         FinanceAppSchemaV3.self
+         FinanceAppSchemaV3.self,
+         FinanceAppSchemaV4.self
         ]
     }
     
     static var stages: [MigrationStage] {
         [
             MigrateV1toV2,
-            MigrateV2toV3
+            MigrateV2toV3,
+            MigrateV3toV4
         ]
     }
 }
@@ -54,5 +56,10 @@ extension FinanceAppMigrationPlan {
 
 extension FinanceAppMigrationPlan {
     static var MigrateV2toV3 = MigrationStage.lightweight(fromVersion: FinanceAppSchemaV2.self, toVersion: FinanceAppSchemaV3.self)
+}
+
+
+extension FinanceAppMigrationPlan {
+    static var MigrateV3toV4 = MigrationStage.lightweight(fromVersion: FinanceAppSchemaV3.self, toVersion: FinanceAppSchemaV4.self)
 }
 

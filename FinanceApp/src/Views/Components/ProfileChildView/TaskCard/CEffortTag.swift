@@ -14,7 +14,7 @@ struct CEffortTag: View {
     @State var effortStroke: Color = Color("EffortLowStroke")
     @State var effortColorText: Color = Color("EffortAnyText")
     @State var effortText: String = "LOW EFFORT"
-    @State var taskValue: Float
+    @State var taskValue: Int
 
     
     var body: some View {

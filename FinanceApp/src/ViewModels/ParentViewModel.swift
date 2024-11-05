@@ -58,11 +58,11 @@ class ParentViewModel: ObservableObject{
         let taskModel = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: value), recurrent: recurrent, effort: effort, frequency: frequency)
         return taskModel
     }
-    private func convertStrigToFloat(value: String) -> Float {
-        if let value = Float(value){
+    private func convertStrigToFloat(value: String) -> Int {
+        if let value = Int(value){
             return value
         } else {
-            return 0.0
+            return 0
         }
     }
 }

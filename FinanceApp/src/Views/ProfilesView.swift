@@ -12,8 +12,9 @@ struct ProfilesView: View {
     @Environment(\.modelContext) private var modelContext
     @ObservedObject private var parentViewModel: ParentViewModel
     
+    @State private var childName: String = ""
     @State private var showWarning = false
-    
+    @State private var showAlert = false
     @Query private var childs: [ChildModel]
     @Query private var parents: [ParentModel]
     
@@ -43,31 +44,43 @@ struct ProfilesView: View {
                             ForEach(childs) { child in
                                 createProfileView(child)
                             }
-                            Button(action:{
-                                if let parent = parents.first{
-                                    let newChild = ChildModel(name: "Child")
-                                    parent.childs.append(newChild)
-                                    modelContext.insert(newChild)
-                                    try! modelContext.save()
-                                }}){
-                                    VStack {
-                                        Image("Add Profile")
-                                            .frame(width: 150, height: 150)
-                                            .aspectRatio(contentMode: .fill)
-                                            .background(Color.white) // Fundo branco do círculo
-                                            .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
-                                            .overlay(
-                                                Circle().stroke(Color.white, lineWidth: 4) // Borda branca opcional para destaque
-                                            )
-                                            .shadow(radius: 5) // Sombra opcional para efeito
-                                        Text("Add profile")
-                                            .font(
-                                                Font.custom("Pally-Bold", size: 17)
-                                                    .weight(.medium)
-                                            )
-                                            .foregroundStyle(.white)
+                            Button(action: {
+                                        showAlert = true
+                                    }) {
+                                        VStack {
+                                            Image("Add Profile")
+                                                .frame(width: 150, height: 150)
+                                                .aspectRatio(contentMode: .fill)
+                                                .background(Color.white)
+                                                .clipShape(Circle())
+                                                .overlay(
+                                                    Circle().stroke(Color.white, lineWidth: 4)
+                                                )
+                                                .shadow(radius: 5)
+                                            Text("Add profile")
+                                                .font(
+                                                    Font.custom("Pally-Bold", size: 17)
+                                                        .weight(.medium)
+                                                )
+                                                .foregroundStyle(.white)
+                                        }
                                     }
-                                }
+                                    .alert("Enter Child's Name", isPresented: $showAlert) {
+                                        TextField("Child's name", text: $childName)
+                                        Button("Create") {
+                                            if let parent = parents.first {
+                                                let newChild = ChildModel(name: childName)
+                                                parent.childs.append(newChild)
+                                                modelContext.insert(newChild)
+                                                parentViewModel.fetch()
+                                                try? modelContext.save()
+                                            }
+                                            childName = "" // Limpa o campo após a criação
+                                        }
+                                        Button("Cancel", role: .cancel) {
+                                            childName = ""
+                                        }
+                                    }
                         }
                         .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 2)
                     }
@@ -83,6 +96,7 @@ struct ProfilesView: View {
                             .alert("Confirmação", isPresented: $showWarning) {
                                 Button("Remover", role: .destructive) {
                                     deleteChild()
+                                    parentViewModel.fetch()
                                 }
                                 Button("Cancelar", role: .cancel) {}
                             } message: {
