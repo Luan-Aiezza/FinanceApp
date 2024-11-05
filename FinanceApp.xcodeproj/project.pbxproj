@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C02EA0BF2CD96CCD005DA9C8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C02EA0BE2CD96CCD005DA9C8 /* Localizable.xcstrings */; };
 		C06606712CD27B8A00E3283D /* FFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C066066E2CD27B8A00E3283D /* FFL.txt */; };
 		C06606722CD27B8A00E3283D /* Pally-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606532CD27B8A00E3283D /* Pally-Medium.otf */; };
 		C066067E2CD27B8A00E3283D /* Pally-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C06606542CD27B8A00E3283D /* Pally-Regular.otf */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C02EA0BE2CD96CCD005DA9C8 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C06606522CD27B8A00E3283D /* Pally-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Bold.otf"; sourceTree = "<group>"; };
 		C06606532CD27B8A00E3283D /* Pally-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Medium.otf"; sourceTree = "<group>"; };
 		C06606542CD27B8A00E3283D /* Pally-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pally-Regular.otf"; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		CF88A2EB2CC00070005A5001 = {
 			isa = PBXGroup;
 			children = (
+				C02EA0BE2CD96CCD005DA9C8 /* Localizable.xcstrings */,
 				C06606702CD27B8A00E3283D /* Pally_Complete */,
 				CF88A2F62CC00070005A5001 /* FinanceApp */,
 				CF88A3092CC00071005A5001 /* FinanceAppTests */,
@@ -275,6 +278,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"pt-BR",
 			);
 			mainGroup = CF88A2EB2CC00070005A5001;
 			minimizedProjectReferenceProxies = 1;
@@ -297,6 +301,7 @@
 			files = (
 				C06606882CD27B8A00E3283D /* FFL.txt in Resources */,
 				C06606892CD27B8A00E3283D /* Pally-Medium.otf in Resources */,
+				C02EA0BF2CD96CCD005DA9C8 /* Localizable.xcstrings in Resources */,
 				C06606952CD27B8A00E3283D /* Pally-Regular.otf in Resources */,
 				C066069D2CD27B8A00E3283D /* Pally-Bold.otf in Resources */,
 			);
@@ -423,6 +428,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -479,6 +485,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

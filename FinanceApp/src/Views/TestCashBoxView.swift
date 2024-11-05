@@ -5,10 +5,6 @@
 //  Created by Grecia Cristina on 27/10/24.
 //
 
-
-//TODO:  CARD EM SI ASSIM COMO O SOMBREAMENTO DELE
-
-
 import SwiftUI
 import SwiftData
 
@@ -47,9 +43,9 @@ struct TestCashBoxView: View {
 //                            .foregroundColor(.mediumPurple)
 //                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
 //                            .cornerRadius(50.0)
-                        
+                        //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack {
-                            Text("Active Piggy Banks")
+                            Text("Active Piggy Banks: \(viewModel.wallet.coins)")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -164,9 +160,13 @@ struct TestButtonCreatePiggyBank: View {
                 
         
         .popover(isPresented: $showNewPiggyBankPopover) {
-            TestNewPiggyBankModal(isPresented: $showNewPiggyBankPopover, viewModel: viewModel)
-                .frame(width: 500, height: 300)
+            TestNewPiggyBankModal(
+                isPresented: $showNewPiggyBankPopover,
+                viewModel: viewModel // `goalToEdit` será `nil`, criando um novo objetivo
+            )
+            .frame(width: 500, height: 300)
         }
+
         
     }
 }
@@ -207,9 +207,11 @@ struct TestButtonTransferCoins: View {
 
 struct TestLoadCashBoxesModal: View {
     @ObservedObject var viewModel: CashBoxViewModel
-    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para exclusão
+    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     @State private var showDeleteConfirmation: Bool = false // Controla a exibição do alerta de confirmação
-
+    @State private var showEditPopover: Bool = false // Controla a exibição do popover de edição
+    @State private var selectedGoal: GoalBankModel? // Armazena o objetivo selecionado para edição
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -217,201 +219,190 @@ struct TestLoadCashBoxesModal: View {
                     ZStack {
                         GoalCardView(
                             goalName: goal.cashBox.cashBoxDescription,
-                            goalAmount: Float((goal.goalAmount)),
-                            savedAmount: Float(Int(goal.cashBox.coins))
+                            goalAmount: Float(goal.goalAmount),
+                            savedAmount: Float(goal.cashBox.coins)
                         )
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
                         }
 
-                        // Mostra o botão de deletar quando o card é pressionado
+                        // Mostra os botões de editar, deletar e cancelar quando o card é pressionado
                         if showEditDeleteOptions == goal.cashBox.id {
-                            VStack {
+                            HStack {
+                                Button(action: {
+                                    // Abre o popover de edição e carrega os dados do objetivo selecionado
+                                    selectedGoal = goal
+                                    showEditPopover = true
+                                    showEditDeleteOptions = nil
+                                }) {
+                                    VStack {
+                                        Image(systemName: "pencil")
+                                            .foregroundColor(.purple)
+                                        Text("Edit")
+                                            .foregroundColor(.purple)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.gray.opacity(0.2))
+                                    .cornerRadius(10)
+                                }
+
+                                Divider() // Linha divisória entre os botões
+
                                 Button(action: {
                                     showDeleteConfirmation = true
-                                    showEditDeleteOptions = nil // Esconde o botão após pressionar "Delete"
+                                    showEditDeleteOptions = nil
                                 }) {
-                                    HStack {
+                                    VStack {
                                         Image(systemName: "trash")
                                             .foregroundColor(.red)
                                         Text("Delete")
                                             .foregroundColor(.red)
                                     }
+                                    .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(Color.white)
+                                    .background(Color.gray.opacity(0.2))
                                     .cornerRadius(10)
-                                    .shadow(radius: 5)
+                                }
+
+                                Divider() // Linha divisória entre os botões
+
+                                Button(action: {
+                                    // Oculta as opções sem realizar nenhuma ação
+                                    showEditDeleteOptions = nil
+                                }) {
+                                    VStack {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(.gray)
+                                        Text("Cancel")
+                                            .foregroundColor(.gray)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.gray.opacity(0.2))
+                                    .cornerRadius(10)
                                 }
                             }
-                            .transition(.scale)
-                            .padding()
-                            .background(Color.black.opacity(0.8))
+                            .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
+                            .frame(width: 300) // Ajuste a largura conforme necessário
                         }
                     }
                     .padding()
                     .alert(isPresented: $showDeleteConfirmation) {
                         Alert(
                             title: Text("Confirm delete"),
-                            message: Text("Do you want to delete this PigBank? You cannot undo this action."),
+                            message: Text("Do you want to delete this Piggy Bank? You cannot undo this action."),
                             primaryButton: .destructive(Text("Delete")) {
-                                viewModel.removeGoal(goal: goal) // Chamando a função deleteGoal com o goal selecionado
+                                viewModel.removeGoal(goal: goal)
                             },
                             secondaryButton: .cancel()
                         )
-
                     }
+                }
+            }
+            .padding(.horizontal, 16)
+            .popover(isPresented: $showEditPopover) {
+                if let goal = selectedGoal {
+                    TestNewPiggyBankModal(
+                        isPresented: $showEditPopover,
+                        viewModel: viewModel,
+                        goalToEdit: goal // Passa o objetivo para edição
+                    )
+                    .frame(width: 500, height: 300)
                 }
             }
         }
     }
-
-    // Função para deletar o objetivo
-//    private func deleteGoal(_ goal: GoalBankModel) {
-//        viewModel.removeGoal(goalID: goal.cashBox.id)
-//    }
 }
-
-
-
 
 struct TestNewPiggyBankModal: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
+    var goalToEdit: GoalBankModel? // `goalToEdit` agora é opcional
     @State private var goalName = ""
     @State private var goalAmount = ""
     
+    init(isPresented: Binding<Bool>, viewModel: CashBoxViewModel, goalToEdit: GoalBankModel? = nil) {
+        self._isPresented = isPresented
+        self.viewModel = viewModel
+        self.goalToEdit = goalToEdit
+        _goalName = State(initialValue: goalToEdit?.cashBox.cashBoxDescription ?? "")
+        _goalAmount = State(initialValue: "\(goalToEdit?.goalAmount ?? 0)")
+    }
+    
     var body: some View {
-        VStack (spacing: 20){
-            HStack(spacing: 100) {
+        VStack(spacing: 20) {
+            HStack {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.mediumPurple)
+                .foregroundColor(.purple)
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
-                Text("New Piggy Bank")
-                    //.font(.headline)
-                    .foregroundColor(.texts)
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-
+                Spacer()
+                
+                Text(goalToEdit == nil ? "New Piggy Bank" : "Edit Piggy Bank")
+                    .foregroundColor(.primary)
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                
+                Spacer()
                 
                 Button("Done") {
                     if let amount = Int(goalAmount) {
-                        viewModel.addGoal(name: goalName, amount: amount)
+                        if let goal = goalToEdit {
+                            viewModel.updateGoal(goal: goal, name: goalName, amount: amount)
+                        } else {
+                            viewModel.addGoal(name: goalName, amount: amount)
+                        }
                         isPresented = false
                     }
                 }
-                .foregroundColor(.mediumPurple) // Cor personalizada para o botão Done
+                .foregroundColor(.purple)
                 .bold()
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
             }
             .padding([.top, .horizontal])
-            Divider()
-            // Campos de entrada com ícones e estilo
-//            VStack(alignment: .leading, spacing: 8) {
-//                Text("What do you want to buy?")
-//                    .font(
-//                        Font.custom("Pally-Bold", size: 17)
-//                            .weight(.medium)
-//                    )
-//                    .foregroundColor(Color.black.opacity(0.7))
-//                
-//                HStack {
-//                    TextField("Enter item", text: $goalName)
-//                        .padding()
-//                        .background(Color.white)
-//                        .cornerRadius(10)
-//                        .font(
-//                            Font.custom("Pally-Bold", size: 17)
-//                                .weight(.medium)
-//                        )
-//                        .overlay(
-//                            HStack {
-//                                Spacer()
-//                                if !goalName.isEmpty {
-//                                    Button(action: { goalName = "" }) {
-//                                        Image(systemName: "xmark.circle.fill")
-//                                            .foregroundColor(.gray)
-//                                            .padding(.trailing, 8)
-//                                    }
-//                                }
-//                            }
-//                        )
-//                }
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .stroke(Color.gray.opacity(0.5))
-//                )
-//                Spacer()
-//                
-//                Text("How much does it cost?")
-//                    .font(
-//                        Font.custom("Pally-Bold", size: 17)
-//                            .weight(.medium)
-//                    )
-//                    .foregroundColor(Color.black.opacity(0.7))
-//                
-//                HStack {
-//                    Image("blackIconCoin" )
-//                        .padding()
-////                    Text("R$")
-////                        .foregroundColor(.gray)
-////                        .padding(.leading, 8)
-//                    
-//                }.foregroundColor(.mediumPurple)
-//                
-//            }
             
             Divider()
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("What do you want to buy?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(.cardTextTP)
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .foregroundColor(Color.black.opacity(0.7))
                 
-                TextField("", text: $goalName)
+                TextField("Enter item", text: $goalName)
                     .padding()
-                    .background(Color.white.opacity(0.1))
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
-                    .padding(.bottom)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
                 
                 Text("How much does it cost?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(.cardTextTP)
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .foregroundColor(Color.black.opacity(0.7))
                 
-                //.padding()
-                
-                TextField("", text: $goalAmount)
-                    .padding()
-                    .background(Color.white.opacity(0.1))
-                    .cornerRadius(8)
+                TextField("50,00", text: $goalAmount)
                     .keyboardType(.numberPad)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray.opacity(0.5)))
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
             }
             .padding(.horizontal)
             
             Spacer()
         }
         .padding()
-        .background(Color(UIColor.systemGray6)) // Fundo para parecer mais com o estilo da imagem
+        .background(Color(UIColor.systemGray6))
         .cornerRadius(20)
         .shadow(radius: 10)
         .frame(width: 500, height: 300)
     }
 }
+
+
 
 
 struct TransferCoinsPopover: View {
