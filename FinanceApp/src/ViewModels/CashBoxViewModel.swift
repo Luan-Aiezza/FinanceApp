@@ -16,7 +16,7 @@ class CashBoxViewModel: ObservableObject {
     @Published var goalBanks: [GoalBankModel] = []
     var cashBoxes: [CashBoxModel] = []
     @Published var child: ChildModel = ChildModel(name: "No Kid")
-    @Published var goalBank: GoalBank?
+    //@Published var goalBank: GoalBank?
     @Published var transferAmounts: [UUID: String] = [:]
     let id: UUID
 

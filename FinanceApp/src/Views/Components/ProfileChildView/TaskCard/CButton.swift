@@ -1,10 +1,3 @@
-//
-//  CButton.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 28/10/24.
-//
-
 import SwiftUI
 
 struct CButton: View {

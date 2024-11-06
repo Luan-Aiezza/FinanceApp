@@ -1,3 +1,0 @@
-private func deleteGoal(_ goal: GoalBankModel) {
-    viewModel.removeGoal(goalID: goal.cashBox.id)
-}

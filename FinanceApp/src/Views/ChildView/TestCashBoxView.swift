@@ -16,7 +16,7 @@ struct TestCashBoxView: View {
     @State private var goalAmount = ""
     @State private var transferAmountToGoal = ""
     @State private var addAmountToWallet = ""
-//    @State private var showNewPiggyBankModal = false
+    @State private var showNewPiggyBankModal = false
     @State private var showTransferCoinsPopover = false
     @State private var showNewPiggyBankPopover = false
     @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
