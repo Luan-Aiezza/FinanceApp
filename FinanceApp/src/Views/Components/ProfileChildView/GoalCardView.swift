@@ -5,8 +5,6 @@
 //  Created by Grecia Cristina on 28/10/24.
 //
 
-
-
 import SwiftUI
 
 struct GoalCardView: View {
@@ -16,95 +14,92 @@ struct GoalCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Nome da Meta e Ícone
+            // Goal Name and Icon
             HStack {
                 Text(goalName)
-                    .font(
-                        Font.custom("Pally-Bold", size: 24)
-                            .weight(.medium)
-                    )
+                    .font(Font.custom("Pally-Bold", size: 24).weight(.medium))
                     .foregroundColor(.cardTextTP)
+
                 
                 Spacer()
-                Text("Price \(String(format: "%.2f", goalAmount)) coincs")
-                    .font(
-                        Font.custom("Pally-Bold", size: 24)
-                            .weight(.medium)
-                    )
+                
+                Text(String(format: NSLocalizedString("Price %@ coincs", comment: ""), String(format: "%.2f", goalAmount)))
+                    .font(Font.custom("Pally-Bold", size: 24).weight(.medium))
                     .foregroundColor(.cardTextTP)
+
             }
 
-            
-            // Status de Moedas Necessárias
+            // Coins Needed Status
             HStack {
                 Image("CoinsImage")
-                //Text("You need \(String(format: "%.2f", goalAmount)) coincs")
-                  //  .font(.subheadline)
-                   // .foregroundColor(.cardTextTP)
+                    .accessibilityHidden(true) // Decorative image
+                
+ 
             }
+            
             Spacer()
             
+            // Progress percentage
             HStack {
                 Spacer()
-                Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
-                    .font(
-                        Font.custom("Pally-Regular", size: 20)
-                            .weight(.medium)
-                    )
+                Text(String(format: NSLocalizedString("%@ Progress", comment: ""), "\(Int((savedAmount / goalAmount) * 100))"))
+                    .font(Font.custom("Pally-Regular", size: 20).weight(.medium))
                     .foregroundColor(.cardTextTP)
+                    
+                    
             }
-           
             
-            // Barra de Progresso
+            // Progress Bar
             ProgressView(value: savedAmount, total: goalAmount)
                 .progressViewStyle(LinearProgressViewStyle(tint: Color.purple))
             
-            // Progresso e Quantia Salva
+            // Saved Amount and Remaining Amount Status
             HStack {
                 if savedAmount >= goalAmount {
-                    Image(systemName: "CheckMARK")
-                    Text("Congratulations! Goal achieved!")
-                        .font(
-                            Font.custom("Pally-Bold", size: 20)
-                                .weight(.medium)
-                        )
+                    Image(systemName: "checkmark")
+                        .accessibilityHidden(true) // Decorative when goal is achieved
+                    
+                    Text(NSLocalizedString("Congratulations! Goal achieved!", comment: ""))
+                        .font(Font.custom("Pally-Bold", size: 20).weight(.medium))
                         .foregroundColor(.cardTextTP)
+                        .accessibilityElement() // Treat this Text as a separate accessibility element
+
                 } else {
                     Image("CheckMARK")
-                    Text("You have saved \(String(format: "%.2f", savedAmount)) coincs by now")
-                        .font(
-                            Font.custom("Pally-Regular", size: 20)
-                                .weight(.medium)
-                        )
+                        .accessibilityHidden(true) // Decorative
+                    
+                    Text(String(format: NSLocalizedString("You have saved %@ coincs by now", comment: ""), String(format: "%.2f", savedAmount)))
+                        .font(Font.custom("Pally-Regular", size: 20).weight(.medium))
                         .foregroundColor(.cardTextTP)
+                        .accessibilityElement() // Separate this Text for individual reading
                     
                     Spacer()
+                    
                     if savedAmount < goalAmount {
                         HStack {
                             Image(systemName: "magnifyingglass")
-                            Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
-                                .font(
-                                    Font.custom("Pally-Regular", size: 20)
-                                        .weight(.medium)
-                                )
+                                .accessibilityHidden(true) // Decorative
+                            
+                            Text(String(format: NSLocalizedString("You still need %@ coincs to complete", comment: ""), String(format: "%.2f", goalAmount - savedAmount)))
+                                .font(Font.custom("Pally-Regular", size: 20).weight(.medium))
                                 .foregroundColor(.cardTextTP)
+                                .accessibilityElement() // Separate this Text as an individual accessibility element
                         }
+                        .accessibilityElement(children: .combine) // Group nested HStack contents if needed
                     }
                 }
-                
             }
-            
+            .accessibilityElement(children: .ignore) // Prevent VoiceOver from grouping the main HStack
+
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
-        .clipShape(.rect(cornerRadius: 24.0))
+        .clipShape(RoundedRectangle(cornerRadius: 24.0))
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(red: 0.85, green: 0.76, blue: 0.89))
                 .offset(x:0, y: 6)
-                )
+        )
     }
 }
-
-

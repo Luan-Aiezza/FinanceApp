@@ -16,67 +16,40 @@ struct TestCashBoxView: View {
     @State private var goalAmount = ""
     @State private var transferAmountToGoal = ""
     @State private var addAmountToWallet = ""
-//    @State private var showNewPiggyBankModal = false
     @State private var showTransferCoinsPopover = false
     @State private var showNewPiggyBankPopover = false
-    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
+    @State private var showEditDeleteOptions: UUID? = nil // Holds the ID of the currently selected card for edit/delete options
     
     init(id: UUID){
         viewModel = CashBoxViewModel(id: id)
-        
     }
+    
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     
     var body: some View {
         NavigationStack {
             ZStack {
+                // Background view
                 Text("")
                     .ignoresSafeArea()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
-                    .ignoresSafeArea()
-                VStack (spacing: 20){
-                    
+                    .accessibilityHidden(true) // Decorative element
+                
+                VStack(spacing: 20) {
                     VStack {
-//                        Rectangle()
-//                            .foregroundColor(.mediumPurple)
-//                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
-//                            .cornerRadius(50.0)
-                        //TODO: TIRAR ESSE VALOR DE COINCS WALLET
+                        // Display current piggy bank information
                         HStack {
-                            Text("Active Piggy Banks: \(viewModel.wallet.coins)")
-                                .font(
-                                    Font.custom("Pally-Bold", size: 24)
-                                        .weight(.medium)
-                                )
+                            Text(String(format: NSLocalizedString("Active Piggy Banks: %lld", comment: ""), viewModel.wallet.coins))
+                                .font(Font.custom("Pally-Bold", size: 24).weight(.medium))
                                 .foregroundColor(.white)
-                               // .padding(.leading)
-                            
-                            //Text("\(viewModel.child.cashBoxes.count)")
-                            //Text("\(viewModel.wallet.cashBoxDescription)")
-                            //Button(action: {viewModel.addCoinsOnWallet(amount: 2)}){
-                            //    Text("Add 2 coins")
-                            //}
+//                                .accessibilityLabel(NSLocalizedString("Active Piggy bank", comment: ""))
+                                //.accessibilityValue("\(viewModel.wallet.coins) coins")
                             
                             Spacer()
-                            //TODO: Colocar botão de adicionar meta aqui
-//                            Button(action: {
-//                                showNewPiggyBankModal.toggle()
-//                            }) {
-//                                HStack {
-//                                    Image(systemName: "plus")
-//                                    Text("New Piggy Bank")
-//                                }
-//                                .padding()
-//                                .background(Color.white)
-//                                .foregroundColor(.purple)
-//                                .cornerRadius(20)
-//                            }
-//                            .padding(.trailing)
-
-
-                            //TODO: Colocar botão de transferir moedas aqui
+                            
+                            // Button for transferring coins
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
                                 .frame(height: 17)
                                 .padding()
@@ -88,6 +61,7 @@ struct TestCashBoxView: View {
                                         .offset(x:0,y: 6)
                                 )
                             
+                            // Button for adding new piggy bank
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
                                 .frame(height: 17)
                                 .padding()
@@ -97,25 +71,22 @@ struct TestCashBoxView: View {
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
                                         .offset(x: 0, y: 6)
-                                    )
-                            
-                            
+                                )
                         }
-                        
-                        
                     }
                     .padding(.horizontal,24)
-                    .padding(.vertical,8 )
-                    .frame(maxWidth: .infinity,minHeight:64,maxHeight: 64, alignment: .center)
+                    .padding(.vertical,8)
+                    .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .center)
                     .background(Color(red:0.36, green:0, blue:0.55))
                     .clipShape(.rect(cornerRadius: 24))
                     .background(
                         RoundedRectangle(cornerRadius: 24)
-                        .fill(Color(red:0.25, green:0, blue:0.39))
+                            .fill(Color(red:0.25, green:0, blue:0.39))
+                            .offset(x: 0, y: 6)
+                    )
+//                    .accessibilityLabel(NSLocalizedString("Active Piggy Banks", comment: ""))
                     
-                        .offset(x: 0, y: 6)
-                        )
-                    // Lista de piggy banks
+                    // List of piggy banks
                     TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()
                 }
@@ -125,9 +96,6 @@ struct TestCashBoxView: View {
                 viewModel.fetch()
             }
         }
-//        .sheet(isPresented: $showNewPiggyBankModal) {
-//            TestNewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
-//        }
     }
 }
 
@@ -138,36 +106,26 @@ struct TestButtonCreatePiggyBank: View {
     var body: some View {
         Button(action: {
             showNewPiggyBankPopover.toggle()
+            UIAccessibility.post(notification: .announcement, argument: NSLocalizedString("New Piggy Bank", comment: ""))
         }) {
-            
             HStack {
                 Image(systemName: "plus")
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                Text("New Piggy Bank")
+                Text(NSLocalizedString("New Piggy Bank", comment: ""))
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                     .multilineTextAlignment(.center)
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
             }
-            
         }
-//        .background(
-//            RoundedRectangle(cornerRadius: 24)
-//                .fill(Color(red:0.85, green:0.76, blue:0.89))
-//                .offset(x:0,y: 6)
-                
-        
+        .accessibilityLabel(NSLocalizedString("Add new piggy bank", comment: ""))
+        .accessibilityHint(NSLocalizedString("Opens modal to create a new piggy bank", comment: ""))
         .popover(isPresented: $showNewPiggyBankPopover) {
             TestNewPiggyBankModal(
                 isPresented: $showNewPiggyBankPopover,
-                viewModel: viewModel // `goalToEdit` será `nil`, criando um novo objetivo
+                viewModel: viewModel
             )
             .frame(width: 500, height: 300)
         }
-
-        
     }
 }
 
@@ -178,59 +136,53 @@ struct TestButtonTransferCoins: View {
     var body: some View {
         Button(action: {
             showTransferCoinsPopover.toggle()
+            
         }) {
             HStack {
                 Image(systemName: "arrow.right.arrow.left")
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                Text("Transfer Coincs")
+                Text(NSLocalizedString("Transfer Coincs", comment: ""))
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
             }
-//            .padding()
-//            .background(viewModel.goalBanks.isEmpty ? Color.gray : Color.white)
-//            .cornerRadius(20)
-//            .frame(width: 200, height: 40)
-//            .shadow(color: viewModel.goalBanks.isEmpty ? Color.clear : Color.purple.opacity(0.4), radius: 8, x: 0, y: 4)
-            }
-        .disabled(viewModel.goalBanks.isEmpty) // Desativa o botão se não houver metas
+        }
+        .accessibilityLabel(NSLocalizedString("Transfer coincs", comment: ""))
+        .accessibilityHint(NSLocalizedString("Opens modal to transfer coins from wallet to a goal", comment: ""))
+        .disabled(viewModel.goalBanks.isEmpty) // Disabled if there are no goals
         .popover(isPresented: $showTransferCoinsPopover) {
             TransferCoinsPopover(isPresented: $showTransferCoinsPopover, viewModel: viewModel)
                 .frame(width: 500, height: 300)
         }
-        .padding(.trailing)
     }
 }
 
-
 struct TestLoadCashBoxesModal: View {
     @ObservedObject var viewModel: CashBoxViewModel
-    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
-    @State private var showDeleteConfirmation: Bool = false // Controla a exibição do alerta de confirmação
-    @State private var showEditPopover: Bool = false // Controla a exibição do popover de edição
-    @State private var selectedGoal: GoalBankModel? // Armazena o objetivo selecionado para edição
+    @State private var showEditDeleteOptions: UUID? = nil
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showEditPopover: Bool = false
+    @State private var selectedGoal: GoalBankModel?
     
     var body: some View {
         ScrollView {
-            VStack() {
+            VStack {
                 ForEach(viewModel.child.goals, id: \.cashBox.id) { goal in
                     ZStack {
                         GoalCardView(
                             goalName: goal.cashBox.cashBoxDescription,
                             goalAmount: Float(goal.goalAmount),
                             savedAmount: Float(goal.cashBox.coins)
-                        ).padding(.horizontal, -28)
+                        )
+                        .padding(.horizontal, -28)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(String(format: NSLocalizedString("Goal: %@ with %lld of %lld coins saved", comment: ""), goal.cashBox.cashBoxDescription, goal.cashBox.coins, goal.goalAmount))
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
                         }
 
-                        // Mostra os botões de editar, deletar e cancelar quando o card é pressionado
                         if showEditDeleteOptions == goal.cashBox.id {
                             HStack {
                                 Button(action: {
-                                    // Abre o popover de edição e carrega os dados do objetivo selecionado
                                     selectedGoal = goal
                                     showEditPopover = true
                                     showEditDeleteOptions = nil
@@ -238,17 +190,14 @@ struct TestLoadCashBoxesModal: View {
                                     VStack {
                                         Image(systemName: "pencil")
                                             .foregroundColor(.purple)
-                                        Text("Edit")
+                                        Text(NSLocalizedString("Edit", comment: ""))
                                             .foregroundColor(.purple)
                                     }
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(10)
                                 }
-
-                                Divider() // Linha divisória entre os botões
-
+                                .accessibilityLabel(NSLocalizedString("Edit goal", comment: ""))
+                                
+                                Divider()
+                                
                                 Button(action: {
                                     showDeleteConfirmation = true
                                     showEditDeleteOptions = nil
@@ -256,44 +205,36 @@ struct TestLoadCashBoxesModal: View {
                                     VStack {
                                         Image(systemName: "trash")
                                             .foregroundColor(.red)
-                                        Text("Delete")
+                                        Text(NSLocalizedString("Delete", comment: ""))
                                             .foregroundColor(.red)
                                     }
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(10)
                                 }
-
-                                Divider() // Linha divisória entre os botões
-
+                                .accessibilityLabel(NSLocalizedString("Delete goal", comment: ""))
+                                
+                                Divider()
+                                
                                 Button(action: {
-                                    // Oculta as opções sem realizar nenhuma ação
                                     showEditDeleteOptions = nil
                                 }) {
                                     VStack {
                                         Image(systemName: "xmark")
                                             .foregroundColor(.gray)
-                                        Text("Cancel")
+                                        Text(NSLocalizedString("Cancel", comment: ""))
                                             .foregroundColor(.gray)
                                     }
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(10)
                                 }
+                                .accessibilityLabel(NSLocalizedString("Cancel editing", comment: ""))
                             }
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
-                            .frame(width: 300) // Ajuste a largura conforme necessário
                         }
                     }
                     .padding()
                     .alert(isPresented: $showDeleteConfirmation) {
                         Alert(
-                            title: Text("Confirm delete"),
-                            message: Text("Do you want to delete this Piggy Bank? You cannot undo this action."),
-                            primaryButton: .destructive(Text("Delete")) {
+                            title: Text(NSLocalizedString("Confirm delete", comment: "")),
+                            message: Text(NSLocalizedString("Do you want to delete this Piggy Bank? You cannot undo this action.", comment: "")),
+                            primaryButton: .destructive(Text(NSLocalizedString("Delete", comment: ""))) {
                                 viewModel.removeGoal(goal: goal)
                             },
                             secondaryButton: .cancel()
@@ -307,7 +248,7 @@ struct TestLoadCashBoxesModal: View {
                     TestNewPiggyBankModal(
                         isPresented: $showEditPopover,
                         viewModel: viewModel,
-                        goalToEdit: goal // Passa o objetivo para edição
+                        goalToEdit: goal
                     )
                     .frame(width: 500, height: 300)
                 }
@@ -319,7 +260,7 @@ struct TestLoadCashBoxesModal: View {
 struct TestNewPiggyBankModal: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
-    var goalToEdit: GoalBankModel? // `goalToEdit` agora é opcional
+    var goalToEdit: GoalBankModel?
     @State private var goalName = ""
     @State private var goalAmount = ""
     
@@ -334,7 +275,7 @@ struct TestNewPiggyBankModal: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Button("Cancel") {
+                Button(NSLocalizedString("Cancel", comment: "")) {
                     isPresented = false
                 }
                 .foregroundColor(.purple)
@@ -342,13 +283,13 @@ struct TestNewPiggyBankModal: View {
                 
                 Spacer()
                 
-                Text(goalToEdit == nil ? "New Piggy Bank" : "Edit Piggy Bank")
+                Text(goalToEdit == nil ? NSLocalizedString("New Piggy Bank", comment: "") : NSLocalizedString("Edit Piggy Bank", comment: ""))
                     .foregroundColor(.primary)
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
                 Spacer()
                 
-                Button("Done") {
+                Button(NSLocalizedString("Done", comment: "")) {
                     if let amount = Int(goalAmount) {
                         if let goal = goalToEdit {
                             viewModel.updateGoal(goal: goal, name: goalName, amount: amount)
@@ -358,39 +299,31 @@ struct TestNewPiggyBankModal: View {
                         isPresented = false
                     }
                 }
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
                 .foregroundColor(.mediumPurple)
             }
-            .padding([.top, .horizontal])
+            
             
             Divider()
             
             VStack(alignment: .leading, spacing: 8) {
-                Text("What do you want to buy?")
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .foregroundColor(Color.black.opacity(0.7))
+                Text(NSLocalizedString("What do you want to buy?", comment: ""))
+                    
                 
-                TextField("Enter item", text: $goalName)
+                TextField(NSLocalizedString("Enter item", comment: ""), text: $goalName)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+                    
                 
-                Text("How much does it cost?")
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .foregroundColor(Color.black.opacity(0.7))
+                Text(NSLocalizedString("How much does it cost?", comment: ""))
+                    
                 
                 TextField("50,00", text: $goalAmount)
                     .keyboardType(.numberPad)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+                    .accessibilityLabel(NSLocalizedString("Goal amount input", comment: ""))
             }
             .padding(.horizontal)
             
@@ -400,100 +333,64 @@ struct TestNewPiggyBankModal: View {
         .background(Color(UIColor.systemGray6))
         .cornerRadius(20)
         .shadow(radius: 10)
-        .frame(width: 500, height: 300)
     }
 }
-
-
-
 
 struct TransferCoinsPopover: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
     @State private var transferAmount = ""
-    @State private var selectedGoal: UUID? = nil // Identificador para a meta selecionada
-
+    @State private var selectedGoal: UUID? = nil
+    
     var body: some View {
         VStack(spacing: 20) {
-            // Cabeçalho com os botões de Cancel e Done
             HStack {
-                Button("Cancel") {
+                Button(NSLocalizedString("Cancel", comment: "")) {
                     isPresented = false
                 }
                 .foregroundColor(.purple)
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
                 Spacer()
                 
-                Text("Transfer coincs")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(.primary)
+                Text(NSLocalizedString("Transfer Coincs", comment: ""))
                 
                 Spacer()
                 
-                Button("Done") {
+                Button(NSLocalizedString("Done", comment: "")) {
                     if let goalID = selectedGoal, let amount = Int(transferAmount) {
                         viewModel.addCoinsToGoal(goalID: goalID, amount: amount)
                         isPresented = false
                     }
                 }
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
                 .foregroundColor(.mediumPurple)
                 .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
             }
-            .padding([.horizontal])
-            .padding(.top, 40) // Ajuste de espaçamento superior
             
-            Divider() // Linha divisória abaixo do cabeçalho
+            Divider()
             
             VStack(alignment: .leading, spacing: 16) {
-                // Campo de entrada para o valor a ser transferido
-                Text("How many coincs do you want to transfer?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.black.opacity(0.7))
-                
-                HStack {
-                    Image(systemName: "magnifyingglass") // Use um ícone padrão ou substitua conforme necessário
-                        .foregroundColor(.gray)
+                Text(NSLocalizedString("How many coincs do you want to transfer?", comment: ""))
                     
-                    TextField("Enter amount", text: $transferAmount)
-                        .keyboardType(.numberPad)
-                        .padding(.leading, 8)
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
                 
-                // Picker para selecionar a meta
-                Text("Transfer to which piggy?")
-                    .font(
-                        Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
-                    )
-                    .foregroundColor(Color.black.opacity(0.7))
+                TextField(NSLocalizedString("Enter amount", comment: ""), text: $transferAmount)
+                    .keyboardType(.numberPad)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    
+                
+                Text(NSLocalizedString("Transfer to which piggy?", comment: ""))
+                   
                 
                 TestPickerCash(selectedGoal: $selectedGoal, viewModel: viewModel)
+                    .accessibilityLabel(NSLocalizedString("Select target piggy bank", comment: ""))
+
             }
             .padding(.horizontal)
             
             Spacer()
         }
         .padding()
-        .frame(width: 500, height: 300)
         .background(Color(UIColor.systemGray6))
         .cornerRadius(20)
     }
@@ -508,20 +405,19 @@ struct TestPickerCash: View {
             Image(systemName: "arrowshape.turn.up.right.circle.fill")
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
             
-            Picker("Select piggy bank", selection: $selectedGoal) {
-                Text("Select piggy bank").tag(UUID?.none)
+            Picker(NSLocalizedString("Select piggy bank", comment: ""), selection: $selectedGoal) {
+                Text(NSLocalizedString("Select piggy bank", comment: "")).tag(UUID?.none)
                 ForEach(viewModel.child.goals) { goal in
                     Text(goal.cashBox.cashBoxDescription).tag(goal.cashBox.id)
                 }
             }
             .pickerStyle(MenuPickerStyle())
             .padding(.leading, 8)
-            .foregroundColor(Color.black)
+            
         }
         .padding(10)
         .background(Color.white)
         .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
     }
 }
 

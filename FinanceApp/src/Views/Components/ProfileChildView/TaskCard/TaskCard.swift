@@ -8,8 +8,6 @@
 import SwiftUI
 import SwiftData
 
-
-
 struct TaskCard: View {
     @State var isFlipped: Bool = true
     
@@ -19,42 +17,42 @@ struct TaskCard: View {
     
     var taskID: PersistentIdentifier
     
-    func handleFlip(){
+    func handleFlip() {
         isFlipped.toggle()
     }
     
     var body: some View {
-        if let task = tasks.first(where: {$0.id == taskID}){
+        if let task = tasks.first(where: { $0.id == taskID }) {
             if task.isDone {
                 TaskCardSuccess(task: task)
             } else {
-                ZStack{
-                    TaskCardFront(task: task, doneAction: {withAnimation(.easeInOut){isFlipped.toggle()}})
-                        .rotation3DEffect(. degrees(isFlipped ? 0 : -90), axis: (x: 0.0, y: 1.0, z: 0.0))
+                ZStack {
+                    // Passando isFlipped como binding para TaskCardFront
+                    TaskCardFront(task: task, doneAction: { withAnimation(.easeInOut) { isFlipped.toggle() } }, isFlipped: $isFlipped)
+                        .rotation3DEffect(.degrees(isFlipped ? 0 : -90), axis: (x: 0.0, y: 1.0, z: 0.0))
                         .animation(isFlipped ? .linear.delay(0.35) : .linear, value: isFlipped)
                     
-                    TaskCardBack(task: task, yesAction: {
+                    // Passando isFlipped como primeiro binding para TaskCardBack
+                    TaskCardBack(isFlipped: $isFlipped, task: task, yesAction: {
                         cashViewModel.addCoinsOnWallet(amount: Int(task.value))
-                        withAnimation(.easeInOut){task.isDone.toggle()}}, notYetAction: {withAnimation(.easeInOut){isFlipped.toggle()}})
-                        .rotation3DEffect(. degrees(isFlipped ? 90 : 0), axis: (x: 0.0, y: 1.0, z: 0.0))
+                        withAnimation(.easeInOut) { task.isDone.toggle() }
+                    }, notYetAction: { withAnimation(.easeInOut) { isFlipped.toggle() } })
+                        .rotation3DEffect(.degrees(isFlipped ? 90 : 0), axis: (x: 0.0, y: 1.0, z: 0.0))
                         .animation(isFlipped ? .linear : .linear.delay(0.35), value: isFlipped)
                         .allowsHitTesting(!isFlipped)
                 }
-                .onDisappear(){
+                .onDisappear() {
                     print("Disappeared")
                 }
-                .onChange(of: isFlipped){
+                .onChange(of: isFlipped) {
                     print("\(isFlipped)")
                 }
-                //            .onTapGesture {
-                //                withAnimation(.easeInOut){
-                //                    isFlipped.toggle()
-                //                }
-                //            }
             }
         }
     }
 }
+
+
 #Preview {
     //    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0, effort: .easy, frequency: .daily).persistentModelID)
 //    TaskCard()
