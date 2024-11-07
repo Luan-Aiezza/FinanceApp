@@ -22,7 +22,7 @@ struct TaskCreateCard: View {
             }) {
                 HStack {
                     Image(systemName: "folder")
-                    Text("Copy to all week")
+                    Text("For week")
                         .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                         .font(
                             Font.custom("Pally-Bold", size: 17)

@@ -22,6 +22,7 @@
       }
     },
     "%@ Progress" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -77,6 +78,9 @@
         }
       }
     },
+    "%lld%% Progress" : {
+
+    },
     "+" : {
       "localizations" : {
         "pt-BR" : {
@@ -108,6 +112,7 @@
       }
     },
     "Active Piggy Banks" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -138,6 +143,7 @@
       }
     },
     "Add new piggy bank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -157,7 +163,11 @@
         }
       }
     },
+    "Are you sure you want to remove the last added child?" : {
+
+    },
     "BEM-VINDO SENHOR %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -178,6 +188,7 @@
       }
     },
     "Cancel editing" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -188,6 +199,7 @@
       }
     },
     "Cancelar" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -207,6 +219,9 @@
         }
       }
     },
+    "Confirm" : {
+
+    },
     "Confirm delete" : {
       "localizations" : {
         "pt-BR" : {
@@ -218,6 +233,7 @@
       }
     },
     "Confirmação" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -254,6 +270,7 @@
       }
     },
     "Copy to all week" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -274,6 +291,7 @@
       }
     },
     "Create task" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -284,6 +302,7 @@
       }
     },
     "Criar Tarefa" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -310,6 +329,7 @@
       }
     },
     "Delete goal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -367,6 +387,7 @@
       }
     },
     "Edit goal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -416,7 +437,11 @@
         }
       }
     },
+    "For week" : {
+
+    },
     "Goal amount input" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -427,6 +452,7 @@
       }
     },
     "Goal: %@ with %lld of %lld coins saved" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -527,6 +553,9 @@
         }
       }
     },
+    "New Task" : {
+
+    },
     "Not Yet" : {
       "comment" : "Indicates task is not yet completed",
       "localizations" : {
@@ -549,6 +578,7 @@
       }
     },
     "Opens modal to create a new piggy bank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -559,6 +589,7 @@
       }
     },
     "Opens modal to transfer coins from wallet to a goal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -578,7 +609,14 @@
         }
       }
     },
+    "Remove" : {
+
+    },
+    "Remove last added child" : {
+
+    },
     "Remover" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -589,6 +627,7 @@
       }
     },
     "Remover último filho adicionado" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -605,6 +644,7 @@
       }
     },
     "Selecione o filho" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -620,6 +660,9 @@
         }
       }
     },
+    "Select child" : {
+
+    },
     "Select piggy bank" : {
       "localizations" : {
         "pt-BR" : {
@@ -631,6 +674,7 @@
       }
     },
     "Select target piggy bank" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -671,6 +715,7 @@
       }
     },
     "Tem certeza de que deseja remover o último filho adicionado?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -38,7 +38,7 @@ struct TaskCardFront: View {
                     text: NSLocalizedString("Mark as Done", comment: "Button to mark task as completed"),
                     action: {
                         doneAction()
-                        isFlipped = true  // Vira o card ao marcar como concluído
+//                        isFlipped = true  // Vira o card ao marcar como concluído
                     }
                 )
                 .accessibilityHidden(isFlipped)  // Oculta botão quando virado

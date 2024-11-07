@@ -112,6 +112,7 @@ struct HistoryCardView: View {
                    
             }
         }
+        .padding(.vertical, 32)
         .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
