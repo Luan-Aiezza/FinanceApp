@@ -125,9 +125,6 @@ struct TestCashBoxView: View {
                 viewModel.fetch()
             }
         }
-//        .sheet(isPresented: $showNewPiggyBankModal) {
-//            TestNewPiggyBankModal(isPresented: $showNewPiggyBankModal, viewModel: viewModel)
-//        }
     }
 }
 
@@ -153,18 +150,16 @@ struct TestButtonCreatePiggyBank: View {
             }
             
         }
-//        .background(
-//            RoundedRectangle(cornerRadius: 24)
-//                .fill(Color(red:0.85, green:0.76, blue:0.89))
-//                .offset(x:0,y: 6)
                 
-        
         .popover(isPresented: $showNewPiggyBankPopover) {
             TestNewPiggyBankModal(
                 isPresented: $showNewPiggyBankPopover,
                 viewModel: viewModel // `goalToEdit` será `nil`, criando um novo objetivo
+                
             )
             .frame(width: 500, height: 300)
+            .background(Color.white)// Define a cor de fundo do popover
+            .preferredColorScheme(.light) // Força o modo claro
         }
 
         
@@ -199,6 +194,8 @@ struct TestButtonTransferCoins: View {
         .popover(isPresented: $showTransferCoinsPopover) {
             TransferCoinsPopover(isPresented: $showTransferCoinsPopover, viewModel: viewModel)
                 .frame(width: 500, height: 300)
+                .background(Color.white)// Define a cor de fundo do popover
+                .preferredColorScheme(.light) // Força o modo claro
         }
         .padding(.trailing)
     }
@@ -309,7 +306,6 @@ struct TestLoadCashBoxesModal: View {
                         viewModel: viewModel,
                         goalToEdit: goal // Passa o objetivo para edição
                     )
-                    .frame(width: 500, height: 300)
                 }
             }
         }
@@ -337,8 +333,8 @@ struct TestNewPiggyBankModal: View {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.purple)
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
+                ).foregroundColor(.mediumPurple)
                 
                 Spacer()
                 
@@ -358,11 +354,8 @@ struct TestNewPiggyBankModal: View {
                         isPresented = false
                     }
                 }
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
-                .foregroundColor(.mediumPurple)
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
+                ).foregroundColor(.mediumPurple)
             }
             .padding([.top, .horizontal])
             
@@ -370,7 +363,8 @@ struct TestNewPiggyBankModal: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("What do you want to buy?")
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .font(Font.custom("Pally-Bold", size: 17)
+                        .weight(.medium))
                     .foregroundColor(Color.black.opacity(0.7))
                 
                 TextField("Enter item", text: $goalName)
@@ -396,12 +390,12 @@ struct TestNewPiggyBankModal: View {
             
             Spacer()
         }
+//        .background(Color(red: 22, green: 22, blue: 22))
         .padding()
-        .background(Color(UIColor.systemGray6))
         .cornerRadius(20)
-        .shadow(radius: 10)
         .frame(width: 500, height: 300)
     }
+    
 }
 
 
@@ -420,8 +414,8 @@ struct TransferCoinsPopover: View {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .foregroundColor(.purple)
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
+                ).foregroundColor(.mediumPurple)
                 
                 Spacer()
                 
@@ -440,11 +434,8 @@ struct TransferCoinsPopover: View {
                         isPresented = false
                     }
                 }
-                .font(
-                    Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium)
-                )
-                .foregroundColor(.mediumPurple)
+                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
+                ).foregroundColor(.mediumPurple)
                 .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
             }
             .padding([.horizontal])
@@ -494,7 +485,6 @@ struct TransferCoinsPopover: View {
         }
         .padding()
         .frame(width: 500, height: 300)
-        .background(Color(UIColor.systemGray6))
         .cornerRadius(20)
     }
 }

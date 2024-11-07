@@ -27,6 +27,7 @@ struct HistoryCardView: View {
                 )
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                 .fontWeight(.bold)
+                .scaledToFill()
             Spacer()
             // Verificar se a tarefa foi concluida (taskState)
             Text("Task's done")
@@ -36,12 +37,14 @@ struct HistoryCardView: View {
                 )
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                .scaledToFill()
             Spacer()
             HStack{
                 //simbolo de que a task está completa
                 Image(systemName: taskState ? "checkmark.circle.fill" : "circle")
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                     .padding()
+                    .scaledToFill()
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
                 Text("\(countTasks) tasks done sucessfully")
                     .font(
@@ -49,9 +52,11 @@ struct HistoryCardView: View {
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                    .scaledToFill()
                 Spacer()
                 //(totalCoins)
                 Image("blackIconCoin")
+                    .scaledToFill()
                 VStack{
                     Text("\(totalCoins)")
                         .font(
@@ -59,12 +64,14 @@ struct HistoryCardView: View {
                                 .weight(.medium)
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                        .scaledToFill()
                     Text("Total")
                         .font(
                             Font.custom("Pally-Regular", size: 17)
                                 .weight(.medium)
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                        .scaledToFill()
                 }
             }
             Spacer()
@@ -75,8 +82,10 @@ struct HistoryCardView: View {
                 )
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                .scaledToFill()
             HStack{
-                Image("blackIconCoin")
+                Image("blackIconCoin")//trocar depois
+                    .scaledToFill()
                 //(goalsInProgress)
                 Text("\(goalsInProgress) piggy bank in progress!")
                     .font(
@@ -84,9 +93,12 @@ struct HistoryCardView: View {
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                    .scaledToFill()
             }
             HStack{
                 Image("blackIconCoin")
+                    .scaledToFill()
+
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
                 Text("\(Int(piggyCoinsTrans)) coins have been transferred to the piggy!")
                     .font(
@@ -94,9 +106,13 @@ struct HistoryCardView: View {
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .scaledToFill()
+                   
             }
         }
-        .padding(16)
+        .padding(.horizontal, 32)
         .frame(maxWidth: .infinity, maxHeight: 256, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)

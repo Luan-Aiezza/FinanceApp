@@ -32,7 +32,7 @@ struct TaskBoard: View {
                         Font.custom("Pally-Bold", size: 24)
                             .weight(.medium)
                     )
-                    .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
+                    .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
                     .foregroundColor(.white)
                     .background(Color(red: 0.36, green: 0, blue: 0.55))
                     .clipShape(.rect(cornerRadius: 24.0))
