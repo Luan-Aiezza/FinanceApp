@@ -11,12 +11,25 @@
         }
       }
     },
+    "- %@" : {
+
+    },
     "%@" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@"
+          }
+        }
+      }
+    },
+    "%@ - %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ - %2$@"
           }
         }
       }
@@ -218,6 +231,9 @@
           }
         }
       }
+    },
+    "Childdren from parent" : {
+
     },
     "Confirm" : {
 
@@ -467,6 +483,9 @@
           }
         }
       }
+    },
+    "Goals" : {
+
     },
     "Guardian" : {
       "localizations" : {

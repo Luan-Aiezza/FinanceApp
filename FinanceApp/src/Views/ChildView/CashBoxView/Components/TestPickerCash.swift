@@ -4,6 +4,7 @@
 //
 //  Created by Grecia Cristina on 08/11/24.
 //
+import SwiftUI
 
 struct TestPickerCash: View {
     @Binding var selectedGoal: UUID?

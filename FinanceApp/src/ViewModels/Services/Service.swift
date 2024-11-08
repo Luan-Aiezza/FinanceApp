@@ -10,12 +10,12 @@ import SwiftData
 struct Service<T: PersistentModel>: PCrud{
     
     typealias ModelType = T
-    private var modelContext: ModelContext? = nil
+    var modelContext: ModelContext
     
     func create(_ model: T) -> Bool {
-        modelContext?.insert(model)
+        modelContext.insert(model)
         do{
-            try modelContext?.save()
+            try modelContext.save()
             return true
         } catch {
             return false
@@ -26,7 +26,7 @@ struct Service<T: PersistentModel>: PCrud{
         let descriptor = FetchDescriptor<T>()
         do{
             
-            let results = try modelContext?.fetch(descriptor) ?? []
+            let results = try modelContext.fetch(descriptor)
             return results
         } catch {
             return []
@@ -37,7 +37,7 @@ struct Service<T: PersistentModel>: PCrud{
         var modelToUpdate = model
         
         do{
-            try modelContext?.transaction {
+            try modelContext.transaction {
                 changes(&modelToUpdate)
             }
             return true
@@ -48,8 +48,8 @@ struct Service<T: PersistentModel>: PCrud{
     
     func delete(_ model: T) -> Bool {
         do{
-            modelContext?.delete(model)
-            try modelContext?.save()
+            modelContext.delete(model)
+            try modelContext.save()
             return true
         } catch {
             return false
