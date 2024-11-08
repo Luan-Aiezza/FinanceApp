@@ -32,6 +32,9 @@
         }
       }
     },
+    "%f%% Progress" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "pt-BR" : {
@@ -77,9 +80,6 @@
           }
         }
       }
-    },
-    "%lld%% Progress" : {
-
     },
     "+" : {
       "localizations" : {

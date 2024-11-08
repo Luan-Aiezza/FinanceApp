@@ -11,7 +11,7 @@ import SwiftUI
 
 struct GoalCardView: View {
     var goalName: String
-    var goalAmount: Float
+    var goalAmount: Float = 0
     var savedAmount: Float
 
     var body: some View {
@@ -46,7 +46,7 @@ struct GoalCardView: View {
             
             HStack {
                 Spacer()
-                    Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
+                    Text("\(((savedAmount / goalAmount) * 100))% Progress")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
