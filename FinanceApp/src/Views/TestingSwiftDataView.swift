@@ -16,34 +16,37 @@ struct TestingSwiftDataView: View {
     @Query var parents: [ParentModel]
     @Query var children: [ChildModel]
     
+    @ObservedObject var testParentVIewModel: TestParentViewModel
+    
+    init(){
+        testParentVIewModel = .init()
+    }
+    
     var body: some View {
         VStack {
-            Text("Goals")
-            ForEach(children){ child in
-                HStack {
-                    Text("\(child.name) - \(child.id)")
-                    ForEach(child.goals){ goal in
-                        Text("- \(goal.cashBox.cashBoxDescription)")
-                    }
-                }.padding()
-                    .background(Color.red)
+            Text("\(testParentVIewModel.parent?.name ?? "No Parent")")
+            Spacer()
+            Button(action: {testParentVIewModel.addChild(name: "Child \(children.count)")})
+            {
+                Text("Adicionar novo filho")
             }
-            Text("Childdren from parent")
-            if let childs = parents.first?.childs {
-                ForEach(childs){child in
-                    HStack {
-                        Text("\(child.name) - \(child.id)")
-                        ForEach(child.goals){ goal in
-                            Text("- \(goal.cashBox.cashBoxDescription)")
-                        }
-                    }.padding()
-                        .background( Color.blue)
+            ForEach(testParentVIewModel.parent?.childs ?? []){ child in
+                Button(action: {testParentVIewModel.addTaskChild(child: child, taskDescription: "\(child.name) varrer", value: "2", recurrent: true, effort: .easy, frequency: .daily)}){
+                    Text("\(child.name)")
+                }
+               ForEach(child.tasks ?? []){ task in
+                    Text("- \(task.taskDescription)")
+                    
                 }
             }
+        }
+        .onAppear {
+            testParentVIewModel.setup(modelContext: context)
+            testParentVIewModel.fetch()
         }
     }
 }
 
-#Preview {
-    TestingSwiftDataView()
-}
+//#Preview {
+//    TestingSwiftDataView()
+//}

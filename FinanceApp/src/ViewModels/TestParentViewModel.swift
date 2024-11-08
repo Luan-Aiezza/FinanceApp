@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-class TestParentViewModel: ObservableObject{
+class TestParentViewModel: ObservableObject {
     
     var firstChildId: UUID?
     private var parentService: Service<ParentModel>? = nil
@@ -39,26 +39,49 @@ class TestParentViewModel: ObservableObject{
         }
     }
     
-    func addChild(name: String) -> Bool{
+    @MainActor func addChild(name: String) -> Bool{
         var parentReturn: Bool = false
         var childReturn: Bool = false
         
         let newChild = ChildModel(name: name)
         if let parentService = parentService, let parent = parent {
-                parentReturn = parentService.update(parent){ parent in
-                    parent.childs.append(newChild)
-                }
+            parentReturn = parentService.update(parent){ parent in
+                parent.childs.append(newChild)
+            }
         }
         if let childService = childService {
             childReturn = childService.create(newChild)
         }
+        fetch()
         return (parentReturn && childReturn)
     }
     
-    func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel {
+    @MainActor func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> Bool {
+        
         let taskModel = createTask(taskDescription: taskDescription, value: value, recurrent: recurrent, effort: effort, frequency: frequency)
-        child.tasks.append(taskModel)
-        return taskModel
+        taskModel.child = child
+        
+        var childReturn = false, taskReturn = false, parentReturn = false
+        
+        if let taskService = taskService {
+            taskReturn = taskService.create(taskModel)
+        }
+        
+        if let childService = childService {
+            childReturn = childService.update(child) { child in
+                child.tasks.append(taskModel)
+            }
+        }
+        
+        if let parentService = parentService, let parent = parent {
+            parentReturn = parentService.update(parent){ parent in
+                if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
+                    parent.childs[index] = child
+                }
+            }
+        }
+        fetch()
+        return (childReturn && parentReturn && taskReturn)
     }
     
     private func createTask(taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel{

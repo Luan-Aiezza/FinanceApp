@@ -24,16 +24,6 @@
         }
       }
     },
-    "%@ - %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ - %2$@"
-          }
-        }
-      }
-    },
     "%@ Progress" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -176,6 +166,9 @@
         }
       }
     },
+    "Adicionar novo filho" : {
+
+    },
     "Are you sure you want to remove the last added child?" : {
 
     },
@@ -231,9 +224,6 @@
           }
         }
       }
-    },
-    "Childdren from parent" : {
-
     },
     "Confirm" : {
 
@@ -483,9 +473,6 @@
           }
         }
       }
-    },
-    "Goals" : {
-
     },
     "Guardian" : {
       "localizations" : {
