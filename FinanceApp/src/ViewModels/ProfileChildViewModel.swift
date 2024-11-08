@@ -47,7 +47,7 @@ class ProfileChildViewModel: ObservableObject{
         switch newView {
         case .cashBox:
 //            CashBoxView2(id: id)
-            TestCashBoxView(id:id)
+            TestCashBoxView(id: id)
         case .profile:
             TaskBoard(id: id)
         case .history:

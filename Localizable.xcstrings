@@ -21,15 +21,19 @@
         }
       }
     },
-    "%f" : {
+    "%@ Progress" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%f"
+            "value" : "Progresso de %@ "
           }
         }
       }
+    },
+    "%f%% Progress" : {
+
     },
     "%lld" : {
       "localizations" : {
@@ -43,6 +47,12 @@
     },
     "%lld coins have been transferred to the piggy!" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld coincs have been transferred to the piggy!"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67,16 +77,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld tarefas concluídas com sucesso"
-          }
-        }
-      }
-    },
-    "%lld%% Progress" : {
-      "localizations" : {
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld%% Progresso"
           }
         }
       }
@@ -111,6 +111,17 @@
         }
       }
     },
+    "Active Piggy Banks" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cofrinho Ativo"
+          }
+        }
+      }
+    },
     "Active Piggy Banks: %lld" : {
       "localizations" : {
         "pt-BR" : {
@@ -131,6 +142,17 @@
         }
       }
     },
+    "Add new piggy bank" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicionar novo cofrinho"
+          }
+        }
+      }
+    },
     "Add profile" : {
       "localizations" : {
         "pt-BR" : {
@@ -141,7 +163,11 @@
         }
       }
     },
+    "Are you sure you want to remove the last added child?" : {
+
+    },
     "BEM-VINDO SENHOR %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -161,7 +187,19 @@
         }
       }
     },
+    "Cancel editing" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar edição"
+          }
+        }
+      }
+    },
     "Cancelar" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -170,6 +208,19 @@
           }
         }
       }
+    },
+    "Child's name" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome da criança "
+          }
+        }
+      }
+    },
+    "Confirm" : {
+
     },
     "Confirm delete" : {
       "localizations" : {
@@ -182,6 +233,7 @@
       }
     },
     "Confirmação" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -212,12 +264,13 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Parabéns! Meta alcançada!"
+            "value" : "Parabéns! Meta do cofrinho alcançada!"
           }
         }
       }
     },
     "Copy to all week" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -227,7 +280,18 @@
         }
       }
     },
+    "Create" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar"
+          }
+        }
+      }
+    },
     "Create task" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -238,7 +302,14 @@
       }
     },
     "Criar Tarefa" : {
+      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Task"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -257,7 +328,25 @@
         }
       }
     },
+    "Delete goal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Piggy Bank"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deletar cofrinho"
+          }
+        }
+      }
+    },
     "Did you complete this task?" : {
+      "comment" : "Prompt asking if the task was completed",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -297,6 +386,17 @@
         }
       }
     },
+    "Edit goal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar cofrinho"
+          }
+        }
+      }
+    },
     "Edit Piggy Bank" : {
       "localizations" : {
         "pt-BR" : {
@@ -317,12 +417,53 @@
         }
       }
     },
+    "Enter Child's Name" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adicione o nome da criança "
+          }
+        }
+      }
+    },
     "Enter item" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Digite a meta"
+            "value" : "Digite o nome da  meta"
+          }
+        }
+      }
+    },
+    "For week" : {
+
+    },
+    "Goal amount input" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite o valor"
+          }
+        }
+      }
+    },
+    "Goal: %@ with %lld of %lld coins saved" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goal: %1$@ with %2$lld of %3$lld coincs saved"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cofrinho:  %1$@ com %2$lld de %3$lld coincs economizadas"
           }
         }
       }
@@ -377,6 +518,21 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual",
+      "shouldTranslate" : false
+    },
+    "Mark as Done" : {
+      "comment" : "Button to mark task as completed",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar como feita"
+          }
+        }
+      }
+    },
     "New Piggy Bank" : {
       "localizations" : {
         "pt-BR" : {
@@ -397,12 +553,48 @@
         }
       }
     },
+    "New Task" : {
+
+    },
+    "Not Yet" : {
+      "comment" : "Indicates task is not yet completed",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ainda não "
+          }
+        }
+      }
+    },
     "November, 2024" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Novembro, 2024"
+          }
+        }
+      }
+    },
+    "Opens modal to create a new piggy bank" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre aba para criar novo cofrinho"
+          }
+        }
+      }
+    },
+    "Opens modal to transfer coins from wallet to a goal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abre aba para transferir coincs para um cofrinho"
           }
         }
       }
@@ -417,7 +609,14 @@
         }
       }
     },
+    "Remove" : {
+
+    },
+    "Remove last added child" : {
+
+    },
     "Remover" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -428,6 +627,7 @@
       }
     },
     "Remover último filho adicionado" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -444,6 +644,7 @@
       }
     },
     "Selecione o filho" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -459,12 +660,26 @@
         }
       }
     },
+    "Select child" : {
+
+    },
     "Select piggy bank" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Selecione o cofrinho"
+          }
+        }
+      }
+    },
+    "Select target piggy bank" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecione o cofrinho desejado"
           }
         }
       }
@@ -500,6 +715,7 @@
       }
     },
     "Tem certeza de que deseja remover o último filho adicionado?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -530,7 +746,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transferir coincs"
+            "value" : "transferir coincs"
           }
         }
       }
@@ -550,7 +766,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Transferir para qual piggy bank?"
+            "value" : "Transferir para qual cofrinho?"
           }
         }
       }
@@ -571,6 +787,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "O que voce quer comprar?"
+          }
+        }
+      }
+    },
+    "Yes" : {
+      "comment" : "Confirmation button for completing task",
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sim"
           }
         }
       }

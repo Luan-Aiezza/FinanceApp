@@ -11,16 +11,16 @@ import SwiftUI
 
 struct GoalCardView: View {
     var goalName: String
-    var goalAmount: Float
+    var goalAmount: Float = 0
     var savedAmount: Float
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Nome da Meta e Ícone
+            //Nome da Meta e Ícone
             HStack {
                 Text(goalName)
                     .font(
-                        Font.custom("Pally-Bold", size: 24)
+                        Font.custom("Pally-Bold", size: 20)
                             .weight(.medium)
                     )
                     .foregroundColor(.cardTextTP)
@@ -28,7 +28,7 @@ struct GoalCardView: View {
                 Spacer()
                 Text("Price \(String(format: "%.2f", goalAmount)) coincs")
                     .font(
-                        Font.custom("Pally-Bold", size: 24)
+                        Font.custom("Pally-Bold", size: 20)
                             .weight(.medium)
                     )
                     .foregroundColor(.cardTextTP)
@@ -46,9 +46,9 @@ struct GoalCardView: View {
             
             HStack {
                 Spacer()
-                Text("\(Int((savedAmount / goalAmount) * 100))% Progress")
+                    Text("\(((savedAmount / goalAmount) * 100))% Progress")
                     .font(
-                        Font.custom("Pally-Regular", size: 20)
+                        Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                     )
                     .foregroundColor(.cardTextTP)
@@ -65,7 +65,7 @@ struct GoalCardView: View {
                     Image(systemName: "CheckMARK")
                     Text("Congratulations! Goal achieved!")
                         .font(
-                            Font.custom("Pally-Bold", size: 20)
+                            Font.custom("Pally-Bold", size: 17)
                                 .weight(.medium)
                         )
                         .foregroundColor(.cardTextTP)
@@ -73,7 +73,7 @@ struct GoalCardView: View {
                     Image("CheckMARK")
                     Text("You have saved \(String(format: "%.2f", savedAmount)) coincs by now")
                         .font(
-                            Font.custom("Pally-Regular", size: 20)
+                            Font.custom("Pally-Regular", size: 17)
                                 .weight(.medium)
                         )
                         .foregroundColor(.cardTextTP)
@@ -84,7 +84,7 @@ struct GoalCardView: View {
                             Image(systemName: "magnifyingglass")
                             Text("You still need \(String(format: "%.2f", goalAmount - savedAmount)) coincs to complete")
                                 .font(
-                                    Font.custom("Pally-Regular", size: 20)
+                                    Font.custom("Pally-Regular", size: 17)
                                         .weight(.medium)
                                 )
                                 .foregroundColor(.cardTextTP)

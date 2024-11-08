@@ -90,17 +90,17 @@ struct ProfilesView: View {
                     Button(action: {
                                 showWarning = true
                             }) {
-                                Text("Remover último filho adicionado")
+                                Text("Remove last added child")
                                     .foregroundStyle(Color.red)
                             }
-                            .alert("Confirmação", isPresented: $showWarning) {
-                                Button("Remover", role: .destructive) {
+                            .alert("Confirm", isPresented: $showWarning) {
+                                Button("Remove", role: .destructive) {
                                     deleteChild()
                                     parentViewModel.fetch()
                                 }
-                                Button("Cancelar", role: .cancel) {}
+                                Button("Cancel", role: .cancel) {}
                             } message: {
-                                Text("Tem certeza de que deseja remover o último filho adicionado?")
+                                Text("Are you sure you want to remove the last added child?")
                             }
                 }.padding(.horizontal, 32)
                 
@@ -135,12 +135,14 @@ struct ProfilesView: View {
                         Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                             .offset(x:0, y: 6)// Borda branca opcional para destaque
                     )
+                    .scaledToFit()
                 Text(child.name)
                     .font(
                         Font.custom("Pally-Bold", size: 17)
                             .weight(.medium)
                     )
                     .foregroundStyle(.white)
+                    .scaledToFit()
             }
         }
     }
@@ -149,6 +151,7 @@ struct ProfilesView: View {
     private func createProfileView(_ parent: ParentModel) -> some View{
         NavigationLink(destination: SelectedChild(parentViewModel: parentViewModel)) {
             VStack{
+                //Image("Property 1=b1")
                 Image("guardianIcon")
                     .resizable()
                     .frame(width: 150, height: 150)
@@ -158,12 +161,14 @@ struct ProfilesView: View {
                         Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                             .offset(x:0, y: 6)// Borda branca opcional para destaque
                     )
+                    .scaledToFit()
                 Text("Guardian")
                     .font(
                         Font.custom("Pally-Bold", size: 17)
                             .weight(.medium)
                     )
                     .foregroundStyle(.white)
+                    .scaledToFit()
             }
         }
     }

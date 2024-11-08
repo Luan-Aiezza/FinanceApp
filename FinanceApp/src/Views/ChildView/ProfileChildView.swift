@@ -31,27 +31,27 @@ struct ProfileChildView: View {
             VStack(spacing: 32) {
                 // Toolbar com ícone da criança e caixa de moedas
                 HStack(alignment: .center){
-                    
+                    //Image("Property 1=b1")
                     Image("iconChildMIni")
-                        .resizable()
-                        .frame(width: 48, height: 48)
                     Spacer(minLength: 20)
                     
                     ProfileChildPicker(viewModel: profileChildViewModel)
                     Spacer(minLength: 20)
+                    
                     HStack{
                         Image("blackIconCoin")
+                            .scaledToFill()
                         Text("\(String(profileChildViewModel.wallet?.coins ?? 2))")
                             .foregroundStyle(Color.black)
-                    }
-                            .frame(width: 83, height: 44)
-                            .background(Color(red: 1, green: 0.83, blue: 0.21))
-                            .cornerRadius(24)
-                            .background(
-                                RoundedRectangle(cornerRadius: 24)
-                                    .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
-                                
-                            )
+                    }.frame(minWidth: 83, minHeight: 44)
+                    .background(Color(red: 1, green: 0.83, blue: 0.21))
+                    .cornerRadius(24)
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
+                        
+                    )
+                    .scaledToFit()
                     
                 }
                 

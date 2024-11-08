@@ -23,6 +23,7 @@ struct NewTaskCard: View {
               .resizable()
               .aspectRatio(contentMode: .fit)
           )
+          .scaledToFill()
     }
     
     @ViewBuilder
@@ -34,6 +35,7 @@ struct NewTaskCard: View {
             )
           .multilineTextAlignment(.center)
           .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+          .scaledToFill()
     }
     var body: some View{
         if let task = tasks.first(where: { $0.id == taskID }) {
@@ -44,7 +46,7 @@ struct NewTaskCard: View {
                 CButton(text: "Mark as Done", action:{print("Button Pressed")})
             }
             .padding(24)
-            .frame(width: 272, height: 304, alignment: .top)
+            .frame(minWidth: 272, maxWidth: .infinity, minHeight: 304, maxHeight: .infinity, alignment: .top)
             .background(Color(red: 0.94, green: 0.9, blue: 0.95))
             .cornerRadius(40)
             .shadow(color: Color(red: 0.73, green: 0.57, blue: 0.8), radius: 0, x: 0, y: 4)

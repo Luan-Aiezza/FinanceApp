@@ -41,6 +41,13 @@ struct SelectedChild: View {
                                         }){
                                             VStack{
                                                 Image("iconChildGrid")
+                                                    .scaledToFit()
+                                                    .foregroundColor(.cyan)
+                                                    .clipShape(Circle()) // Faz a imagem ficar dentro de um círculo
+                                                    .background(
+                                                        Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                                                            .offset(x:0, y: 6)// Borda branca opcional para destaque
+                                                    )
                                                 Text("\(child.name)")
                                                     .font(
                                                         Font.custom("Pally-Bold", size: 24)
@@ -90,6 +97,7 @@ struct SelectedChild: View {
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     TaskCreateCard(dayCount: 1)
+                        .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
                     Spacer()
                     //TASKS FEITAS
                     
