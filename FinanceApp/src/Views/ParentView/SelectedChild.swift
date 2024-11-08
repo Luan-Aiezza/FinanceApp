@@ -96,7 +96,7 @@ struct SelectedChild: View {
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     
-                    TaskCreateCard(dayCount: 1)
+                    TaskCreateCard()
                         .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
                     Spacer()
                     //TASKS FEITAS

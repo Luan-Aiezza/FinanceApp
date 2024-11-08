@@ -37,7 +37,7 @@ struct TestCashBoxView: View {
 //                            .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
 //                            .cornerRadius(50.0)
                         //TODO: TIRAR ESSE VALOR DE COINCS WALLET
-                        HStack {
+                        HStack (){
                             Text("Active Piggy Banks: \(viewModel.wallet.coins)")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
@@ -98,16 +98,10 @@ struct TestCashBoxView: View {
                         
                     }
                     .padding(.horizontal,24)
-                    .padding(.vertical,8 )
                     .frame(maxWidth: .infinity,minHeight:64,maxHeight: 64, alignment: .center)
                     .background(Color(red:0.36, green:0, blue:0.55))
                     .clipShape(.rect(cornerRadius: 24))
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                        .fill(Color(red:0.25, green:0, blue:0.39))
-                    
-                        .offset(x: 0, y: 6)
-                        )
+
                     // Lista de piggy banks
                     TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()

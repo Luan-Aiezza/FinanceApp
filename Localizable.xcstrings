@@ -133,6 +133,7 @@
       }
     },
     "Add a description to this task: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -437,9 +438,6 @@
         }
       }
     },
-    "For week" : {
-
-    },
     "Goal amount input" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -488,6 +486,9 @@
         }
       }
     },
+    "How heavy is the task?" : {
+
+    },
     "How many coincs do you want to transfer?" : {
       "localizations" : {
         "pt-BR" : {
@@ -509,6 +510,7 @@
       }
     },
     "Is recurrent? " : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -660,7 +662,7 @@
         }
       }
     },
-    "Select child" : {
+    "Select effort" : {
 
     },
     "Select piggy bank" : {
@@ -684,6 +686,9 @@
         }
       }
     },
+    "Task name" : {
+
+    },
     "Task's done" : {
       "localizations" : {
         "pt-BR" : {
@@ -705,6 +710,7 @@
       }
     },
     "Tasks for today" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -713,6 +719,9 @@
           }
         }
       }
+    },
+    "Tasks for today!" : {
+
     },
     "Tem certeza de que deseja remover o último filho adicionado?" : {
       "extractionState" : "stale",
@@ -772,6 +781,7 @@
       }
     },
     "Type the value of this task: " : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

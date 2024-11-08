@@ -3,13 +3,11 @@ import SwiftData
 
 struct TaskCreateCard: View {
     
-    var dayCount: Int = 0
     @State private var showPopover = false
-    
     
     var body: some View {
         HStack(alignment: .center) {
-            Text("Tasks for today")
+            Text("Tasks for today!")
                 .font(
                     Font.custom("Pally-Bold", size: 22)
                         .weight(.medium)
@@ -17,24 +15,6 @@ struct TaskCreateCard: View {
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
             Spacer()
             //BOTOES
-            Button(action: {
-                //Copy to all week
-            }) {
-                HStack {
-                    Image(systemName: "folder")
-                    Text("For week")
-                        .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                        .font(
-                            Font.custom("Pally-Bold", size: 17)
-                                .weight(.medium)
-                        )
-                }
-                .padding()
-                .background(Color.white)
-                .foregroundColor(.black)
-                .cornerRadius(20)
-            }
-            .padding(.trailing)
             
             Button(action: {
                 //New Task
@@ -53,11 +33,16 @@ struct TaskCreateCard: View {
                 .background(Color.white)
                 .foregroundColor(.black)
                 .cornerRadius(20)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                        .offset(x:0, y: 6)
+                )
             }
             .popover(isPresented: $showPopover) {
                 TaskCreateView()// Exibe a TaskCreateView dentro do popover
-                    .frame(width: 500, height: 350)
-                    .background(Color.white)// Define a cor de fundo do popover
+                    .frame(minWidth: 396, minHeight: 239)
+                    .background(Color(red: 0.7, green: 0.7, blue: 0.7))// Define a cor de fundo do popover
                     .preferredColorScheme(.light) // Força o modo claro
             }
             
@@ -73,9 +58,5 @@ struct TaskCreateCard: View {
                 .offset(x:0, y: 6)
         )
     }
-    
-    //            .shadow(color:Color(red: 1.0, green: 0.0, blue: 0.0), radius: 24, x: 0, y: -18)
-    //
-    
 }
 

@@ -34,11 +34,7 @@ struct HistoryView: View {
                         .foregroundColor(.white)
                         .background(Color(red: 0.36, green: 0, blue: 0.55))
                         .clipShape(.rect(cornerRadius: 24.0))
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color(red: 0.25, green: 0, blue: 0.39))
-                                .offset(x:0, y: 6)
-                        )
+                    
                     ScrollView {
                         VStack(spacing: 20) {
                             HistoryCardView(
