@@ -434,9 +434,6 @@
         }
       }
     },
-    "Enter Guardian Password" : {
-
-    },
     "Enter item" : {
       "localizations" : {
         "pt-BR" : {
@@ -588,9 +585,6 @@
         }
       }
     },
-    "OK" : {
-
-    },
     "Opens modal to create a new piggy bank" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -612,9 +606,6 @@
           }
         }
       }
-    },
-    "Please enter the 4-digit password to access the Guardian profile." : {
-
     },
     "Price %@ coincs" : {
       "localizations" : {
