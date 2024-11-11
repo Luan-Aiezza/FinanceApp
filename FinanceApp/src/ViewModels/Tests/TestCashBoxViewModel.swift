@@ -20,6 +20,7 @@ class TestCashBoxViewModel: ObservableObject {
     @Published var parent: ParentModel?
     @Published var wallet: CashBoxModel?
     @Published var goals: [GoalBankModel]?
+    @Published var child: ChildModel?
     
     init(id: UUID) {
         self.id = id
@@ -37,10 +38,35 @@ class TestCashBoxViewModel: ObservableObject {
         let parents = parentService?.read()
         parent = parents?.first
         if let child = parent?.childs.first(where: {$0.id == id}){
-            wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"})
+            self.child = child
+            self.wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"})
             let goals = child.goals
         }
         
+        func addGoal(name: String, amount: Int){
+            var newCashBox = CashBoxModel(cashBoxDescription: name)
+            let newGoal = GoalBankModel(goalName: name, goalAmount: amount)
+            
+            newGoal.cashBox = newCashBox
+            if let childService = childService,
+               let cashBoxService = cashBoxService,
+               let goalService = goalService,
+               let parentService = parentService,
+               let child = child,
+               let parent = parent {
+                childService.update(child) { child in
+                    child.goals.append(newGoal)
+                    parentService.update(parent) { parent in
+                        if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
+                            parent.childs[index] = child
+                        }
+                    }
+                }
+                goalService.create(newGoal)
+                cashBoxService.create(newCashBox)
+            }
+            
+        }
         
     }
 }
