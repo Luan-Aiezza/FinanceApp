@@ -489,6 +489,7 @@
       }
     },
     "How many coincs do you want to transfer?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -497,6 +498,9 @@
           }
         }
       }
+    },
+    "How many coins do you want to transfer?" : {
+
     },
     "How much does it cost?" : {
       "localizations" : {
@@ -742,6 +746,7 @@
       }
     },
     "Transfer coincs" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -752,6 +757,7 @@
       }
     },
     "Transfer Coincs" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -761,7 +767,14 @@
         }
       }
     },
+    "Transfer Coins" : {
+
+    },
+    "Transfer to which piggy bank?" : {
+
+    },
     "Transfer to which piggy?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

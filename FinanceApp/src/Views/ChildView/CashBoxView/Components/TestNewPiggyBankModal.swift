@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+
 struct TestNewPiggyBankModal: View {
     @Binding var isPresented: Bool
     @ObservedObject var viewModel: CashBoxViewModel
-    var goalToEdit: GoalBankModel? // `goalToEdit` agora é opcional
+    var goalToEdit: GoalBankModel?
     @State private var goalName = ""
     @State private var goalAmount = ""
     
@@ -27,14 +28,12 @@ struct TestNewPiggyBankModal: View {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
-                ).foregroundColor(.mediumPurple)
+                .foregroundColor(.mediumPurple)
                 
                 Spacer()
                 
                 Text(goalToEdit == nil ? "New Piggy Bank" : "Edit Piggy Bank")
                     .foregroundColor(.primary)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
                 Spacer()
                 
@@ -48,8 +47,7 @@ struct TestNewPiggyBankModal: View {
                         isPresented = false
                     }
                 }
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
-                ).foregroundColor(.mediumPurple)
+                .foregroundColor(.mediumPurple)
             }
             .padding([.top, .horizontal])
             
@@ -57,37 +55,30 @@ struct TestNewPiggyBankModal: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("What do you want to buy?")
-                    .font(Font.custom("Pally-Bold", size: 17)
-                        .weight(.medium))
-                    .foregroundColor(Color.black.opacity(0.7))
+                    .font(.headline)
                 
                 TextField("Enter item", text: $goalName)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
                 
                 Text("How much does it cost?")
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .foregroundColor(Color.black.opacity(0.7))
+                    .font(.headline)
                 
                 TextField("50,00", text: $goalAmount)
                     .keyboardType(.numberPad)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
             }
             .padding(.horizontal)
             
             Spacer()
         }
-//        .background(Color(red: 22, green: 22, blue: 22))
         .padding()
         .cornerRadius(20)
         .frame(width: 500, height: 300)
     }
-    
 }

@@ -12,12 +12,12 @@ struct TestCashBoxView: View {
     @State private var showNewPiggyBankModal = false
     @State private var showTransferCoinsPopover = false
     @State private var showNewPiggyBankPopover = false
-    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
+    @State private var showEditDeleteOptions: UUID? = nil
     
     init(id: UUID){
         viewModel = CashBoxViewModel(id: id)
-        
     }
+    
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     
@@ -29,19 +29,15 @@ struct TestCashBoxView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color(red: 0.11, green: 0, blue: 0.16))
                     .ignoresSafeArea()
-                VStack (spacing: 20){
-                    
+                
+                VStack(spacing: 20) {
                     VStack {
-                        //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack {
                             Text("Active Piggy Banks: \(viewModel.wallet.coins)")
-                                .font(
-                                    Font.custom("Pally-Bold", size: 24)
-                                        .weight(.medium)
-                                )
+                                .font(Font.custom("Pally-Bold", size: 24).weight(.medium))
                                 .foregroundColor(.white)
                             Spacer()
-                            //TODO: Colocar botão de transferir moedas aqui
+                            
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
                                 .frame(height: 17)
                                 .padding()
@@ -49,8 +45,8 @@ struct TestCashBoxView: View {
                                 .cornerRadius(24)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
-                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
-                                        .offset(x:0,y: 6)
+                                        .fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                                        .offset(x: 0, y: 6)
                                 )
                             
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
@@ -60,27 +56,22 @@ struct TestCashBoxView: View {
                                 .cornerRadius(24)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
-                                        .fill(Color(red:0.73, green:0.57, blue:0.8))
+                                        .fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                                         .offset(x: 0, y: 6)
-                                    )
-                            
-                            
+                                )
                         }
-                        
-                        
                     }
-                    .padding(.horizontal,24)
-                    .padding(.vertical,8 )
-                    .frame(maxWidth: .infinity,minHeight:64,maxHeight: 64, alignment: .center)
-                    .background(Color(red:0.36, green:0, blue:0.55))
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 8)
+                    .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .center)
+                    .background(Color(red: 0.36, green: 0, blue: 0.55))
                     .clipShape(.rect(cornerRadius: 24))
                     .background(
                         RoundedRectangle(cornerRadius: 24)
-                        .fill(Color(red:0.25, green:0, blue:0.39))
+                            .fill(Color(red: 0.25, green: 0, blue: 0.39))
+                            .offset(x: 0, y: 6)
+                    )
                     
-                        .offset(x: 0, y: 6)
-                        )
-                    // Lista de piggy banks
                     TestLoadCashBoxesModal(viewModel: viewModel)
                     Spacer()
                 }
@@ -92,10 +83,3 @@ struct TestCashBoxView: View {
         }
     }
 }
-
-
-#Preview {
-    TestCashBoxView(id: UUID())
-        .modelContainer(for: Item.self, inMemory: true)
-}
-
