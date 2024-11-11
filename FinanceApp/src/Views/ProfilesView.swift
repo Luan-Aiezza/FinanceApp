@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  FinanceApp
-//
-//  Created by Luan Aiezza on 16/10/24.
-//
 
 import SwiftUI
 import SwiftData
@@ -13,7 +7,6 @@ struct ProfilesView: View {
     @ObservedObject private var parentViewModel: ParentViewModel
     
     @State private var childName: String = ""
-    @State private var showWarning = false
     @State private var showAlert = false
     @Query private var childs: [ChildModel]
     @Query private var parents: [ParentModel]
@@ -36,11 +29,19 @@ struct ProfilesView: View {
                     .ignoresSafeArea()
                 //SEGUNDA CAMADA
                 VStack {
+                    Spacer(minLength: 100)
+                    Text("Coinc")
+                        .font(Font.custom("Pally-Bold", size: 48).weight(.heavy))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
                     ScrollView(.vertical, showsIndicators: false) {
+                        Spacer(minLength: 100)
+                        ForEach(parents){ parent in
+                            createProfileView(parent)
+                        }
+                        Spacer()
                         LazyVGrid(columns: gridItem){
-                            ForEach(parents){ parent in
-                                createProfileView(parent)
-                            }
                             ForEach(childs) { child in
                                 createProfileView(child)
                             }
@@ -82,26 +83,12 @@ struct ProfilesView: View {
                                         }
                                     }
                         }
-                        .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 2)
+                        .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 6)
                     }
                    
 //                        .padding(.top, 500)
                     Spacer()
-                    Button(action: {
-                                showWarning = true
-                            }) {
-                                Text("Remove last added child")
-                                    .foregroundStyle(Color.red)
-                            }
-                            .alert("Confirm", isPresented: $showWarning) {
-                                Button("Remove", role: .destructive) {
-                                    deleteChild()
-                                    parentViewModel.fetch()
-                                }
-                                Button("Cancel", role: .cancel) {}
-                            } message: {
-                                Text("Are you sure you want to remove the last added child?")
-                            }
+                    
                 }.padding(.horizontal, 32)
                 
                 
@@ -171,16 +158,6 @@ struct ProfilesView: View {
                     .scaledToFit()
             }
         }
-    }
-    
-    func deleteChild(){
-        if let delete = childs.first{
-            modelContext.delete(delete)
-        }
-        childs.forEach(){ child in
-            print(child.name)
-        }
-        try! modelContext.save()
     }
     
 }

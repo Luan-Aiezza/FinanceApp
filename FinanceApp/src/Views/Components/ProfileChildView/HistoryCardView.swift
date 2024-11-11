@@ -84,7 +84,7 @@ struct HistoryCardView: View {
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                 .scaledToFill()
             HStack{
-                Image("blackIconCoin")//trocar depois
+                Image("PiggyIcon")
                     .scaledToFill()
                 //(goalsInProgress)
                 Text("\(goalsInProgress) piggy bank in progress!")

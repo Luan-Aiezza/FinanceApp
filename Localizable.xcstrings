@@ -11,6 +11,9 @@
         }
       }
     },
+    " Select effort" : {
+
+    },
     "%@" : {
       "localizations" : {
         "pt-BR" : {
@@ -164,7 +167,7 @@
         }
       }
     },
-    "Are you sure you want to remove the last added child?" : {
+    "Are you sure you want to delete this child?" : {
 
     },
     "BEM-VINDO SENHOR %@" : {
@@ -220,7 +223,7 @@
         }
       }
     },
-    "Confirm" : {
+    "Coinc" : {
 
     },
     "Confirm delete" : {
@@ -387,6 +390,9 @@
         }
       }
     },
+    "Edit child" : {
+
+    },
     "Edit goal" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -427,6 +433,9 @@
           }
         }
       }
+    },
+    "Enter Guardian Password" : {
+
     },
     "Enter item" : {
       "localizations" : {
@@ -579,6 +588,9 @@
         }
       }
     },
+    "OK" : {
+
+    },
     "Opens modal to create a new piggy bank" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -601,6 +613,9 @@
         }
       }
     },
+    "Please enter the 4-digit password to access the Guardian profile." : {
+
+    },
     "Price %@ coincs" : {
       "localizations" : {
         "pt-BR" : {
@@ -614,7 +629,7 @@
     "Remove" : {
 
     },
-    "Remove last added child" : {
+    "Remove child" : {
 
     },
     "Remover" : {
@@ -685,6 +700,9 @@
           }
         }
       }
+    },
+    "Support" : {
+
     },
     "Task name" : {
 

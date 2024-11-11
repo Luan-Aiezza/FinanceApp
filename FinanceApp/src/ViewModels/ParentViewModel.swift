@@ -19,6 +19,21 @@ class ParentViewModel: ObservableObject{
     init() {
         self.fetch()
     }
+
+        
+    // Método para remover a criança da lista
+    func removeChild(_ child: ChildModel) {
+        // Verifica se o array não é nil
+        if var children = childdren {
+            // Tenta encontrar o índice da criança
+            if let index = children.firstIndex(where: { $0.id == child.id }) {
+                // Remove a criança pelo índice
+                children.remove(at: index)
+                // Atualiza a lista de crianças
+                childdren = children
+            }
+        }
+    }
     
     func fetch() {
         do{

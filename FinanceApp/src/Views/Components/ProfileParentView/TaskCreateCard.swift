@@ -2,8 +2,10 @@ import SwiftUI
 import SwiftData
 
 struct TaskCreateCard: View {
-    
     @State private var showPopover = false
+    @State private var keyboardHeight: CGFloat = 0 // Estado para armazenar a altura do teclado
+    @State var selectedChild: ChildModel?
+
     
     var body: some View {
         HStack(alignment: .center) {
@@ -14,10 +16,9 @@ struct TaskCreateCard: View {
                 )
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
             Spacer()
-            //BOTOES
             
+            // Botão para exibir o Popover
             Button(action: {
-                //New Task
                 showPopover.toggle()
             }) {
                 HStack {
@@ -39,19 +40,18 @@ struct TaskCreateCard: View {
                         .offset(x:0, y: 6)
                 )
             }
-            .popover(isPresented: $showPopover) {
-                TaskCreateView()// Exibe a TaskCreateView dentro do popover
+            .popover(isPresented: $showPopover, arrowEdge: .bottom) {
+                TaskCreateView(selectedChild: selectedChild, isPresented: $showPopover) // Exibe a TaskCreateView dentro do Popover
                     .frame(minWidth: 396, minHeight: 239)
-                    .background(Color(red: 0.7, green: 0.7, blue: 0.7))// Define a cor de fundo do popover
-                    .preferredColorScheme(.light) // Força o modo claro
+                    .background(Color(red: 0.7, green: 0.7, blue: 0.7))
+                    .preferredColorScheme(.light)
             }
-            
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 8)
         .frame(maxWidth: .infinity, minHeight: 80, maxHeight: 80, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
-        .clipShape(.rect(cornerRadius: 24.0))
+        .clipShape(RoundedRectangle(cornerRadius: 24.0))
         .background(
             RoundedRectangle(cornerRadius: 24)
                 .fill(Color(red: 0.85, green: 0.76, blue: 0.89))
@@ -59,4 +59,6 @@ struct TaskCreateCard: View {
         )
     }
 }
+
+
 
