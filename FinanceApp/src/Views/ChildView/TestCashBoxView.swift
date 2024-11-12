@@ -14,8 +14,8 @@ struct TestCashBoxView: View {
     @State private var showNewPiggyBankPopover = false
     @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     
-    init(id: UUID){
-        viewModel = TestCashBoxViewModel(id: id)
+    init(viewModel: TestCashBoxViewModel){
+        self.viewModel = viewModel
         
     }
     @State var child: ChildModel?
@@ -86,8 +86,8 @@ struct TestCashBoxView: View {
 }
 
 
-#Preview {
-    TestCashBoxView(id: UUID())
-        .modelContainer(for: Item.self, inMemory: true)
-}
+//#Preview {
+//    TestCashBoxView(id: UUID())
+//        .modelContainer(for: Item.self, inMemory: true)
+//}
 

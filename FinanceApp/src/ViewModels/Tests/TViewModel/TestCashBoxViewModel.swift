@@ -42,6 +42,7 @@ class TestCashBoxViewModel: ObservableObject {
             self.wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"})
             goals = child.goals
         }
+        print("\(child?.name ?? "no child") - \(wallet?.coins)")
     }
     
     func addGoal(name: String, amount: Int){
