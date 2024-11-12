@@ -6,6 +6,8 @@ struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     @ObservedObject var viewModel: HistoryViewModel
 
+    @State var isPresented: Bool = false
+    
     init(id: UUID){
         viewModel = HistoryViewModel(id: id)
     }
@@ -14,7 +16,6 @@ struct HistoryView: View {
     
     var body: some View {
         //PRIMEIRA CAMADA
-        NavigationStack {
             ZStack{
                 Text("")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -34,11 +35,7 @@ struct HistoryView: View {
                         .foregroundColor(.white)
                         .background(Color(red: 0.36, green: 0, blue: 0.55))
                         .clipShape(.rect(cornerRadius: 24.0))
-                        .background(
-                            RoundedRectangle(cornerRadius: 24)
-                                .fill(Color(red: 0.25, green: 0, blue: 0.39))
-                                .offset(x:0, y: 6)
-                        )
+                    
                     ScrollView {
                         VStack(spacing: 20) {
                             HistoryCardView(
@@ -59,7 +56,6 @@ struct HistoryView: View {
                     
                 }
             }
-        }
         .onAppear {
             viewModel.modelContext = modelContext
             viewModel.fetch()

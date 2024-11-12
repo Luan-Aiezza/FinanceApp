@@ -8,15 +8,17 @@
 import SwiftUI
 import SwiftData
 
-typealias ChildModel = FinanceAppSchemaV4.ChildModel
-typealias ParentModel = FinanceAppSchemaV4.ParentModel
-typealias SpendModel = FinanceAppSchemaV4.SpendModel
-typealias TaskModel = FinanceAppSchemaV4.TaskModel
-typealias CashBoxModel = FinanceAppSchemaV4.CashBoxModel
-typealias GoalBankModel = FinanceAppSchemaV4.GoalBankModel
+typealias ChildModel = FinanceAppSchemaV5.ChildModel
+typealias ParentModel = FinanceAppSchemaV5.ParentModel
+typealias SpendModel = FinanceAppSchemaV5.SpendModel
+typealias TaskModel = FinanceAppSchemaV5.TaskModel
+typealias CashBoxModel = FinanceAppSchemaV5.CashBoxModel
+typealias GoalBankModel = FinanceAppSchemaV5.GoalBankModel
 
 @main
 struct FinanceAppApp: App {
+    @ObservedObject var navigation = AppNavigation.shared
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             CashBoxModel.self, ChildModel.self, ParentModel.self , SpendModel.self, TaskModel.self, GoalBankModel.self
@@ -33,7 +35,14 @@ struct FinanceAppApp: App {
     }()
     var body: some Scene {
         WindowGroup {
-            ProfilesView()
+//            ProfilesView()
+            
+            NavigationStack(path: $navigation.path){
+                ProfilesView()
+                    .navigationDestination(for: ProfileNav.self) { view in
+                        navigation.getDestination(to: view)
+                    }
+            }
         }
         .modelContainer(sharedModelContainer)
     }
