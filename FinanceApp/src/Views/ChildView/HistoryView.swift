@@ -4,12 +4,12 @@ import SwiftData
 struct HistoryView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel: HistoryViewModel
+    @ObservedObject var viewModel: TestHistoryViewModel
 
     @State var isPresented: Bool = false
     
-    init(id: UUID){
-        viewModel = HistoryViewModel(id: id)
+    init(viewModel: TestHistoryViewModel){
+        self.viewModel = viewModel
     }
     //    @ObservedObject var viewModel = CashBoxViewModel()
     @ObservedObject var viewModel2 = ParentViewModel()
@@ -57,7 +57,6 @@ struct HistoryView: View {
                 }
             }
         .onAppear {
-            viewModel.modelContext = modelContext
             viewModel.fetch()
         }
     }

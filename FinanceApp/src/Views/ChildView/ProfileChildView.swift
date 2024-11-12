@@ -41,7 +41,9 @@ struct ProfileChildView: View {
                     HStack{
                         Image("blackIconCoin")
                             .scaledToFill()
-                        Text("\(String(profileChildViewModel.wallet?.coins ?? 2))")
+                        
+                        //TODO: colocar valor na carteira
+                        Text("\("no coin")")
                             .foregroundStyle(Color.black)
                     }.frame(minWidth: 83, minHeight: 44)
                     .background(Color(red: 1, green: 0.83, blue: 0.21))
@@ -65,7 +67,7 @@ struct ProfileChildView: View {
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child
                 }
-                profileChildViewModel.modelContext = modelContext
+                profileChildViewModel.setup(modelContext: modelContext)
                 profileChildViewModel.fetch()
             }
             .onChange(of: profileChildViewModel.actualView){

@@ -452,6 +452,9 @@
         }
       }
     },
+    "Fetch manual" : {
+
+    },
     "Goal amount input" : {
       "extractionState" : "stale",
       "localizations" : {

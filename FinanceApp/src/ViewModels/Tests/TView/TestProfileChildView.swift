@@ -14,16 +14,6 @@ struct TestProfileChildView: View {
         print("Criando View para \(id)")
     }
     
-    @State var path: [PickerOptions] = [.profile]
-    
-    
-    func getTasks() -> [TaskModel] {
-        if let child = childs.first(where: {$0.id == id}){
-            return child.tasks
-        } else {
-            return []
-        }
-    }
     
     var body: some View {
         ZStack {
@@ -32,6 +22,11 @@ struct TestProfileChildView: View {
                 .background(Color(red: 0.11, green: 0, blue: 0.16))
                 .ignoresSafeArea()
             VStack(spacing: 32) {
+                //
+                Button(action:{profileChildViewModel.fetch()}){
+                    Text("Fetch manual")
+                }
+                //
                 HStack(alignment: .center){
                     //Image("Property 1=b1")
                     Image("iconChildMIni")
@@ -43,7 +38,7 @@ struct TestProfileChildView: View {
                     HStack{
                         Image("blackIconCoin")
                             .scaledToFill()
-                        Text("\(String(profileChildViewModel.wallet?.coins ?? 2))")
+                        Text("\(String(profileChildViewModel.wallet?.coins ?? 0))")
                             .foregroundStyle(Color.black)
                     }.frame(minWidth: 83, minHeight: 44)
                     .background(Color(red: 1, green: 0.83, blue: 0.21))
@@ -65,7 +60,7 @@ struct TestProfileChildView: View {
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child
                 }
-                profileChildViewModel.modelContext = modelContext
+                profileChildViewModel.setup(modelContext: modelContext)
                 profileChildViewModel.fetch()
             }
             .onChange(of: profileChildViewModel.actualView){
