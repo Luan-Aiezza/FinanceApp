@@ -6,7 +6,7 @@
 //
 import SwiftUI
 struct TestLoadCashBoxesModal: View {
-    @ObservedObject var viewModel: CashBoxViewModel
+    @Binding var goals: [GoalBankModel]
     @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     @State private var showDeleteConfirmation: Bool = false // Controla a exibição do alerta de confirmação
     @State private var showEditPopover: Bool = false // Controla a exibição do popover de edição
@@ -15,7 +15,7 @@ struct TestLoadCashBoxesModal: View {
     var body: some View {
         ScrollView {
             VStack() {
-                ForEach(viewModel.child.goals, id: \.cashBox.id) { goal in
+                ForEach(goals, id: \.cashBox.id) { goal in
                     ZStack {
                         GoalCardView(
                             goalName: goal.cashBox.cashBoxDescription,
@@ -89,28 +89,28 @@ struct TestLoadCashBoxesModal: View {
                         }
                     }
                     .padding()
-                    .alert(isPresented: $showDeleteConfirmation) {
-                        Alert(
-                            title: Text("Confirm delete"),
-                            message: Text("Do you want to delete this Piggy Bank? You cannot undo this action."),
-                            primaryButton: .destructive(Text("Delete")) {
-                                viewModel.removeGoal(goal: goal)
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
+//                    .alert(isPresented: $showDeleteConfirmation) {
+//                        Alert(
+//                            title: Text("Confirm delete"),
+//                            message: Text("Do you want to delete this Piggy Bank? You cannot undo this action."),
+//                            primaryButton: .destructive(Text("Delete")) {
+//                                viewModel.removeGoal(goal: goal)
+//                            },
+//                            secondaryButton: .cancel()
+//                        )
+//                    }
                 }
             }
             .padding(.horizontal, 16)
-            .popover(isPresented: $showEditPopover) {
-                if let goal = selectedGoal {
-                    TestNewPiggyBankModal(
-                        isPresented: $showEditPopover,
-                        viewModel: viewModel,
-                        goalToEdit: goal // Passa o objetivo para edição
-                    )
-                }
-            }
+//            .popover(isPresented: $showEditPopover) {
+//                if let goal = selectedGoal {
+//                    TestNewPiggyBankModal(
+//                        isPresented: $showEditPopover,
+//                        viewModel: viewModel,
+//                        goalToEdit: goal // Passa o objetivo para edição
+//                    )
+//                }
+//            }
         }
     }
 }

@@ -19,7 +19,7 @@ class TestCashBoxViewModel: ObservableObject {
     
     @Published var parent: ParentModel?
     @Published var wallet: CashBoxModel?
-    @Published var goals: [GoalBankModel]?
+    @Published var goals: [GoalBankModel] = []
     @Published var child: ChildModel?
     
     init(id: UUID) {
@@ -40,33 +40,73 @@ class TestCashBoxViewModel: ObservableObject {
         if let child = parent?.childs.first(where: {$0.id == id}){
             self.child = child
             self.wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"})
-            let goals = child.goals
+            goals = child.goals
         }
+    }
+    
+    func addGoal(name: String, amount: Int){
+        let newCashBox = CashBoxModel(cashBoxDescription: name)
+        let newGoal = GoalBankModel(goalName: name, goalAmount: amount)
         
-        func addGoal(name: String, amount: Int){
-            var newCashBox = CashBoxModel(cashBoxDescription: name)
-            let newGoal = GoalBankModel(goalName: name, goalAmount: amount)
-            
-            newGoal.cashBox = newCashBox
-            if let childService = childService,
-               let cashBoxService = cashBoxService,
-               let goalService = goalService,
-               let parentService = parentService,
-               let child = child,
-               let parent = parent {
-                childService.update(child) { child in
-                    child.goals.append(newGoal)
-                    parentService.update(parent) { parent in
-                        if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
-                            parent.childs[index] = child
-                        }
+        newGoal.cashBox = newCashBox
+        if let childService = childService,
+           let cashBoxService = cashBoxService,
+           let goalService = goalService,
+           let parentService = parentService,
+           let child = child,
+           let parent = parent {
+            let _ = childService.update(child) { child in
+                child.goals.append(newGoal)
+                let _ = parentService.update(parent) { parent in
+                    if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
+                        parent.childs[index] = child
                     }
                 }
-                goalService.create(newGoal)
-                cashBoxService.create(newCashBox)
             }
-            
+            let _ = goalService.create(newGoal)
+            let _ = cashBoxService.create(newCashBox)
         }
+        fetch()
         
     }
+    
+    func addCoinsToGoal(goalID: UUID, amount: Int){
+        if let goal = goals.first(where: {$0.cashBox.id == goalID}),
+           let wallet = wallet,
+           let childService = childService,
+           let cashBoxService = cashBoxService,
+           let goalService = goalService,
+           let parentService = parentService,
+           let child = child,
+           let parent = parent{
+            
+            if amount <= wallet.coins {
+                let _ = goalService.update(goal) { goal in
+                    let _ = cashBoxService.update(wallet){ wallet in
+                        wallet.coins -= amount
+                        goal.cashBox.coins += amount
+                        let _ = childService.update(child) { child in
+                            if let walletIndex = child.cashBoxes.firstIndex(where: {$0.cashBoxDescription == "Wallet"}),
+                               let goalIndex = child.cashBoxes.firstIndex(where: {$0.id == goal.cashBox.id}){
+                                child.cashBoxes[walletIndex] = wallet
+                                child.goals[goalIndex] = goal
+                            }
+                            let _ = parentService.update(parent) { parent in
+                                if let childIndex = parent.childs.firstIndex(where: {$0.id == child.id}){
+                                    parent.childs[childIndex] = child
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
+            }
+            else{
+                print("Not enough coins or other error occurred")
+            }
+        }
+        fetch()
+    }
+    
 }

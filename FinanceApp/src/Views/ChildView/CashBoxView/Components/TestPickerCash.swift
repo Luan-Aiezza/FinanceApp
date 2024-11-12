@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TestPickerCash: View {
     @Binding var selectedGoal: UUID?
-    @ObservedObject var viewModel: CashBoxViewModel
+    @State var goals: [GoalBankModel]
     
     var body: some View {
         HStack {
@@ -17,7 +17,7 @@ struct TestPickerCash: View {
             
             Picker("Select piggy bank", selection: $selectedGoal) {
                 Text("Select piggy bank").tag(UUID?.none)
-                ForEach(viewModel.child.goals) { goal in
+                ForEach(goals) { goal in
                     Text(goal.cashBox.cashBoxDescription).tag(goal.cashBox.id)
                 }
             }

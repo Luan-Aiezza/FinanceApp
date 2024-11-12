@@ -8,9 +8,10 @@
 import SwiftUI
 struct TransferCoinsPopover: View {
     @Binding var isPresented: Bool
-    @ObservedObject var viewModel: CashBoxViewModel
     @State private var transferAmount = ""
     @State private var selectedGoal: UUID? = nil // Identificador para a meta selecionada
+    @State var addCoinsToGoal: (_ goalID: UUID, _ amount: Int) -> Void
+    @Binding var goals: [GoalBankModel]
 
     var body: some View {
         VStack(spacing: 20) {
@@ -35,7 +36,7 @@ struct TransferCoinsPopover: View {
                 
                 Button("Done") {
                     if let goalID = selectedGoal, let amount = Int(transferAmount) {
-                        viewModel.addCoinsToGoal(goalID: goalID, amount: amount)
+                        addCoinsToGoal(goalID, amount)
                         isPresented = false
                     }
                 }
@@ -82,7 +83,7 @@ struct TransferCoinsPopover: View {
                     )
                     .foregroundColor(Color.black.opacity(0.7))
                 
-                TestPickerCash(selectedGoal: $selectedGoal, viewModel: viewModel)
+                TestPickerCash(selectedGoal: $selectedGoal, goals: goals)
             }
             .padding(.horizontal)
             
