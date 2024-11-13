@@ -29,8 +29,6 @@ class ProfileChildViewModel: ObservableObject{
     }
     
     func setup(modelContext: ModelContext){
-//        parentService = .init(modelContext: modelContext)
-//        childService = .init(modelContext: modelContext)
         cashBoxVM.setup(modelContext: modelContext)
         historyVM.setup(modelContext: modelContext)
         

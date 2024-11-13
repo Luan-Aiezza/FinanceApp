@@ -11,7 +11,7 @@ public enum FrequencyTypes: String, Codable {
     case daily, weekly, monthly, none
 }
 
-enum EffortTypes: String, Codable{
+enum EffortTypes: String, Codable, CaseIterable{
     case easy, medium, hard
 }
 // Enum para opções do Picker do filho

@@ -10,13 +10,15 @@ struct TaskCreateView: View {
     @State var stringValue: String = ""
     @State var recurrent: Bool = true
     @State var selectedChild: ChildModel?
-    @State var selectedEffortLevel: EffortLevel = .none
+    @State var selectedEffortLevel: EffortTypes = .easy
     @Binding var isPresented: Bool
     
     @State private var showAlert = false // Controle para exibir o alerta
     @Query private var childs: [ChildModel]
     @Query private var tasks: [TaskModel]
     @Query private var parents: [ParentModel]
+    
+    var addTask: (_ child: ChildModel, _ taskDescription: String, _ value: String, _ recurrent: Bool, _ effort: EffortTypes, _ frequency: FrequencyTypes) -> Void
     
     enum EffortLevel: Int, CaseIterable, Identifiable {
         case none = 0
@@ -54,19 +56,10 @@ struct TaskCreateView: View {
                 Spacer()
                 
                 Button("Done") {
-                    if taskDescription.isEmpty || selectedEffortLevel == .none {
+                    if taskDescription.isEmpty /*|| selectedEffortLevel == EffortTypes*/ {
                         showAlert = true // Exibe o alerta se algum campo obrigatório estiver vazio
                     } else if let child = selectedChild {
-                        let task = parentViewModel.addTaskChild(
-                            child: child,
-                            taskDescription: taskDescription,
-                            value: "\(value)", // Use o valor selecionado pelo usuário
-                            recurrent: recurrent,
-                            effort: .easy,
-                            frequency: .daily
-                        )
-                        modelContext.insert(task)
-                        try? modelContext.save()
+                        addTask(child, taskDescription, String(value), false, selectedEffortLevel, .none)
                         isPresented = false
                     }
                     // isPresented = false // Fecha o Popover ao clicar em "Done"
@@ -106,29 +99,7 @@ struct TaskCreateView: View {
                 Text("How heavy is the task?")
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 
-                HStack {
-                    Text("Select effort")
-                        .font(Font.custom("Pally-Regular", size: 17).weight(.medium))
-                    
-                    Spacer()
-                    
-                    Picker("Select effort", selection: $selectedEffortLevel) {
-                        ForEach(EffortLevel.allCases) { level in
-                            Text(level.description ?? "")
-                                .font(Font.custom("Pally-Regular", size: 17).weight(.bold))
-                                .tag(level)
-                                .padding()
-                        }
-                    }
-                    .pickerStyle(MenuPickerStyle())
-                    .padding(.leading, 8)
-                    .foregroundColor(Color.black)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(10)
-                .background(Color.white)
-                .cornerRadius(10)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+                EffortSection(selectedEffortLevel: $selectedEffortLevel)
             }
             .padding(.horizontal)
             Spacer()
@@ -137,22 +108,37 @@ struct TaskCreateView: View {
     }
 }
 
-//Picker("Select child",selection: $selectedChild){
-//    if let childs = parents.first?.childs{
-//        ForEach(childs){ child in
-//            Text(child.name).tag(child)
-//        }
-//    }
-//}.font(
-//    Font.custom("Pally-Regular", size: 17)
-//        .weight(.medium)
-//)
+struct EffortSection: View {
+    @Binding var selectedEffortLevel: EffortTypes
+    
+    var body: some View {
+        HStack {
+            Text("Select effort")
+                .font(Font.custom("Pally-Regular", size: 17).weight(.medium))
+            Spacer()
+            EffortPicker(selectedEffortLevel: $selectedEffortLevel)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(10)
+        .background(Color.white)
+        .cornerRadius(10)
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+    }
+}
 
-
-//TextField("", text: $stringValue)
-//    .background(Color(red: 1, green: 1, blue: 1))
-//    .clipShape(.rect(cornerRadius: 10.0))
-//    .font(
-//    Font.custom("Pally-Regular", size: 17)
-//        .weight(.medium)
-//).keyboardType(.decimalPad)
+struct EffortPicker: View {
+    @Binding var selectedEffortLevel: EffortTypes
+    var body: some View {
+        Picker("Select effort", selection: $selectedEffortLevel) {
+            ForEach(EffortTypes.allCases, id: \.self) { level in
+                Text(level.rawValue.capitalized)
+                    .font(Font.custom("Pally-Regular", size: 17).weight(.bold))
+                    .tag(level)
+                    .padding()
+            }
+        }
+        .pickerStyle(MenuPickerStyle())
+        .padding(.leading, 8)
+        .foregroundColor(Color.black)
+    }
+}

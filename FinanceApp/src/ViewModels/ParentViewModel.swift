@@ -13,37 +13,69 @@ class ParentViewModel: ObservableObject{
     
     var modelContext: ModelContext? = nil
     @Published var parent: ParentModel?
-    @Published var childdren: [ChildModel]?
-    @Published var firstChildId: UUID?
+    @Published var childdren: [ChildModel] = []
+    @Published var tasks: [TaskModel] = []
+    @Published var childID: UUID?
+    
+    private var parentService: Service<ParentModel>? = nil
+    private var childService: Service<ChildModel>? = nil
+    private var taskService: Service<TaskModel>? = nil
+    
+    @Published var activePiggyBank: Int = 0
+    @Published var coinsInPiggyBank: Int = 0
+    @Published var tasksDoneInCurrentMonth: Int = 0
+    @Published var valueOfTasksDoneInCurrentMonth: Int = 0
     
     init() {
         self.fetch()
     }
-
-        
+    
+    
     // Método para remover a criança da lista
-    func removeChild(_ child: ChildModel) {
-        // Verifica se o array não é nil
-        if var children = childdren {
-            // Tenta encontrar o índice da criança
-            if let index = children.firstIndex(where: { $0.id == child.id }) {
-                // Remove a criança pelo índice
-                children.remove(at: index)
-                // Atualiza a lista de crianças
-                childdren = children
-            }
+//    func removeChild(_ child: ChildModel) {
+//        // Verifica se o array não é nil
+//        if var children = childdren {
+//            // Tenta encontrar o índice da criança
+//            if let index = children.firstIndex(where: { $0.id == child.id }) {
+//                // Remove a criança pelo índice
+//                children.remove(at: index)
+//                // Atualiza a lista de crianças
+//                childdren = children
+//            }
+//        }
+//    }
+    
+    func setup(modelContext: ModelContext){
+        parentService = .init(modelContext: modelContext)
+        childService = .init(modelContext: modelContext)
+        taskService = .init(modelContext: modelContext)
+    }
+    
+    func fetch(id: UUID? = nil) {
+        let parents = parentService?.read()
+        parent = parents?.first
+        if let childdren = parent?.childs {
+            self.childdren = childdren
+        }
+        if let id = id {
+            childID = id
+        } else {
+            childID = childdren.first?.id
+        }
+        if let child = childdren.first(where: {$0.id == childID}){
+            activePiggyBank = countActivePiggyBank(child: child)
+            
+            coinsInPiggyBank = countCoinsInPiggyBanks(child: child)
+            
+            let tasksDoneInMonth = taskDoneInMonth(child: child)
+            
+            tasksDoneInCurrentMonth = countTaskDoneInMonth(tasks: tasksDoneInMonth)
+            
+            valueOfTasksDoneInCurrentMonth = valueOfCoinsInMonth(tasks: tasksDoneInMonth)
+            tasks = child.tasks
         }
     }
-
-    func fetch() {
-        do{
-            let parentDescriptor = FetchDescriptor<ParentModel>()
-            let parents = (try? (modelContext?.fetch(parentDescriptor) ?? [])) ?? []
-            parent = parents.first ?? ParentModel(name: "No Parent")
-            childdren = parent?.childs
-            firstChildId = parent?.childs.first?.id
-        }
-    }
+    
     
     
     
@@ -56,29 +88,85 @@ class ParentViewModel: ObservableObject{
     func removeTask() -> Void {
         print("removeTask not implemented")
     }
-    
     func addChild(name: String) -> ChildModel{
         let newChild = ChildModel(name: name)
-            parent?.childs.append(newChild)
+        parent?.childs.append(newChild)
         return newChild
     }
     
-    func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel {
+    func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) {
         let taskModel = createTask(taskDescription: taskDescription, value: value, recurrent: recurrent, effort: effort, frequency: frequency)
-        child.tasks.append(taskModel)
-        return taskModel
+        
+        if let parentService = parentService,
+           let childService = childService,
+           let taskService = taskService,
+           let child = childdren.first(where: {$0.id == childID}),
+           let parent = parent{
+            taskModel.child = child
+            let _ = taskService.create(taskModel)
+            let _ = childService.update(child) { child in
+                child.tasks.append(taskModel)
+                let _ = parentService.update(parent) { parent in
+                    if let index = parent.childs.firstIndex(where: {$0.id == childID}){
+                        parent.childs[index] = child
+                    }
+                }
+            }
+            
+        }
     }
     
     private func createTask(taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel{
         let taskModel = TaskModel(taskDescription: taskDescription, value: convertStrigToFloat(value: value), recurrent: recurrent, effort: effort, frequency: frequency)
         return taskModel
     }
+    
     private func convertStrigToFloat(value: String) -> Int {
         if let value = Int(value){
             return value
         } else {
             return 0
         }
+    }
+    
+    private func countActivePiggyBank(child: ChildModel) -> Int {
+        let activePiggyBanks = child.goals.count(where: {$0.finishDate != nil})
+        return activePiggyBanks
+    }
+    
+    private func countCoinsInPiggyBanks(child: ChildModel) -> Int {
+        let coinsInPiggyBanks = child.goals.reduce(0) {
+            $0 + $1.cashBox.coins
+        }
+        return coinsInPiggyBanks
+    }
+    
+    private func valueOfCoinsInMonth(tasks: [TaskModel]) -> Int {
+        let valueOfCoins = tasks.reduce(0) {
+            $0 + $1.value
+        }
+        return Int(valueOfCoins)
+    }
+    
+    private func countTaskDoneInMonth(tasks: [TaskModel]) -> Int {
+        return tasks.count
+    }
+    
+    private func taskDoneInMonth(child: ChildModel) -> [TaskModel] {
+        let countComplete = child.tasks.filter{ task in
+            guard task.isDone else { return false }
+            let calendar = Calendar.current
+            let month = calendar.component(.month, from: Date())
+            let year = calendar.component(.year, from: Date())
+            if let finishDate = task.finishDate {
+                let taskMonth = calendar.component(.month, from: finishDate)
+                let taskYear = calendar.component(.year, from: finishDate)
+                return taskMonth == month && taskYear == year
+            }
+            
+            return month == month && year == year
+        }
+        return countComplete
     }
 }
 

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct EditChildView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var parentViewModel: ParentViewModel
+//    @ObservedObject var parentViewModel: ParentViewModel
     @State var child: ChildModel // Variável para acessar o modelo da criança
     
     @ScaledMetric(relativeTo: .largeTitle) var imageSize = 150
@@ -12,9 +12,9 @@ struct EditChildView: View {
     // Ícones disponíveis
     private let icons = ["Cat", "Dog", "Tiger", "Bird"]
     
-    init(child: ChildModel, parentViewModel: ParentViewModel) {
+    init(child: ChildModel) {
         self.child = child
-        self.parentViewModel = parentViewModel
+//        self.parentViewModel = parentViewModel
         _newName = State(initialValue: child.name)
         _selectedIcon = State(initialValue: child.profileImage ?? "Cat")
     }
@@ -68,22 +68,12 @@ struct EditChildView: View {
             Spacer()
             
             Button("Save") {
-                saveChanges()
+                //TODO: Não esquecer de implementar
+                print("Implementar update no Edit Child View")
                 dismiss()
             }.font(Font.custom("Pally-Regular", size: 34).weight(.medium))
                 .buttonStyle(.borderedProminent).tint(Color(red: 0.16, green: 0, blue: 0.25))
         }
         .padding()
-    }
-    
-    func saveChanges() {
-        child.name = newName
-        child.profileImage = selectedIcon
-        do {
-            try child.modelContext?.save()
-            parentViewModel.fetch() // Atualiza a lista de crianças
-        } catch {
-            print("Failed to save child changes: \(error)")
-        }
     }
 }

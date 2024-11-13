@@ -34,7 +34,7 @@ struct TestingSwiftDataView: View {
                 Button(action: {testParentVIewModel.addTaskChild(child: child, taskDescription: "\(child.name) varrer", value: "2", recurrent: true, effort: .easy, frequency: .daily)}){
                     Text("\(child.name)")
                 }
-               ForEach(child.tasks ?? []){ task in
+               ForEach(child.tasks){ task in
                     Text("- \(task.taskDescription)")
                     
                 }
