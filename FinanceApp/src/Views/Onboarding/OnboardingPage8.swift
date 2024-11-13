@@ -29,7 +29,7 @@ struct OnboardingPage8: View {
                 .multilineTextAlignment(.center)
             
             VStack(alignment: .leading, spacing: 20) {
-                Text("Allowance settings")
+                Text("Reward settings")
                 .font(
                 Font.custom("Pally-Bold", size: 22)
                 .weight(.bold)

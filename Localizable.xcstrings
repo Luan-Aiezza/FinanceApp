@@ -203,21 +203,25 @@
         }
       }
     },
-    "Allowance settings" : {
+    "Are you sure you want to delete this child?" : {
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Configuracoes de mesada"
+            "value" : "Tem certeza que gostaria de apagar este perfil de criança?"
           }
         }
       }
     },
-    "Are you sure you want to delete this child?" : {
-
-    },
     "Back" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voltar"
+          }
+        }
+      }
     },
     "Cancel" : {
       "localizations" : {
@@ -240,13 +244,34 @@
       }
     },
     "Choose an Icon" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha um icone "
+          }
+        }
+      }
     },
     "Choose icon" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha um icone"
+          }
+        }
+      }
     },
     "Confirm" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmar"
+          }
+        }
+      }
     },
     "Congratulations!" : {
       "localizations" : {
@@ -269,7 +294,14 @@
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        }
+      }
     },
     "Create" : {
       "localizations" : {
@@ -282,7 +314,14 @@
       }
     },
     "Create guardian profile" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar um perfil de responsável "
+          }
+        }
+      }
     },
     "Delete" : {
       "localizations" : {
@@ -326,10 +365,24 @@
       }
     },
     "Edit %@'s profile" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar perfil %@"
+          }
+        }
+      }
     },
     "Edit child" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editar criança"
+          }
+        }
+      }
     },
     "Edit Piggy Bank" : {
       "localizations" : {
@@ -372,25 +425,80 @@
       }
     },
     "Enter new name" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite novo nome"
+          }
+        }
+      }
     },
     "Enter Password" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite a senha"
+          }
+        }
+      }
     },
     "Enter task name" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Digite o nome da tarefa"
+          }
+        }
+      }
     },
     "Essa é a página de histórico do seu filho! aqui ele poderá ver como se saiu em cada mês." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is your child's history page! Here he or she can see how he or she did each month."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essa é a página de histórico do seu filho! aqui ele poderá ver como se saiu em cada mês."
+          }
+        }
+      }
     },
     "Fetch manual" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Busca manual"
+          }
+        }
+      }
     },
     "Fill in the fields below, if you want you can also change the profile icon." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preencha os campos abaixo, se desejar você também pode alterar o ícone do perfil."
+          }
+        }
+      }
     },
     "Finish" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finalizar"
+          }
+        }
+      }
     },
     "Guardian" : {
       "localizations" : {
@@ -403,7 +511,14 @@
       }
     },
     "How heavy is the task?" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quão pesada é a tarefa ? "
+          }
+        }
+      }
     },
     "How many coincs do you want to transfer?" : {
       "localizations" : {
@@ -426,14 +541,28 @@
       }
     },
     "How much is an in-app coinc worth in real life?" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quanto vale uma moeda no aplicativo na vida real?"
+          }
+        }
+      }
     },
     "Key" : {
       "extractionState" : "manual",
       "shouldTranslate" : false
     },
     "Limit reached! In this version, you can only add up to 3 children." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite alcançado! Nesta versão você consegue adicionar apenas 3 perfis de criança"
+          }
+        }
+      }
     },
     "Mark as Done" : {
       "comment" : "Button to mark task as completed",
@@ -467,7 +596,14 @@
       }
     },
     "New Task" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nova Tarefa"
+          }
+        }
+      }
     },
     "Not Yet" : {
       "comment" : "Indicates task is not yet completed",
@@ -481,19 +617,54 @@
       }
     },
     "Now define how much a Coinc coin will be worth to your child, according to your preference." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limite atingido! Nesta versão, você só pode adicionar até 3 crianças."
+          }
+        }
+      }
     },
     "Now let's create your guardian profile!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agora vamos criar o seu perfil de responsável!"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sim"
+          }
+        }
+      }
     },
     "Password" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senha"
+          }
+        }
+      }
     },
     "Please provide a task name and select an effort level." : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor adicione o nome da tarefa e selecione o nível de esforço"
+          }
+        }
+      }
     },
     "Price %@ coincs" : {
       "localizations" : {
@@ -506,22 +677,74 @@
       }
     },
     "Remove" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover"
+          }
+        }
+      }
     },
     "Remove child" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover criança"
+          }
+        }
+      }
     },
     "Remove this child" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remover esse perfil de "
+          }
+        }
+      }
     },
     "Rename" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renomear"
+          }
+        }
+      }
+    },
+    "Reward settings" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações de recompensa "
+          }
+        }
+      }
     },
     "Save" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar"
+          }
+        }
+      }
     },
     "Select effort" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecionar esforço "
+          }
+        }
+      }
     },
     "Select piggy bank" : {
       "localizations" : {
@@ -534,7 +757,14 @@
       }
     },
     "Task name" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nome da tarefa"
+          }
+        }
+      }
     },
     "Task's done" : {
       "localizations" : {
@@ -557,10 +787,24 @@
       }
     },
     "Tasks for today!" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarefas de hoje"
+          }
+        }
+      }
     },
     "This is your child's monthly history page! here he will be able to see his development" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esta é a página do histórico mensal do seu filho! aqui ele poderá ver seu desenvolvimento"
+          }
+        }
+      }
     },
     "Total" : {
       "localizations" : {
@@ -603,7 +847,14 @@
       }
     },
     "Warning" : {
-
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aviso"
+          }
+        }
+      }
     },
     "What do you want to buy?" : {
       "localizations" : {
