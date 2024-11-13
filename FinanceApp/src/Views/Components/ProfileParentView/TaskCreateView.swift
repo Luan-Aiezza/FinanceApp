@@ -69,6 +69,7 @@ struct TaskCreateView: View {
                         try? modelContext.save()
                         isPresented = false
                     }
+                    // isPresented = false // Fecha o Popover ao clicar em "Done"
                 }
                 .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 .foregroundColor(Color(red: 0.36, green: 0.0, blue: 0.55))
@@ -135,3 +136,23 @@ struct TaskCreateView: View {
         .padding()
     }
 }
+
+//Picker("Select child",selection: $selectedChild){
+//    if let childs = parents.first?.childs{
+//        ForEach(childs){ child in
+//            Text(child.name).tag(child)
+//        }
+//    }
+//}.font(
+//    Font.custom("Pally-Regular", size: 17)
+//        .weight(.medium)
+//)
+
+
+//TextField("", text: $stringValue)
+//    .background(Color(red: 1, green: 1, blue: 1))
+//    .clipShape(.rect(cornerRadius: 10.0))
+//    .font(
+//    Font.custom("Pally-Regular", size: 17)
+//        .weight(.medium)
+//).keyboardType(.decimalPad)

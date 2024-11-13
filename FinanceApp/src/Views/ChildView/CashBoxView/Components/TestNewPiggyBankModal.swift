@@ -8,14 +8,17 @@
 import SwiftUI
 struct TestNewPiggyBankModal: View {
     @Binding var isPresented: Bool
-    @ObservedObject var viewModel: CashBoxViewModel
+//    @ObservedObject var viewModel: TestCashBoxViewModel
     var goalToEdit: GoalBankModel? // `goalToEdit` agora é opcional
     @State private var goalName = ""
     @State private var goalAmount = ""
     
-    init(isPresented: Binding<Bool>, viewModel: CashBoxViewModel, goalToEdit: GoalBankModel? = nil) {
+    @State var addGoal: (_ name: String, _ amount: Int) -> Void
+    
+    init(isPresented: Binding<Bool>, goalToEdit: GoalBankModel? = nil, addGoal: @escaping (_ name: String, _ amount: Int) -> Void) {
+        self.addGoal = addGoal
         self._isPresented = isPresented
-        self.viewModel = viewModel
+//        self.viewModel = viewModel
         self.goalToEdit = goalToEdit
         _goalName = State(initialValue: goalToEdit?.cashBox.cashBoxDescription ?? "")
         _goalAmount = State(initialValue: "\(goalToEdit?.goalAmount ?? 0)")
@@ -40,11 +43,12 @@ struct TestNewPiggyBankModal: View {
                 
                 Button("Done") {
                     if let amount = Int(goalAmount) {
-                        if let goal = goalToEdit {
-                            viewModel.updateGoal(goal: goal, name: goalName, amount: amount)
-                        } else {
-                            viewModel.addGoal(name: goalName, amount: amount)
-                        }
+//                        if let goal = goalToEdit {
+//                            viewModel.updateGoal(goal: goal, name: goalName, amount: amount)
+//                        } else {
+//                            viewModel.addGoal(name: goalName, amount: amount)
+//                        }
+                        addGoal(goalName, amount)
                         isPresented = false
                     }
                 }

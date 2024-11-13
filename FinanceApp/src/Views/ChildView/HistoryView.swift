@@ -4,17 +4,18 @@ import SwiftData
 struct HistoryView: View {
     
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel: HistoryViewModel
+    @ObservedObject var viewModel: TestHistoryViewModel
 
-    init(id: UUID){
-        viewModel = HistoryViewModel(id: id)
+    @State var isPresented: Bool = false
+    
+    init(viewModel: TestHistoryViewModel){
+        self.viewModel = viewModel
     }
     //    @ObservedObject var viewModel = CashBoxViewModel()
     @ObservedObject var viewModel2 = ParentViewModel()
     
     var body: some View {
         //PRIMEIRA CAMADA
-        NavigationStack {
             ZStack{
                 Text("")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -55,9 +56,7 @@ struct HistoryView: View {
                     
                 }
             }
-        }
         .onAppear {
-            viewModel.modelContext = modelContext
             viewModel.fetch()
         }
     }

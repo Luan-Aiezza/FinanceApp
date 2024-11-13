@@ -12,30 +12,34 @@ class ProfileChildViewModel: ObservableObject{
     let id: UUID
     var modelContext: ModelContext? = nil
     
-    @State var child: ChildModel?
-    @State var wallet: CashBoxModel?
+    private var parentService: Service<ParentModel>?
+    private var childService: Service<ChildModel>?
+    
+    @Published var child: ChildModel?
+    @Published var wallet: CashBoxModel?
+    
+    @Published var cashBoxVM: TestCashBoxViewModel
+    @Published var historyVM: TestHistoryViewModel
     
     init(id: UUID) {
         self.id = id
+        cashBoxVM = .init(id: id)
+        historyVM = .init(id: id)
         //        showingView = TaskBoard(id: id)
     }
     
+    func setup(modelContext: ModelContext){
+//        parentService = .init(modelContext: modelContext)
+//        childService = .init(modelContext: modelContext)
+        cashBoxVM.setup(modelContext: modelContext)
+        historyVM.setup(modelContext: modelContext)
+        
+    }
+    
     func fetch(){
-        do {
-            let childDescriptor = FetchDescriptor<ChildModel>(sortBy: [SortDescriptor(\.name)])
-            let children = (try? (modelContext?.fetch(childDescriptor) ?? [])) ?? []
-            child = children.first(where: {$0.id == id}) ?? ChildModel(name: "No Kid")
-            if let wallet = child?.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"}) {
-                self.wallet = wallet
-            } else {
-                let newCashBox = CashBoxModel(cashBoxDescription: "Wallet")
-                child?.cashBoxes.append(newCashBox)
-                modelContext?.insert(newCashBox)
-                try? modelContext?.save()
-            }
-        } catch {
-            print("Fetch failed")
-        }
+        cashBoxVM.fetch()
+        child = cashBoxVM.child
+        wallet = cashBoxVM.wallet
     }
     
     @Published var actualView: PickerOptions = .profile
@@ -47,11 +51,12 @@ class ProfileChildViewModel: ObservableObject{
         switch newView {
         case .cashBox:
 //            CashBoxView2(id: id)
-            TestCashBoxView(id: id)
+            TestCashBoxView(viewModel: cashBoxVM)
         case .profile:
             TaskBoard(id: id)
         case .history:
-            HistoryView(id: id)
+            HistoryView(viewModel: historyVM)
+            
         }
     }
     

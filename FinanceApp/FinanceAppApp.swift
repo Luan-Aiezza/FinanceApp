@@ -17,6 +17,8 @@ typealias GoalBankModel = FinanceAppSchemaV6.GoalBankModel
 
 @main
 struct FinanceAppApp: App {
+    @ObservedObject var navigation = AppNavigation.shared
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             CashBoxModel.self, ChildModel.self, ParentModel.self , SpendModel.self, TaskModel.self, GoalBankModel.self
@@ -33,7 +35,15 @@ struct FinanceAppApp: App {
     }()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            // ContentView()
+//            ProfilesView()
+            
+            NavigationStack(path: $navigation.path){
+                ContentView()
+                    .navigationDestination(for: ProfileNav.self) { view in
+                        navigation.getDestination(to: view)
+                    }
+            }
         }
         .modelContainer(sharedModelContainer)
     }

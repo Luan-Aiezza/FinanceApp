@@ -1,27 +1,19 @@
 import SwiftUI
 import SwiftData
 
-struct ProfileChildView: View {
+struct TestProfileChildView: View {
     @Environment(\.modelContext) private var modelContext
     let id: UUID
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     @ObservedObject var profileChildViewModel: ProfileChildViewModel
-    @ScaledMetric(relativeTo: .largeTitle) var imageSize = 48
     //    @State var view: some View = HistoryView()
     init(id: UUID) {
         self.id = id
         profileChildViewModel = .init(id: id)
+        print("Criando View para \(id)")
     }
     
-    
-    func getTasks() -> [TaskModel] {
-        if let child = childs.first(where: {$0.id == id}){
-            return child.tasks
-        } else {
-            return []
-        }
-    }
     
     var body: some View {
         ZStack {
@@ -30,44 +22,40 @@ struct ProfileChildView: View {
                 .background(Color(red: 0.11, green: 0, blue: 0.16))
                 .ignoresSafeArea()
             VStack(spacing: 32) {
-                // Toolbar com ícone da criança e caixa de moedas
+                //
+                Button(action:{profileChildViewModel.fetch()}){
+                    Text("Fetch manual")
+                }
+                //
                 HStack(alignment: .center){
                     //Image("Property 1=b1")
-                    Image(child?.profileImage ?? "Cat")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: imageSize, height: imageSize)
-                        .background(
-                            Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
-                                .offset(x: 0, y: 6)
-                        )
-                    
+                    Image("iconChildMIni")
                     Spacer(minLength: 20)
                     
                     ProfileChildPicker(viewModel: profileChildViewModel)
                     Spacer(minLength: 20)
                     
                     HStack{
-                        Image("TrueCoinIcon")
+                        Image("blackIconCoin")
                             .scaledToFill()
                         Text("\(String(profileChildViewModel.wallet?.coins ?? 0))")
-                            .font(
-                                Font.custom("Pally-Bold", size: 24)
-                                    .weight(.medium)
-                            )
-                            .foregroundStyle(Color(red: 1, green: 0.83, blue: 0.21))
-                        
+                            .foregroundStyle(Color.black)
                     }.frame(minWidth: 83, minHeight: 44)
+                    .background(Color(red: 1, green: 0.83, blue: 0.21))
+                    .cornerRadius(24)
+                    .background(
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
+                        
+                    )
                     .scaledToFit()
                     
                 }
-                
+            .padding(.horizontal, 32)
                 profileChildViewModel.changeView(for: profileChildViewModel.actualView)
                     .id(profileChildViewModel.actualView)
                     .transition(.opacity)
-                
             }
-            .padding(.horizontal, 32)
             .onAppear(){
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child

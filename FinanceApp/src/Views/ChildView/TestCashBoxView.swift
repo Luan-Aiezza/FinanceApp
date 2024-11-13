@@ -3,7 +3,7 @@ import SwiftData
 
 struct TestCashBoxView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject var viewModel: CashBoxViewModel
+    @ObservedObject var viewModel: TestCashBoxViewModel
     
     @State private var goalName = ""
     @State private var goalAmount = ""
@@ -14,15 +14,14 @@ struct TestCashBoxView: View {
     @State private var showNewPiggyBankPopover = false
     @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     
-    init(id: UUID){
-        viewModel = CashBoxViewModel(id: id)
+    init(viewModel: TestCashBoxViewModel){
+        self.viewModel = viewModel
         
     }
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 Text("")
                     .ignoresSafeArea()
@@ -34,7 +33,7 @@ struct TestCashBoxView: View {
                     VStack {
                         //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack (){
-                            Text("Active Piggy Banks: \(viewModel.wallet.coins)")
+                            Text("Active Piggy Banks: \(viewModel.wallet?.coins ?? 0)")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -42,7 +41,7 @@ struct TestCashBoxView: View {
                                 .foregroundColor(.white)
                             Spacer()
                             //TODO: Colocar botão de transferir moedas aqui
-                            TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, viewModel: viewModel)
+                            TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, goals: $viewModel.goals, addCoinsToGoal: viewModel.addCoinsToGoal)
                                 .frame(height: 17)
                                 .padding()
                                 .background(Color.white)
@@ -53,7 +52,7 @@ struct TestCashBoxView: View {
                                         .offset(x:0,y: 6)
                                 )
                             
-                            TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, viewModel: viewModel)
+                            TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, goals: $viewModel.goals, addGoal: viewModel.addGoal)
                                 .frame(height: 17)
                                 .padding()
                                 .background(Color.white)
@@ -75,21 +74,20 @@ struct TestCashBoxView: View {
                     .clipShape(.rect(cornerRadius: 24))
 
                     // Lista de piggy banks
-                    TestLoadCashBoxesModal(viewModel: viewModel)
+                    TestLoadCashBoxesModal(goals: $viewModel.goals)
                     Spacer()
                 }
             }
             .onAppear {
-                viewModel.modelContext = modelContext
+                viewModel.setup(modelContext: modelContext)
                 viewModel.fetch()
             }
-        }
     }
 }
 
 
-#Preview {
-    TestCashBoxView(id: UUID())
-        .modelContainer(for: Item.self, inMemory: true)
-}
+//#Preview {
+//    TestCashBoxView(id: UUID())
+//        .modelContainer(for: Item.self, inMemory: true)
+//}
 

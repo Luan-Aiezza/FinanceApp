@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TestButtonCreatePiggyBank: View {
     @Binding var showNewPiggyBankPopover: Bool
-    @ObservedObject var viewModel: CashBoxViewModel
+//    @ObservedObject var viewModel: CashBoxViewModel
+    @Binding var goals: [GoalBankModel]
+    @State var addGoal: (_ name: String, _ amount: Int) -> Void
     
     var body: some View {
         Button(action: {
@@ -33,7 +35,7 @@ struct TestButtonCreatePiggyBank: View {
         .popover(isPresented: $showNewPiggyBankPopover) {
             TestNewPiggyBankModal(
                 isPresented: $showNewPiggyBankPopover,
-                viewModel: viewModel // `goalToEdit` será `nil`, criando um novo objetivo
+                addGoal: addGoal // `goalToEdit` será `nil`, criando um novo objetivo
                 
             )
             .frame(width: 500, height: 300)

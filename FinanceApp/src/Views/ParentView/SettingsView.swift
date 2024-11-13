@@ -119,22 +119,28 @@ struct SettingsView: View {
         }
     }
     
+    // Função que deleta a criança selecionada
     func deleteChild() {
         guard let childToDelete = selectedChild else {
             print("No children selected to delete.")
             return
         }
         
+        // Deleta a criança do modelo
         modelContext.delete(childToDelete)
         
+        // Salva as alterações
         do {
             try modelContext.save()
             print("\(childToDelete.name) has been successfully deleted.")
-            parentViewModel.removeChild(childToDelete)
+            
+            // Atualiza a lista de crianças no ParentViewModel
+//            parentViewModel.removeChild(childToDelete)
         } catch {
             print("Error saving context after deletion: \(error)")
         }
         
+        // Limpa a criança selecionada após a exclusão
         selectedChild = nil
     }
 }

@@ -26,6 +26,8 @@ struct ProfilesView: View {
     @Query private var childs: [ChildModel]
     @Query private var parents: [ParentModel]
     
+    @ObservedObject private var navigation = AppNavigation.shared
+    
     //TODO: Remover variável "thisParent" depois
     private let thisParent = ParentModel(name: "Luan")
     private let thisChild = ChildModel(name: "Rodrigo")
@@ -38,40 +40,40 @@ struct ProfilesView: View {
     
     var body: some View {
         //PRIMEIRA CAMADA
-        NavigationStack {
-            ZStack{
-                Color.init(red: 0.11, green: 0, blue: 0.16)
-                    .ignoresSafeArea()
-                //SEGUNDA CAMADA
-                VStack {
+        //        NavigationStack(path: $path) {
+        ZStack{
+            Color.init(red: 0.11, green: 0, blue: 0.16)
+                .ignoresSafeArea()
+            //SEGUNDA CAMADA
+            VStack {
+                Spacer(minLength: 100)
+                Text("\(guardianName) Family!")
+                    .font(Font.custom("Pally-Bold", size: 48).weight(.heavy))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
+                
+                ScrollView(.vertical, showsIndicators: false) {
                     Spacer(minLength: 100)
-                    Text("\(guardianName) Family!")
-                        .font(Font.custom("Pally-Bold", size: 48).weight(.heavy))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .multilineTextAlignment(.center)
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        Spacer(minLength: 100)
-                        ForEach(parents){ parent in
-                            VStack {
-                                Image("Crow")
-                                    .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
-                                    .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
-                                
-                                createProfileView(parent) // Imagem de perfil circular
-                            }
+                    ForEach(parents){ parent in
+                        VStack {
+                            Image("Crow")
+                                .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
+                                .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
+                            
+                            createProfileView(parent) // Imagem de perfil circular
                         }
-                        
-                        LazyVGrid(columns: gridItem){
-                            Button(action: {
-                                if let parent = parents.first, parent.childs.count >= 3 {
-                                    // Exibe o alerta de limite se já houver 3 crianças
-                                    showLimitAlert = true
-                                } else {
-                                    // Exibe o alerta para adicionar uma nova criança
-                                    showAlert = true
-                                }                            }) {
+                    }
+                    
+                    LazyVGrid(columns: gridItem){
+                        Button(action: {
+                            if let parent = parents.first, parent.childs.count >= 3 {
+                                // Exibe o alerta de limite se já houver 3 crianças
+                                showLimitAlert = true
+                            } else {
+                                // Exibe o alerta para adicionar uma nova criança
+                                showAlert = true
+                            }                            }) {
                                 VStack {
                                     Image("Add Profile")
                                         .frame(width: 150, height: 150)
@@ -108,21 +110,20 @@ struct ProfilesView: View {
                             }.alert("Limit reached! In this version, you can only add up to 3 children.", isPresented: $showLimitAlert) {
                                 Button("OK", role: .cancel) { }
                             }
-                            
-                            ForEach(childs) { child in
-                                createProfileView(child)
-                            }
+                        
+                        ForEach(childs) { child in
+                            createProfileView(child)
                         }
-                        .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 6)
                     }
-                    
-                    //                        .padding(.top, 500)
-                    Spacer()
-                    
-                }.padding(.horizontal, 32)
+                    .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 6)
+                }
                 
+                //                        .padding(.top, 500)
+                Spacer()
                 
-            }
+            }.padding(.horizontal, 32)
+            
+            
         }
         .tint(Color(red: 0.73, green: 0.57, blue: 0.8))
         .onAppear{
@@ -138,7 +139,6 @@ struct ProfilesView: View {
         }
     }
     
-    
     @ViewBuilder
     private func createProfileView(_ child: ChildModel) -> some View{
         NavigationLink(destination: ProfileChildView(id: child.id)) {
@@ -152,7 +152,7 @@ struct ProfilesView: View {
                         Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                             .offset(x:0, y: 6)// Borda branca opcional para destaque
                     )
-                    
+                
                 Text(child.name)
                     .font(
                         Font.custom("Pally-Bold", size: 22)
@@ -191,7 +191,7 @@ struct ProfilesView: View {
                             Text("Choose an Icon")
                                 .font(Font.custom("Pally-Bold", size: 24))
                                 .padding()
-
+                            
                             HStack(spacing: 20) {
                                 ForEach(["Cat", "Dog", "Tiger", "Bird"], id: \.self) { iconName in
                                     Button(action: {
@@ -240,9 +240,9 @@ struct ProfilesView: View {
             SelectedChild(parentViewModel: parentViewModel)
         }
     }
-    
-    #Preview {
-        ProfilesView()
-            .modelContainer(for: Item.self, inMemory: true)
-    }
+}
+
+#Preview {
+    ProfilesView()
+        .modelContainer(for: Item.self, inMemory: true)
 }
