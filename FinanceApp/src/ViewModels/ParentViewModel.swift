@@ -10,6 +10,8 @@ import SwiftUI
 import SwiftData
 
 class ParentViewModel: ObservableObject{
+    static let shared = ParentViewModel()
+    private init(){}
     
     var modelContext: ModelContext? = nil
     @Published var parent: ParentModel?
@@ -25,10 +27,6 @@ class ParentViewModel: ObservableObject{
     @Published var coinsInPiggyBank: Int = 0
     @Published var tasksDoneInCurrentMonth: Int = 0
     @Published var valueOfTasksDoneInCurrentMonth: Int = 0
-    
-    init() {
-        self.fetch()
-    }
     
     
     // Método para remover a criança da lista
@@ -74,11 +72,11 @@ class ParentViewModel: ObservableObject{
             valueOfTasksDoneInCurrentMonth = valueOfCoinsInMonth(tasks: tasksDoneInMonth)
             tasks = child.tasks
         }
+        
+        print("Instanciei o ParentViewModel \(childID)")
     }
     
-    
-    
-    
+
     func changeCoinValue() -> Void {
         print("changeCoinValue not implemented")
     }
@@ -114,6 +112,7 @@ class ParentViewModel: ObservableObject{
             }
             
         }
+        fetch()
     }
     
     private func createTask(taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) -> TaskModel{

@@ -16,12 +16,17 @@ class AppNavigation: ObservableObject {
 //    @Environment(\.modelContext) var modelContext
     @Published var path: NavigationPath
     
-    @ObservedObject var parentViewModel = ParentViewModel()
+    @ObservedObject var parentViewModel = ParentViewModel.shared
     static let shared = AppNavigation()
     
     private init() {
         path = NavigationPath()
 //        parentViewModel.modelContext = modelContext
+    }
+    
+    func reset(){
+        path = .init()
+        navigateTo(to: .home)
     }
     
     func navigateTo(to view: ProfileNav){
@@ -31,7 +36,7 @@ class AppNavigation: ObservableObject {
     func getDestination(to view: ProfileNav) -> AnyView{
         switch view {
         case .home:
-            return AnyView(ProfilesView())
+            return AnyView(ProfilesView(parentViewModel: parentViewModel))
         case .parentProfile:
             return AnyView(SelectedChild(parentViewModel: parentViewModel))
         case .childProfile(let id):

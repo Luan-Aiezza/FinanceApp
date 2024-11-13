@@ -3,7 +3,7 @@ import SwiftData
 
 struct TaskCreateView: View {
     @Environment(\.modelContext) private var modelContext
-    @ObservedObject private var parentViewModel = ParentViewModel()
+    @ObservedObject private var parentViewModel = ParentViewModel.shared
     
     @State var taskDescription: String = ""
     @State var value: Int = 0

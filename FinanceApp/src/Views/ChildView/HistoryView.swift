@@ -12,7 +12,7 @@ struct HistoryView: View {
         self.viewModel = viewModel
     }
     //    @ObservedObject var viewModel = CashBoxViewModel()
-    @ObservedObject var viewModel2 = ParentViewModel()
+    @ObservedObject var viewModel2 = ParentViewModel.shared
     
     var body: some View {
         //PRIMEIRA CAMADA

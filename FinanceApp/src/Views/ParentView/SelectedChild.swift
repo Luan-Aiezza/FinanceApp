@@ -40,24 +40,13 @@ struct SelectedChild: View {
                 TaskSection(selectedChild: $selectedChild, addTask: parentViewModel.addTaskChild)
                 
                 Spacer()
+                
+                TaskRegisters(tasks: $parentViewModel.tasks)
             }
             .padding(.horizontal, 85)
             .padding(.vertical, 85)
-//            .onAppear {
-//                historyViewModel.modelContext = modelContext
-//                historyViewModel.fetch()
-//                
-//                if selectedChild == nil, let firstChild = children.first {
-//                    selectedChild = firstChild
-//                    historyViewModel.id = firstChild.id
-//                    historyViewModel.fetch()
-//                }
-//            }
-            
         }
         .toolbar {
-//            ToobarItemComp(showPopover: $showPopover, selectedChild: $selectedChild, action: {showPopover.toggle()})
-            
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     showPopover.toggle()
@@ -71,6 +60,10 @@ struct SelectedChild: View {
                         .preferredColorScheme(.light)
                 }
             }
+        }
+        .onAppear{
+            parentViewModel.setup(modelContext: modelContext)
+            parentViewModel.fetch()
         }
     }
 }
@@ -171,3 +164,28 @@ struct TaskSection: View {
             .frame(maxWidth: .infinity, minHeight: 64, maxHeight: 64, alignment: .leading)
     }
 }
+
+struct TaskRegisters: View {
+    @Binding var tasks: [TaskModel]
+    var body: some View {
+        ForEach(tasks) { task in
+            RegisterTask(task: task )
+        }
+    }
+}
+
+
+struct RegisterTask: View {
+    var task: TaskModel
+    var body: some View {
+        VStack{
+            CEffortTag(effortType: task.effort!, taskValue: task.value)
+            Text(task.taskDescription)
+        }
+        .background(Color.gray)
+    }
+}
+
+//#Preview{
+//    RegisterTask()
+//}

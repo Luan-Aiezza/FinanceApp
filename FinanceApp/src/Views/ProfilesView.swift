@@ -34,8 +34,8 @@ struct ProfilesView: View {
     
     let gridItem = [GridItem(.adaptive(minimum: 200))]
     
-    init() {
-        parentViewModel = .init()
+    init(parentViewModel: ParentViewModel) {
+        self.parentViewModel = parentViewModel
     }
     
     var body: some View {
@@ -55,15 +55,15 @@ struct ProfilesView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer(minLength: 100)
-                    ForEach(parents){ parent in
+//                    ForEach(parents){ parent in
                         VStack {
                             Image("Crow")
                                 .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
                                 .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
                             
-                            createProfileView(parent) // Imagem de perfil circular
+                            createProfileView(parentViewModel.parent ?? ParentModel(name: "No Parent")) // Imagem de perfil circular
                         }
-                    }
+//                    }
                     
                     LazyVGrid(columns: gridItem){
                         Button(action: {
@@ -141,7 +141,7 @@ struct ProfilesView: View {
     
     @ViewBuilder
     private func createProfileView(_ child: ChildModel) -> some View{
-        NavigationLink(destination: ProfileChildView(id: child.id)) {
+        Button(action: {navigation.navigateTo(to: .childProfile(id: child.id))}) {
             VStack{
                 Image(child.profileImage ?? "Cat")
                     .resizable()
@@ -236,13 +236,13 @@ struct ProfilesView: View {
                 inputPassword = ""
             }
         }
-        .navigationDestination(isPresented: $isAuthenticated) {
-            SelectedChild(parentViewModel: parentViewModel)
+        .onChange(of: isAuthenticated){
+            navigation.navigateTo(to: .parentProfile)
         }
     }
 }
 
-#Preview {
-    ProfilesView()
-        .modelContainer(for: Item.self, inMemory: true)
-}
+//#Preview {
+//    ProfilesView()
+//        .modelContainer(for: Item.self, inMemory: true)
+//}

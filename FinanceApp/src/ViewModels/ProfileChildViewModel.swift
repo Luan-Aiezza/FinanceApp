@@ -38,10 +38,10 @@ class ProfileChildViewModel: ObservableObject{
         cashBoxVM.fetch()
         child = cashBoxVM.child
         wallet = cashBoxVM.wallet
+        print("Instancia ProfileCHild")
     }
     
     @Published var actualView: PickerOptions = .profile
-    //    @Published var showingView: any View
     
     
     @ViewBuilder

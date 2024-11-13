@@ -89,12 +89,13 @@ struct OnboardingView: View {
 
 struct ContentView: View {
     @State var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+    @ObservedObject private var navigation = AppNavigation.shared
     
     var body: some View {
         if !hasCompletedOnboarding {
             OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
         } else {
-            ProfilesView()
+            ProfilesView(parentViewModel: ParentViewModel.shared)
         }
     }
 }
