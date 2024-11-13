@@ -5,7 +5,6 @@ struct TaskCreateCard: View {
     @State private var showPopover = false
     @State private var keyboardHeight: CGFloat = 0 // Estado para armazenar a altura do teclado
     @State var selectedChild: ChildModel?
-
     
     var body: some View {
         HStack(alignment: .center) {
@@ -42,10 +41,10 @@ struct TaskCreateCard: View {
             }
             .popover(isPresented: $showPopover, arrowEdge: .bottom) {
                 TaskCreateView(selectedChild: selectedChild, isPresented: $showPopover) // Exibe a TaskCreateView dentro do Popover
-                    .frame(minWidth: 396, minHeight: 239)
-                    .background(Color(red: 0.7, green: 0.7, blue: 0.7))
-                    .preferredColorScheme(.light)
-            }
+                    .frame(minWidth: 500, minHeight: 300)
+                        .background(Color.white)// Define a cor de fundo do popover
+                        .preferredColorScheme(.light) // Força o modo claro
+            }.padding(.trailing)
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 8)

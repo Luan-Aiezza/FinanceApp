@@ -14,12 +14,3 @@ extension Color {
         self.init(red: red, green: green, blue: blue)
     }
 }
-
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, SwiftUI!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(hex: "B991CD"))
-            .ignoresSafeArea()
-    }
-}

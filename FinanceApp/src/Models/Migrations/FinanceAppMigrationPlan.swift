@@ -15,7 +15,8 @@ enum FinanceAppMigrationPlan: SchemaMigrationPlan {
          FinanceAppSchemaV2.self,
          FinanceAppSchemaV3.self,
          FinanceAppSchemaV4.self,
-         FinanceAppSchemaV5.self
+         FinanceAppSchemaV5.self,
+         FinanceAppSchemaV6.self
         ]
     }
     
@@ -24,7 +25,8 @@ enum FinanceAppMigrationPlan: SchemaMigrationPlan {
             MigrateV1toV2,
             MigrateV2toV3,
             MigrateV3toV4,
-            MigrateV4toV5
+            MigrateV4toV5,
+            MigrateV5toV6
         ]
     }
 }

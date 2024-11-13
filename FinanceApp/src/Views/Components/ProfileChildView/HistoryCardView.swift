@@ -1,15 +1,17 @@
-//
-//  GoalCardView.swift
-//  FinanceApp
-//
-//  Created by Grecia Cristina on 28/10/24.
-//
-
-
-
 import SwiftUI
 
 struct HistoryCardView: View {
+    
+    // Obtenha a data atual
+    private let currentDate = Date()
+    
+    // Crie um formatador para exibir o mês e ano
+    private var monthYearFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy" // Formato para mês e ano (ex.: "novembro 2024")
+        return formatter
+    }
+    
     var mounthData: Data
     var taskState: Bool
     var countTasks: Int = 0
@@ -20,25 +22,25 @@ struct HistoryCardView: View {
     var body: some View {
         VStack(alignment: .leading) {
             // Data do mes e ano em que da tarefa (mounthData)
-            Text("November, 2024")
+            Text(monthYearFormatter.string(from: currentDate))
                 .font(
-                    Font.custom("Pally-Bold", size: 17)
+                    Font.custom("Pally-Bold", size: 24)
                         .weight(.medium)
                 )
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                 .fontWeight(.bold)
                 .scaledToFill()
-            Spacer()
+            
             // Verificar se a tarefa foi concluida (taskState)
             Text("Task's done")
                 .font(
-                    Font.custom("Pally-Bold", size: 17)
+                    Font.custom("Pally-Bold", size: 22)
                         .weight(.medium)
                 )
                 .fontWeight(.bold)
                 .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                 .scaledToFill()
-            Spacer()
+
             HStack{
                 //simbolo de que a task está completa
                 Image(systemName: taskState ? "checkmark.circle.fill" : "circle")
@@ -48,7 +50,7 @@ struct HistoryCardView: View {
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
                 Text("\(countTasks) tasks done sucessfully")
                     .font(
-                        Font.custom("Pally-Regular", size: 17)
+                        Font.custom("Pally-Regular", size: 20)
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
@@ -60,24 +62,23 @@ struct HistoryCardView: View {
                 VStack{
                     Text("\(totalCoins)")
                         .font(
-                            Font.custom("Pally-Regular", size: 17)
+                            Font.custom("Pally-Regular", size: 20)
                                 .weight(.medium)
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                         .scaledToFill()
                     Text("Total")
                         .font(
-                            Font.custom("Pally-Regular", size: 17)
+                            Font.custom("Pally-Regular", size: 20)
                                 .weight(.medium)
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                         .scaledToFill()
-                }
+                }.padding(.horizontal, 32)
             }
-            Spacer()
             Text("Active Piggy bank")
                 .font(
-                    Font.custom("Pally-Bold", size: 17)
+                    Font.custom("Pally-Bold", size: 22)
                         .weight(.medium)
                 )
                 .fontWeight(.bold)
@@ -89,7 +90,7 @@ struct HistoryCardView: View {
                 //(goalsInProgress)
                 Text("\(goalsInProgress) piggy bank in progress!")
                     .font(
-                        Font.custom("Pally-Regular", size: 17)
+                        Font.custom("Pally-Regular", size: 20)
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
@@ -102,7 +103,7 @@ struct HistoryCardView: View {
                 //quntas moedas foram transferidas para a meta (piggyCoinsTrans)
                 Text("\(Int(piggyCoinsTrans)) coins have been transferred to the piggy!")
                     .font(
-                        Font.custom("Pally-Regular", size: 17)
+                        Font.custom("Pally-Regular", size: 20)
                             .weight(.medium)
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
@@ -112,9 +113,9 @@ struct HistoryCardView: View {
                    
             }
         }
-        .padding(.vertical, 32)
         .padding(.horizontal, 32)
-        .frame(maxWidth: .infinity, maxHeight: 256, alignment: .leading)
+        .padding(.vertical, 32)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)
         .clipShape(.rect(cornerRadius: 24.0))

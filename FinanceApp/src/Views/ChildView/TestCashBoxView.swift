@@ -70,7 +70,7 @@ struct TestCashBoxView: View {
                         
                     }
                     .padding(.horizontal,24)
-                    .frame(maxWidth: .infinity,minHeight:64,maxHeight: 64, alignment: .center)
+                    .frame(maxWidth: .infinity,minHeight:64, alignment: .center)
                     .background(Color(red:0.36, green:0, blue:0.55))
                     .clipShape(.rect(cornerRadius: 24))
 

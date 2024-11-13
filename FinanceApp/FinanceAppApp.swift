@@ -8,12 +8,12 @@
 import SwiftUI
 import SwiftData
 
-typealias ChildModel = FinanceAppSchemaV5.ChildModel
-typealias ParentModel = FinanceAppSchemaV5.ParentModel
-typealias SpendModel = FinanceAppSchemaV5.SpendModel
-typealias TaskModel = FinanceAppSchemaV5.TaskModel
-typealias CashBoxModel = FinanceAppSchemaV5.CashBoxModel
-typealias GoalBankModel = FinanceAppSchemaV5.GoalBankModel
+typealias ChildModel = FinanceAppSchemaV6.ChildModel
+typealias ParentModel = FinanceAppSchemaV6.ParentModel
+typealias SpendModel = FinanceAppSchemaV6.SpendModel
+typealias TaskModel = FinanceAppSchemaV6.TaskModel
+typealias CashBoxModel = FinanceAppSchemaV6.CashBoxModel
+typealias GoalBankModel = FinanceAppSchemaV6.GoalBankModel
 
 @main
 struct FinanceAppApp: App {
@@ -33,7 +33,7 @@ struct FinanceAppApp: App {
     }()
     var body: some Scene {
         WindowGroup {
-            ProfilesView()
+            ContentView()
         }
         .modelContainer(sharedModelContainer)
     }

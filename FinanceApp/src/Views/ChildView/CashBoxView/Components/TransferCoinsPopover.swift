@@ -1,10 +1,3 @@
-//
-//  TransferCoinsPopover.swift
-//  FinanceApp
-//
-//  Created by Grecia Cristina on 08/11/24.
-//
-
 import SwiftUI
 struct TransferCoinsPopover: View {
     @Binding var isPresented: Bool
@@ -20,7 +13,7 @@ struct TransferCoinsPopover: View {
                     isPresented = false
                 }
                 .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
-                ).foregroundColor(.mediumPurple)
+                ).foregroundColor(Color(red: 0.36, green: 0.0, blue: 0.55))
                 
                 Spacer()
                 
@@ -40,11 +33,10 @@ struct TransferCoinsPopover: View {
                     }
                 }
                 .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
-                ).foregroundColor(.mediumPurple)
+                ).foregroundColor(Color(red: 0.36, green: 0.0, blue: 0.55))
                 .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
             }
-            .padding([.horizontal])
-            .padding(.top, 40) // Ajuste de espaçamento superior
+            .padding([.bottom, .horizontal])
             
             Divider() // Linha divisória abaixo do cabeçalho
             

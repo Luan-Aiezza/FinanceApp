@@ -11,7 +11,13 @@
         }
       }
     },
-    " Select effort" : {
+    " 1,00" : {
+
+    },
+    " Create 4-digit PIN" : {
+
+    },
+    " Enter your name" : {
 
     },
     "- %@" : {
@@ -26,6 +32,9 @@
           }
         }
       }
+    },
+    "%@ Family!" : {
+
     },
     "%@ Progress" : {
       "extractionState" : "stale",
@@ -97,6 +106,9 @@
         }
       }
     },
+    "$" : {
+
+    },
     "50,00" : {
       "localizations" : {
         "pt-BR" : {
@@ -149,6 +161,9 @@
         }
       }
     },
+    "Add child" : {
+
+    },
     "Add new piggy bank" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -161,6 +176,7 @@
       }
     },
     "Add profile" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -173,7 +189,13 @@
     "Adicionar novo filho" : {
 
     },
+    "Allowance settings" : {
+
+    },
     "Are you sure you want to delete this child?" : {
+
+    },
+    "Back" : {
 
     },
     "BEM-VINDO SENHOR %@" : {
@@ -229,7 +251,13 @@
         }
       }
     },
-    "Coinc" : {
+    "Choose an Icon" : {
+
+    },
+    "Choose icon" : {
+
+    },
+    "Confirm" : {
 
     },
     "Confirm delete" : {
@@ -279,6 +307,9 @@
         }
       }
     },
+    "Continue" : {
+
+    },
     "Copy to all week" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -299,6 +330,9 @@
           }
         }
       }
+    },
+    "Create guardian profile" : {
+
     },
     "Create task" : {
       "extractionState" : "stale",
@@ -396,6 +430,9 @@
         }
       }
     },
+    "Edit %@'s profile" : {
+
+    },
     "Edit child" : {
 
     },
@@ -450,6 +487,24 @@
         }
       }
     },
+    "Enter new name" : {
+
+    },
+    "Enter Password" : {
+
+    },
+    "Enter task name" : {
+
+    },
+    "Essa é a página de histórico do seu filho! aqui ele poderá ver como se saiu em cada mês." : {
+
+    },
+    "Fill in the fields below, if you want you can also change the profile icon." : {
+
+    },
+    "Finish" : {
+
+    },
     "Goal amount input" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -489,6 +544,7 @@
       }
     },
     "Hello, SwiftUI!" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -521,6 +577,9 @@
         }
       }
     },
+    "How much is an in-app coinc worth in real life?" : {
+
+    },
     "Is recurrent? " : {
       "extractionState" : "stale",
       "localizations" : {
@@ -535,6 +594,9 @@
     "Key" : {
       "extractionState" : "manual",
       "shouldTranslate" : false
+    },
+    "Limit reached! In this version, you can only add up to 3 children." : {
+
     },
     "Mark as Done" : {
       "comment" : "Button to mark task as completed",
@@ -582,6 +644,7 @@
       }
     },
     "November, 2024" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -590,6 +653,15 @@
           }
         }
       }
+    },
+    "Now define how much a Coinc coin will be worth to your child, according to your preference." : {
+
+    },
+    "Now let's create your guardian profile!" : {
+
+    },
+    "OK" : {
+
     },
     "Opens modal to create a new piggy bank" : {
       "extractionState" : "stale",
@@ -613,6 +685,12 @@
         }
       }
     },
+    "Password" : {
+
+    },
+    "Please provide a task name and select an effort level." : {
+
+    },
     "Price %@ coincs" : {
       "localizations" : {
         "pt-BR" : {
@@ -627,6 +705,9 @@
 
     },
     "Remove child" : {
+
+    },
+    "Remove this child" : {
 
     },
     "Remover" : {
@@ -656,6 +737,12 @@
           }
         }
       }
+    },
+    "Rename" : {
+
+    },
+    "Save" : {
+
     },
     "Selecione o filho" : {
       "extractionState" : "stale",
@@ -697,9 +784,6 @@
           }
         }
       }
-    },
-    "Support" : {
-
     },
     "Task name" : {
 
@@ -755,6 +839,9 @@
         }
       }
     },
+    "This is your child's monthly history page! here he will be able to see his development" : {
+
+    },
     "Total" : {
       "localizations" : {
         "pt-BR" : {
@@ -805,6 +892,9 @@
           }
         }
       }
+    },
+    "Warning" : {
+
     },
     "What do you want to buy?" : {
       "localizations" : {

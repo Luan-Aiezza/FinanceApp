@@ -7,6 +7,7 @@ struct ProfileChildView: View {
     @State var child: ChildModel?
     @Query private var childs: [ChildModel]
     @ObservedObject var profileChildViewModel: ProfileChildViewModel
+    @ScaledMetric(relativeTo: .largeTitle) var imageSize = 48
     //    @State var view: some View = HistoryView()
     init(id: UUID) {
         self.id = id
@@ -32,25 +33,31 @@ struct ProfileChildView: View {
                 // Toolbar com ícone da criança e caixa de moedas
                 HStack(alignment: .center){
                     //Image("Property 1=b1")
-                    Image("iconChildMIni")
+                    Image(child?.profileImage ?? "Cat")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: imageSize, height: imageSize)
+                        .background(
+                            Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                                .offset(x: 0, y: 6)
+                        )
+                    
                     Spacer(minLength: 20)
                     
                     ProfileChildPicker(viewModel: profileChildViewModel)
                     Spacer(minLength: 20)
                     
                     HStack{
-                        Image("blackIconCoin")
+                        Image("TrueCoinIcon")
                             .scaledToFill()
-                        Text("\(String(profileChildViewModel.wallet?.coins ?? 2))")
-                            .foregroundStyle(Color.black)
-                    }.frame(minWidth: 83, minHeight: 44)
-                    .background(Color(red: 1, green: 0.83, blue: 0.21))
-                    .cornerRadius(24)
-                    .background(
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color(red: 0.85, green: 0.67, blue: 0.01))
+                        Text("\(String(profileChildViewModel.wallet?.coins ?? 0))")
+                            .font(
+                                Font.custom("Pally-Bold", size: 24)
+                                    .weight(.medium)
+                            )
+                            .foregroundStyle(Color(red: 1, green: 0.83, blue: 0.21))
                         
-                    )
+                    }.frame(minWidth: 83, minHeight: 44)
                     .scaledToFit()
                     
                 }
