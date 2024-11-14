@@ -4,23 +4,20 @@ import SwiftData
 struct SelectedChild: View {
     @Environment(\.modelContext) private var modelContext: ModelContext
     @ObservedObject var parentViewModel: ParentViewModel
-    @State private var children: [ChildModel]
-    @State private var currentChild: UUID?
     @State private var selectedChild: ChildModel = ChildModel(name: "No Child")
     @State private var showPopover = false
     @ScaledMetric(relativeTo: .largeTitle) var imageSize = 100
     @Environment(\.sizeCategory) var sizeCategory  // Observa o tamanho do Dynamic Type
-    
+        
     let gridItem = [GridItem(.adaptive(minimum: 200))]
 
     init(parentViewModel: ParentViewModel) {
         self.parentViewModel = parentViewModel
-        _children = State(initialValue: parentViewModel.childdren)
     }
 
     var body: some View {
         let content = VStack(alignment: .center, spacing: 36) {
-            ProfilesSelectView(fetch: parentViewModel.fetch, children: $parentViewModel.childdren, selectedChild: $selectedChild, imageSize: imageSize)
+            ProfilesSelectView(parentViewModel: parentViewModel, fetch: parentViewModel.fetch, children: $parentViewModel.childdren, selectedChild: $selectedChild, imageSize: imageSize)
 
             HistoryCardView(
                 mounthData: Data(),
@@ -73,15 +70,21 @@ struct SelectedChild: View {
             parentViewModel.setup(modelContext: modelContext)
             parentViewModel.fetch()
         }
+        .onChange(of: parentViewModel.isChangeTaskDone) {
+            parentViewModel.fetch(id: parentViewModel.currentChild)
+        }
     }
 }
 
 
 struct ProfilesSelectView: View {
     
+    @ObservedObject var parentViewModel: ParentViewModel
+    
     var fetch: (_ id: UUID) -> Void
     @Binding var children: [ChildModel]
     @Binding var selectedChild: ChildModel
+    
     var imageSize: CGFloat
 
     var body: some View {
@@ -91,6 +94,7 @@ struct ProfilesSelectView: View {
                     VStack(alignment: .center) {
                         Button(action: {
                             fetch(child.id) // Seleciona o filho
+                            parentViewModel.currentChild = child.id
                             selectedChild = child // Atualiza o filho selecionado
                         }) {
                             ProfileSelect(imageSize: imageSize, child: child, isSelected: selectedChild.id == child.id)

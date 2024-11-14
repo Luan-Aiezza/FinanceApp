@@ -13,6 +13,8 @@ struct TaskCreateView: View {
     @State var selectedEffortLevel: EffortTypes = .easy
     @Binding var isPresented: Bool
     
+    @State var isChangeTask: Bool = false
+    
     @State private var showAlert = false // Controle para exibir o alerta
     @Query private var childs: [ChildModel]
     @Query private var tasks: [TaskModel]
@@ -60,6 +62,7 @@ struct TaskCreateView: View {
                         showAlert = true // Exibe o alerta se algum campo obrigatório estiver vazio
                     } else if let child = selectedChild {
                         addTask(child, taskDescription, String(value), false, selectedEffortLevel, .none)
+                        parentViewModel.isChangeTaskDone.toggle()
                         isPresented = false
                     }
                     // isPresented = false // Fecha o Popover ao clicar em "Done"

@@ -28,6 +28,9 @@ class ParentViewModel: ObservableObject{
     @Published var tasksDoneInCurrentMonth: Int = 0
     @Published var valueOfTasksDoneInCurrentMonth: Int = 0
     
+    @Published var isChangeTaskDone: Bool = false
+    @Published var currentChild: UUID?
+    
     
     // Método para remover a criança da lista
 //    func removeChild(_ child: ChildModel) {
