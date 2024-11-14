@@ -14,15 +14,7 @@ struct ProfileChildView: View {
         profileChildViewModel = .init(id: id)
     }
     
-    
-    func getTasks() -> [TaskModel] {
-        if let child = childs.first(where: {$0.id == id}){
-            return child.tasks
-        } else {
-            return []
-        }
-    }
-    
+        
     var body: some View {
         ZStack {
             Text("")

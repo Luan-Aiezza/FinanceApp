@@ -15,6 +15,8 @@ class ProfileChildViewModel: ObservableObject{
     private var parentService: Service<ParentModel>?
     private var childService: Service<ChildModel>?
     
+    @Published var actualView: PickerOptions = .profile
+    
     @Published var child: ChildModel?
     @Published var wallet: CashBoxModel?
     
@@ -25,7 +27,7 @@ class ProfileChildViewModel: ObservableObject{
         self.id = id
         cashBoxVM = .init(id: id)
         historyVM = .init(id: id)
-        //        showingView = TaskBoard(id: id)
+        
     }
     
     func setup(modelContext: ModelContext){
@@ -39,9 +41,8 @@ class ProfileChildViewModel: ObservableObject{
         child = cashBoxVM.child
         wallet = cashBoxVM.wallet
         print("Instancia ProfileCHild")
+        print("ProfileChildVM - \(actualView) atualmente")
     }
-    
-    @Published var actualView: PickerOptions = .profile
     
     
     @ViewBuilder

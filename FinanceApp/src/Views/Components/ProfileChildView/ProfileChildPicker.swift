@@ -21,6 +21,7 @@ struct ProfileChildPicker: View {
                         .clipShape(Capsule())
                         .onTapGesture {
                             viewModel.actualView = option
+                            viewModel.fetch()
                         }
                 }
             }

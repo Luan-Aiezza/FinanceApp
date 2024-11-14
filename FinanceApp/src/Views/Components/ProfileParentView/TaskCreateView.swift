@@ -6,7 +6,7 @@ struct TaskCreateView: View {
     @ObservedObject private var parentViewModel = ParentViewModel.shared
     
     @State var taskDescription: String = ""
-    @State var value: Int = 0
+    @State var value: Int = 1
     @State var stringValue: String = ""
     @State var recurrent: Bool = true
     @State var selectedChild: ChildModel?
