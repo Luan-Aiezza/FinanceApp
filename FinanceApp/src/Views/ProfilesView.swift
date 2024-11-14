@@ -55,15 +55,15 @@ struct ProfilesView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer(minLength: 100)
-//                    ForEach(parents){ parent in
-                        VStack {
-                            Image("Crow")
-                                .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
-                                .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
-                            
-                            createProfileView(parentViewModel.parent ?? ParentModel(name: "No Parent")) // Imagem de perfil circular
-                        }
-//                    }
+                    //                    ForEach(parents){ parent in
+                    VStack {
+                        Image("Crow")
+                            .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
+                            .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
+                        
+                        createProfileView(parentViewModel.parent ?? ParentModel(name: "No Parent")) // Imagem de perfil circular
+                    }
+                    //                    }
                     
                     LazyVGrid(columns: gridItem){
                         Button(action: {
@@ -180,8 +180,6 @@ struct ProfilesView: View {
                         Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                             .offset(x: 0, y: 6)
                     )
-                
-                
                     .gesture(
                         LongPressGesture().onEnded { _ in
                             showIconSelection = true
@@ -225,22 +223,26 @@ struct ProfilesView: View {
             SecureField("Password", text: $inputPassword)
                 .keyboardType(.numberPad) // Limita a entrada para números
             Button("Confirm") {
-                if inputPassword == password {
+                let compare = inputPassword == password
+                if compare {
                     isAuthenticated = true
                 } else {
                     isAuthenticated = false
                 }
+                if isAuthenticated {
+                    navigation.navigateTo(to: .parentProfile)
+                }
                 inputPassword = ""
+                
             }
+            
             Button("Cancel", role: .cancel) {
                 inputPassword = ""
             }
         }
-        .onChange(of: isAuthenticated){
-            navigation.navigateTo(to: .parentProfile)
-        }
     }
 }
+
 
 //#Preview {
 //    ProfilesView()
