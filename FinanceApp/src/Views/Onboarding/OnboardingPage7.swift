@@ -3,7 +3,7 @@ import SwiftData
 
 struct OnboardingPage7: View {
     
-    @State var valueCoinc: String = ""
+    @State var valueCoinc: String = "1"
     
     var body: some View {
         VStack(spacing: 36){
