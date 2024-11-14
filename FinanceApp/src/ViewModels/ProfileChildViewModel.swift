@@ -40,8 +40,7 @@ class ProfileChildViewModel: ObservableObject{
         cashBoxVM.fetch()
         child = cashBoxVM.child
         wallet = cashBoxVM.wallet
-        print("Instancia ProfileCHild")
-        print("ProfileChildVM - \(actualView) atualmente")
+        historyVM.fetch()
     }
     
     
@@ -52,7 +51,7 @@ class ProfileChildViewModel: ObservableObject{
 //            CashBoxView2(id: id)
             TestCashBoxView(viewModel: cashBoxVM)
         case .profile:
-            TaskBoard(id: id)
+            TaskBoard(id: id, cashViewModel: cashBoxVM)
         case .history:
             HistoryView(viewModel: historyVM)
             

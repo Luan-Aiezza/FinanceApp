@@ -13,12 +13,14 @@ struct TaskBoard: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var childs: [ChildModel]
     let id: UUID
-    @ObservedObject private var cashViewModel: CashBoxViewModel
-    @ScaledMetric(relativeTo: .body) var dynamicSpacing: CGFloat = 32 // Ajusta o espaçamento com base no Dynamic Type
+    @ObservedObject private var cashViewModel: TestCashBoxViewModel
+    @ScaledMetric(relativeTo: .body) var dynamicSpacing: CGFloat = 32
+    
+    // Ajusta o espaçamento com base no Dynamic Type
 //    @ScaledMetric(relativeTo: .largeTitle) var dynamicPadding: CGFloat = 16
     
-    init(id: UUID) {
-        self.cashViewModel = .init(id: id)
+    init(id: UUID, cashViewModel: TestCashBoxViewModel) {
+        self.cashViewModel = cashViewModel
         self.id = id
     }
     
@@ -51,7 +53,7 @@ struct TaskBoard: View {
                 }
             }
             .onAppear{
-                cashViewModel.modelContext = modelContext
+                cashViewModel.setup(modelContext: modelContext)
                 cashViewModel.fetch()
             }
         }

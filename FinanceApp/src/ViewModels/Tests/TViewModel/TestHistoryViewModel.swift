@@ -49,7 +49,7 @@ class TestHistoryViewModel: ObservableObject {
     }
     
     private func countActivePiggyBank(child: ChildModel) -> Int {
-        let activePiggyBanks = child.goals.count(where: {$0.finishDate != nil})
+        let activePiggyBanks = child.goals.count(where: {$0.finishDate == nil})
         return activePiggyBanks
     }
     
