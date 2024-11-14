@@ -87,6 +87,7 @@
       }
     },
     "%lld tasks done sucessfully" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -438,9 +439,6 @@
     "Edit %@'s profile" : {
 
     },
-    "Edit child" : {
-
-    },
     "Edit goal" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -461,6 +459,12 @@
           }
         }
       }
+    },
+    "Edit this child" : {
+
+    },
+    "Edit your profile" : {
+
     },
     "Enter amount" : {
       "localizations" : {
@@ -812,6 +816,9 @@
           }
         }
       }
+    },
+    "tasks done sucessfully" : {
+
     },
     "Tasks for today" : {
       "extractionState" : "stale",

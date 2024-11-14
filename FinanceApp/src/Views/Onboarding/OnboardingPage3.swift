@@ -45,6 +45,7 @@ struct OnboardingPage3: View {
                     Text("$")
                     
                     TextField(" 1,00", text: $valueCoinc)
+                        .padding(.leading)
                         .frame(minHeight: 44)
                         .background(Color(red: 1, green: 1, blue: 1))
                         .clipShape(RoundedRectangle(cornerRadius: 10.0))

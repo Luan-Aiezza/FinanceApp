@@ -67,7 +67,7 @@ struct OnboardingView: View {
                         ZStack {
                             Color(red: 0.99, green: 0.99, blue: 0.99)
                                 .cornerRadius(24)
-                            Text(currentPage < 7 ? "Continue" : "Finish")
+                            Text(currentPage < 4 ? "Continue" : "Finish")
                                 .font(.headline)
                                 .foregroundColor(Color.black)
                                 .padding(.horizontal, 16.0)

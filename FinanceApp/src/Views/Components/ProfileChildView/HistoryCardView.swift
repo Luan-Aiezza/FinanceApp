@@ -44,12 +44,9 @@ struct HistoryCardView: View {
 
             HStack{
                 //simbolo de que a task está completa
-                Image(systemName: taskState ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
-                    .padding()
-                    .scaledToFill()
+                Text("\(countTasks)")
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
-                Text("\(countTasks) tasks done sucessfully")
+                Text("tasks done sucessfully")
                     .font(
                         Font.custom("Pally-Regular", size: 20)
                             .weight(.medium)

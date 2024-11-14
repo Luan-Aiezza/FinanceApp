@@ -4,12 +4,13 @@ import SwiftData
 struct OnboardingPage2: View {
     
     @State private var showIconSelection = false
-    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "guardianIcon"
+    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "Bird"
     @AppStorage("guardianName") private var guardianName: String = ""
     @AppStorage("password") private var password: String = "" // Armazenando o hash
     @Binding var isDisabled: Bool
     
     var body: some View {
+        
         VStack(spacing: 36) {
             VStack(alignment: .leading) {
                 Text("Create guardian profile")
@@ -83,6 +84,7 @@ struct OnboardingPage2: View {
                     
                     VStack(spacing: 10) {
                         TextField(" Enter your name", text: $guardianName)
+                            .padding(.leading)
                             .frame(minHeight: 44)
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
@@ -94,6 +96,7 @@ struct OnboardingPage2: View {
                             }
                         
                         SecureField(" Create 4-digit PIN", text: $password)
+                            .padding(.leading)
                             .keyboardType(.numberPad) // Limita a entrada para números
                             .frame(minHeight: 44)
                             .background(Color.white)

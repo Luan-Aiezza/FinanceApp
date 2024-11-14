@@ -1,41 +1,36 @@
 import SwiftUI
 
-struct EditChildView: View {
+struct EditParentView: View {
+    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "guardianIcon"
+    @AppStorage("guardianName") private var guardianName: String = ""
     @Environment(\.dismiss) private var dismiss
-//    @ObservedObject var parentViewModel: ParentViewModel
-    @State var child: ChildModel // Variável para acessar o modelo da criança
-    
+
     @ScaledMetric(relativeTo: .largeTitle) var imageSize = 150
-    @State private var newName: String
-    @State private var selectedIcon: String
-    var upDateChildProfile: (_ name: String, _ image: String) -> Void
+    @State private var newNameParent: String
+    @State private var selectedIconParent: String
     
-    // Ícones disponíveis
     private let icons = ["Cat", "Dog", "Tiger", "Bird"]
     
-    init(child: ChildModel, upDateChildProfile: @escaping (_ name: String, _ image: String) -> Void) {
-        self.child = child
-//        self.parentViewModel = parentViewModel
-        _newName = State(initialValue: child.name)
-        _selectedIcon = State(initialValue: child.profileImage ?? "Cat")
-        self.upDateChildProfile = upDateChildProfile
+    init() {
+        // Inicializa as variáveis com valores do AppStorage
+        _newNameParent = State(initialValue: UserDefaults.standard.string(forKey: "guardianName") ?? "")
+        _selectedIconParent = State(initialValue: UserDefaults.standard.string(forKey: "selectedGuardianIcon") ?? "guardianIcon")
     }
-    
+
     var body: some View {
-        
         VStack(spacing: 36) {
-            Text("Edit \(child.name)'s profile")
-                .font(Font.custom("Pally-Bold", size: 41).weight(.bold))
+            Text("Edit \(guardianName)'s profile")
+                .font(.custom("Pally-Bold", size: 41))
                 .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                .frame(minWidth: 198, maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             Text("Rename")
                 .font(.custom("Pally-Regular", size: 34))
                 .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                .frame(minWidth: 198, maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             HStack {
-                TextField("Enter new name", text: $newName)
+                TextField("Enter new name", text: $newNameParent)
                     .font(.custom("Pally-Regular", size: 34))
                     .background(RoundedRectangle(cornerRadius: 10).fill(Color.gray.opacity(0.2)))
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
@@ -47,22 +42,21 @@ struct EditChildView: View {
             Text("Choose icon")
                 .font(.custom("Pally-Regular", size: 34))
                 .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
-                .frame(minWidth: 198, maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
             HStack {
                 ForEach(icons, id: \.self) { icon in
                     Button(action: {
-                        selectedIcon = icon
+                        selectedIconParent = icon
                     }) {
                         Image(icon)
                             .resizable()
                             .scaledToFit()
                             .frame(width: imageSize, height: imageSize)
-                            .foregroundColor(.cyan)
                             .background(
-                                selectedIcon == icon ? (Color(red: 0.73, green: 0.57, blue: 0.8)) : Color.clear,
+                                selectedIconParent == icon ? Color(red: 0.73, green: 0.57, blue: 0.8) : Color.clear,
                                 in: Circle()
                             )
-                            
                     }
                 }
             }
@@ -70,11 +64,13 @@ struct EditChildView: View {
             Spacer()
             
             Button("Save") {
-                //TODO: Não esquecer de implementar
-                upDateChildProfile(newName, selectedIcon)
-                dismiss()
-            }.font(Font.custom("Pally-Regular", size: 34).weight(.medium))
-                .buttonStyle(.borderedProminent).tint(Color(red: 0.16, green: 0, blue: 0.25))
+                selectedGuardianIcon = selectedIconParent
+                guardianName = newNameParent
+                dismiss() // Fecha a view ao salvar
+            }
+            .font(.custom("Pally-Regular", size: 34))
+            .buttonStyle(.borderedProminent)
+            .tint(Color(red: 0.16, green: 0, blue: 0.25))
         }
         .padding()
     }

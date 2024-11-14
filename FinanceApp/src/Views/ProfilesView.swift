@@ -169,58 +169,22 @@ struct ProfilesView: View {
     private func createProfileView(_ parent: ParentModel) -> some View {
         Button(action: {
             if childs.isEmpty {
-                // Mostra um alerta caso não haja nenhuma criança cadastrada
                 showChildRequiredAlert = true
             } else {
                 showPasswordAlert = true
             }
         }) {
             VStack {
-                Image(selectedGuardianIcon)
+                Image(selectedGuardianIcon) // Use @AppStorage diretamente
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150, height: 150)
                     .foregroundColor(.cyan)
-                    .background(
-                        Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
-                            .offset(x: 0, y: 6)
-                    )
-                    .gesture(
-                        LongPressGesture().onEnded { _ in
-                            showIconSelection = true
-                        }
-                    ).popover(isPresented: $showIconSelection) {
-                        VStack(spacing: 20) {
-                            Text("Choose an Icon")
-                                .font(Font.custom("Pally-Bold", size: 24))
-                                .padding()
-                            
-                            HStack(spacing: 20) {
-                                ForEach(["Cat", "Dog", "Tiger", "Bird"], id: \.self) { iconName in
-                                    Button(action: {
-                                        selectedGuardianIcon = iconName
-                                        showIconSelection = false
-                                    }) {
-                                        Image(iconName)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 80, height: 80)
-                                    }
-                                }
-                            }
-                            .padding()
-                        }
-                        .background(Color.white)
-                        .cornerRadius(20)
-                        .padding()
-                    }
-                Text(guardianName)
-                    .font(
-                        Font.custom("Pally-Bold", size: 22)
-                            .weight(.medium)
-                    )
+                    .background(Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8)).offset(x: 0, y: 6))
+                
+                Text(guardianName) // Use @AppStorage diretamente
+                    .font(.custom("Pally-Bold", size: 22))
                     .foregroundStyle(.white)
-                    .scaledToFit()
                     .multilineTextAlignment(.center)
             }
         }
@@ -229,23 +193,15 @@ struct ProfilesView: View {
         }
         .alert("Enter Password", isPresented: $showPasswordAlert) {
             SecureField("Password", text: $inputPassword)
-                .keyboardType(.numberPad) // Limita a entrada para números
+                .keyboardType(.numberPad)
             Button("Confirm") {
-                let compare = inputPassword == password
-                if compare {
-                    isAuthenticated = true
-                } else {
-                    isAuthenticated = false
-                }
+                isAuthenticated = (inputPassword == password)
                 if isAuthenticated {
                     navigation.navigateTo(to: .parentProfile)
                 }
                 inputPassword = ""
             }
-            
-            Button("Cancel", role: .cancel) {
-                inputPassword = ""
-            }
+            Button("Cancel", role: .cancel) { inputPassword = "" }
         }
     }
 }
