@@ -4,17 +4,21 @@ import SwiftData
 struct OnboardingPage4: View {
     var body: some View {
         VStack(spacing: 36){
-            Text("Essa é a página de histórico do seu filho! aqui ele poderá ver como se saiu em cada mês.")
+            Spacer()
+            Text("Now, let's get started!")
                 .font(
-                    Font.custom("Pally-Bold", size: 30)
+                    Font.custom("Pally-Bold", size: 36)
                         .weight(.medium)
                 )
                 .foregroundColor(.white)
                 .multilineTextAlignment(.center)
+            Spacer()
             
-            Image("HistoryOnboarding")
+            Image("Low eff 2")
                 .resizable()
                 .scaledToFit()
+            
+            Spacer()
             
         }
     }

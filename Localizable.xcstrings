@@ -209,6 +209,9 @@
         }
       }
     },
+    "By creating tasks from your account, your child completes these tasks and can earn coins, exchanging them with you for real value if they wish!" : {
+
+    },
     "Cancel" : {
       "localizations" : {
         "pt-BR" : {
@@ -498,9 +501,6 @@
     "Enter task name" : {
 
     },
-    "Essa é a página de histórico do seu filho! aqui ele poderá ver como se saiu em cada mês." : {
-
-    },
     "Fetch manual" : {
 
     },
@@ -660,6 +660,9 @@
 
     },
     "Now let's create your guardian profile! Fill in the fields below, if you want you can also change the profile icon." : {
+
+    },
+    "Now, let's get started!" : {
 
     },
     "OK" : {
@@ -841,9 +844,6 @@
         }
       }
     },
-    "This is your child's monthly history page! here he will be able to see his development" : {
-
-    },
     "Total" : {
       "localizations" : {
         "pt-BR" : {
@@ -898,7 +898,7 @@
     "Warning" : {
 
     },
-    "Welcome!" : {
+    "Welcome to Coinc, your app to help your child learn the value of money!" : {
 
     },
     "What do you want to buy?" : {

@@ -12,21 +12,15 @@ struct OnboardingView: View {
             
             VStack {
                 if currentPage == 0 {
-                    OnboardingPage1()
+                    OnboardingPage0()
                 } else if currentPage == 1 {
-                    OnboardingPage2()
+                    OnboardingPage1()
                 } else if currentPage == 2 {
-                    OnboardingPage3()
+                    OnboardingPage2()
                 } else if currentPage == 3 {
-                    OnboardingPage4()
-                } else if currentPage == 4 {
-                    OnboardingPage5()
-                } else if currentPage == 5 {
-                    OnboardingPage6()
-                } else if currentPage == 6 {
-                    OnboardingPage7()
+                    OnboardingPage3()
                 } else {
-                    OnboardingPage8()
+                    OnboardingPage4()
                 }
                 
                 HStack {
@@ -57,7 +51,7 @@ struct OnboardingView: View {
                     
                     // Botão "Continue" / "Finish"
                     Button(action: {
-                        if currentPage < 7 {
+                        if currentPage < 4 {
                             currentPage += 1
                         } else {
                             UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
