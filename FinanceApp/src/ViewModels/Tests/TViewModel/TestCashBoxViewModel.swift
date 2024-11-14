@@ -42,7 +42,7 @@ class TestCashBoxViewModel: ObservableObject {
             self.wallet = child.cashBoxes.first(where: {$0.cashBoxDescription == "Wallet"})
             goals = child.goals
         }
-        print("\(child?.name ?? "no child") - \(wallet?.coins)")
+        print("Na Wallet: \(wallet?.coins ?? 0)")
     }
     
     func addGoal(name: String, amount: Int){
@@ -105,6 +105,31 @@ class TestCashBoxViewModel: ObservableObject {
             }
             else{
                 print("Not enough coins or other error occurred")
+            }
+        }
+        fetch()
+    }
+    
+    func addCoinsOnWallet(amount: Int) {
+        if let wallet = wallet,
+           let cashBoxService = cashBoxService,
+           let childService = childService,
+           let parentService = parentService,
+           let child = child,
+           let parent = parent {
+            let _ = cashBoxService.update(wallet) { wallet in
+                let _ = childService.update(child) { child in
+                    let _ = parentService.update(parent) { parent in
+                        wallet.coins += amount
+                        if let indexWallet = child.cashBoxes.firstIndex(where: {$0.cashBoxDescription == "Wallet"}),
+                           let indexChild = parent.childs.firstIndex(where: {$0.id == child.id}){
+                            child.cashBoxes[indexWallet] = wallet
+                            parent.childs[indexChild] = child
+                            
+                            print("Adicionando \(amount) moedas ao \(wallet.cashBoxDescription) do filho \(child.name)")
+                        }
+                    }
+                }
             }
         }
         fetch()

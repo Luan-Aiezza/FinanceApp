@@ -13,7 +13,7 @@ struct TaskCard: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskModel]
-    @ObservedObject var cashViewModel: CashBoxViewModel
+    @ObservedObject var cashViewModel: TestCashBoxViewModel
     
     var taskID: PersistentIdentifier
     
@@ -53,7 +53,7 @@ struct TaskCard: View {
 }
 
 
-#Preview {
-    //    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: 2.0, effort: .easy, frequency: .daily).persistentModelID)
-//    TaskCard()
-}
+//#Preview {
+//    TaskCard(thisTask: TaskModel(taskDescription: "Comer pão", value: Int(2.0), effort: .easy, frequency: .daily).persistentModelID)
+////    TaskCard()
+//}
