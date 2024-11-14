@@ -1,4 +1,3 @@
-
 import SwiftUI
 import SwiftData
 
@@ -10,6 +9,7 @@ struct ProfilesView: View {
     @State private var showChildIconSelection = false
     
     @State private var showIconSelection = false
+    @State private var showChildRequiredAlert = false
     
     @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "guardianIcon"
     @AppStorage("guardianName") private var guardianName: String = ""
@@ -168,7 +168,12 @@ struct ProfilesView: View {
     @ViewBuilder
     private func createProfileView(_ parent: ParentModel) -> some View {
         Button(action: {
-            showPasswordAlert = true
+            if childs.isEmpty {
+                // Mostra um alerta caso não haja nenhuma criança cadastrada
+                showChildRequiredAlert = true
+            } else {
+                showPasswordAlert = true
+            }
         }) {
             VStack {
                 Image(selectedGuardianIcon)
@@ -219,6 +224,9 @@ struct ProfilesView: View {
                     .multilineTextAlignment(.center)
             }
         }
+        .alert("You need to add at least one child to access the parent's profile.", isPresented: $showChildRequiredAlert) {
+            Button("OK", role: .cancel) { }
+        }
         .alert("Enter Password", isPresented: $showPasswordAlert) {
             SecureField("Password", text: $inputPassword)
                 .keyboardType(.numberPad) // Limita a entrada para números
@@ -233,7 +241,6 @@ struct ProfilesView: View {
                     navigation.navigateTo(to: .parentProfile)
                 }
                 inputPassword = ""
-                
             }
             
             Button("Cancel", role: .cancel) {

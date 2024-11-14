@@ -942,6 +942,9 @@
         }
       }
     },
+    "You need to add at least one child to access the parent's profile." : {
+
+    },
     "You still need %@ coincs to complete" : {
       "localizations" : {
         "pt-BR" : {
