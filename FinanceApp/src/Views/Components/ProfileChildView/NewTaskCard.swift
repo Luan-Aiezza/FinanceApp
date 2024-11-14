@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct NewTaskCard: View {
+    @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
+    @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 304
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var tasks: [TaskModel]
     
@@ -46,7 +49,7 @@ struct NewTaskCard: View {
                 CButton(text: "Mark as Done", action:{print("Button Pressed")})
             }
             .padding(24)
-            .frame(minWidth: 272, maxWidth: .infinity, minHeight: 304, maxHeight: .infinity, alignment: .top)
+            .frame(width: imageWidth, height: imageHeight, alignment: .top)
             .background(Color(red: 0.94, green: 0.9, blue: 0.95))
             .cornerRadius(40)
             .shadow(color: Color(red: 0.73, green: 0.57, blue: 0.8), radius: 0, x: 0, y: 4)

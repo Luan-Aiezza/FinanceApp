@@ -2,6 +2,10 @@ import SwiftUI
 
 struct TaskCardFront: View {
     
+    
+    @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
+    @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 304
+    
     @State var task: TaskModel
     var doneAction: () -> Void
     @Binding var isFlipped: Bool  // Estado para controlar a posição do card
@@ -45,7 +49,7 @@ struct TaskCardFront: View {
             }
         }
         .padding(24)
-        .frame(width: 272, height: 304, alignment: .top)
+        .frame(width: imageWidth, height: imageHeight, alignment: .top)
         .background(Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(40)
         .shadow(color: Color(red: 0.73, green: 0.57, blue: 0.8), radius: 0, x: 0, y: 4)

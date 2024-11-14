@@ -105,6 +105,16 @@ struct TaskCreateView: View {
             Spacer()
         }
         .padding()
+        .onChange(of: selectedEffortLevel) {
+            switch selectedEffortLevel {
+            case .easy:
+                value = 1
+            case .medium:
+                value = 3
+            case .hard:
+                value = 5
+            }
+        }
     }
 }
 

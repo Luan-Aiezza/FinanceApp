@@ -33,9 +33,6 @@
         }
       }
     },
-    "%@ Family!" : {
-
-    },
     "%@ Progress" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -47,7 +44,10 @@
         }
       }
     },
-    "%f%% Progress" : {
+    "%@'s family!" : {
+
+    },
+    "%@%% Progress" : {
 
     },
     "%lld" : {
@@ -130,7 +130,6 @@
       }
     },
     "Active Piggy Banks" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -141,6 +140,7 @@
       }
     },
     "Active Piggy Banks: %lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -504,9 +504,6 @@
     "Fetch manual" : {
 
     },
-    "Fill in the fields below, if you want you can also change the profile icon." : {
-
-    },
     "Finish" : {
 
     },
@@ -662,7 +659,7 @@
     "Now define how much a Coinc coin will be worth to your child, according to your preference." : {
 
     },
-    "Now let's create your guardian profile!" : {
+    "Now let's create your guardian profile! Fill in the fields below, if you want you can also change the profile icon." : {
 
     },
     "OK" : {
@@ -899,6 +896,9 @@
       }
     },
     "Warning" : {
+
+    },
+    "Welcome!" : {
 
     },
     "What do you want to buy?" : {

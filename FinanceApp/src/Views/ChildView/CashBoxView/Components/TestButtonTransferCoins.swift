@@ -24,12 +24,7 @@ struct TestButtonTransferCoins: View {
                             .weight(.medium)
                     )
             }
-//            .padding()
-//            .background(viewModel.goalBanks.isEmpty ? Color.gray : Color.white)
-//            .cornerRadius(20)
-//            .frame(width: 200, height: 40)
-//            .shadow(color: viewModel.goalBanks.isEmpty ? Color.clear : Color.purple.opacity(0.4), radius: 8, x: 0, y: 4)
-            }
+        }
         .disabled(goals.isEmpty) // Desativa o botão se não houver metas
         .popover(isPresented: $showTransferCoinsPopover) {
             TransferCoinsPopover(isPresented: $showTransferCoinsPopover, addCoinsToGoal: addCoinsToGoal, goals: $goals)

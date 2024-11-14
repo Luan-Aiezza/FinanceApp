@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct TaskCardSuccess: View {
+    
+    @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
+    @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 304
+    
     @State var task: TaskModel
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
@@ -10,7 +14,7 @@ struct TaskCardSuccess: View {
             
         }
         .padding(24)
-        .frame(width: 272, height: 304, alignment: .top)
+        .frame(width: imageWidth, height: imageHeight, alignment: .top)
         .background(Color("CardBG"))
         .cornerRadius(40)
         .shadow(color: Color("CardShadowBG"), radius: 0, x: 0, y: 4)
@@ -55,14 +59,15 @@ struct TaskCardSuccess: View {
           )
           .multilineTextAlignment(.center)
           .foregroundColor(Color("CardTextTP"))
-          .frame(width: 241, alignment: .center)
+          .lineLimit(nil)
+          .fixedSize(horizontal: false, vertical: true)
     }
     
     @ViewBuilder
     func renderImage() -> some View {
         Rectangle()
           .foregroundColor(.clear)
-          .frame(width: 172, height: 112)
+          .frame(minWidth: 172, minHeight: 112)
           .background(
             Image("PigTest")
               .resizable()

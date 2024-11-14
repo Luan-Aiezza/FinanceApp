@@ -8,6 +8,7 @@ struct TransferCoinsPopover: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            Spacer()
             // Cabeçalho com os botões de Cancel e Done
             HStack {
                 Button("Cancel") {
@@ -37,7 +38,6 @@ struct TransferCoinsPopover: View {
                 ).foregroundColor(Color(red: 0.36, green: 0.0, blue: 0.55))
                 .disabled(selectedGoal == nil || transferAmount.isEmpty || Int(transferAmount) ?? 0 <= 0)
             }
-            .padding([.bottom, .horizontal])
             
             Divider() // Linha divisória abaixo do cabeçalho
             

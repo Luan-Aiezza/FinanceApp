@@ -31,6 +31,7 @@ struct HistoryCardView: View {
                 .fontWeight(.bold)
                 .scaledToFill()
             
+            
             // Verificar se a tarefa foi concluida (taskState)
             Text("Task's done")
                 .font(
@@ -66,7 +67,7 @@ struct HistoryCardView: View {
                                 .weight(.medium)
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
-                        .scaledToFill()
+                    
                     Text("Total")
                         .font(
                             Font.custom("Pally-Regular", size: 20)
@@ -74,6 +75,7 @@ struct HistoryCardView: View {
                         )
                         .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                         .scaledToFill()
+                        .multilineTextAlignment(.leading)
                 }.padding(.horizontal, 32)
             }
             Text("Active Piggy bank")
@@ -109,7 +111,6 @@ struct HistoryCardView: View {
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
-                    .scaledToFill()
                    
             }
         }

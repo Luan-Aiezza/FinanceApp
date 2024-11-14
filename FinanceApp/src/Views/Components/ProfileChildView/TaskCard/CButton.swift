@@ -17,7 +17,7 @@ struct CButton: View {
                         .frame(maxWidth: .infinity, alignment: .center) }
                 .padding(.horizontal, 16)
                 .padding(.vertical, 10)
-                .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .center)
+                .frame(maxWidth: .infinity, minHeight: 44, alignment: .center)
                 .background(Color("ButtonBG"))
                 .cornerRadius(24)
                 .offset(y: -4)

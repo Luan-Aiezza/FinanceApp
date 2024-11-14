@@ -14,6 +14,9 @@ struct TestCashBoxView: View {
     @State private var showNewPiggyBankPopover = false
     @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
     
+    @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
+    @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 17
+    
     init(viewModel: TestCashBoxViewModel){
         self.viewModel = viewModel
         
@@ -33,7 +36,7 @@ struct TestCashBoxView: View {
                     VStack {
                         //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack (){
-                            Text("Active Piggy Banks: \(viewModel.wallet?.coins ?? 0)")
+                            Text("Active Piggy Banks")
                                 .font(
                                     Font.custom("Pally-Bold", size: 24)
                                         .weight(.medium)
@@ -42,7 +45,7 @@ struct TestCashBoxView: View {
                             Spacer()
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, goals: $viewModel.goals, addCoinsToGoal: viewModel.addCoinsToGoal)
-                                .frame(height: 17)
+//                                .frame(minHeight: 17)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
@@ -53,7 +56,7 @@ struct TestCashBoxView: View {
                                 )
                             
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, goals: $viewModel.goals, addGoal: viewModel.addGoal)
-                                .frame(height: 17)
+//                                .frame(minHeight: 17)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
@@ -69,6 +72,7 @@ struct TestCashBoxView: View {
                         
                     }
                     .padding(.horizontal,24)
+                    .padding(.vertical,16)
                     .frame(maxWidth: .infinity,minHeight:64, alignment: .center)
                     .background(Color(red:0.36, green:0, blue:0.55))
                     .clipShape(.rect(cornerRadius: 24))

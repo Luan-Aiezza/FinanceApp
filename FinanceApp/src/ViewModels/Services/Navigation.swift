@@ -40,7 +40,7 @@ class AppNavigation: ObservableObject {
         case .parentProfile:
             return AnyView(SelectedChild(parentViewModel: parentViewModel))
         case .childProfile(let id):
-            return AnyView(TestProfileChildView(id: id))
+            return AnyView(ProfileChildView(id: id))
         }
     }
 }

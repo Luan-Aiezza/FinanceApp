@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct TaskCardBack: View {
+    
+    @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
+    @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 304
+    
     @Binding var isFlipped: Bool
     @State var task: TaskModel
     var yesAction: () -> Void
@@ -24,7 +28,7 @@ struct TaskCardBack: View {
             }
         }
         .padding(24)
-        .frame(width: 272, height: 304, alignment: .top)
+        .frame(width: imageWidth, height: imageHeight, alignment: .top)
         .background(Color("CardBG"))
         .cornerRadius(40)
         .shadow(color: Color("CardShadowBG"), radius: 0, x: 0, y: 4)

@@ -49,7 +49,9 @@ struct ProfileChildView: View {
                     
                     HStack{
                         Image("TrueCoinIcon")
+                            .resizable()
                             .scaledToFill()
+                            .frame(width: imageSize-4, height: imageSize-4)
                         Text("\(String(profileChildViewModel.wallet?.coins ?? 0))")
                             .font(
                                 Font.custom("Pally-Bold", size: 24)

@@ -47,7 +47,7 @@ struct ProfilesView: View {
             //SEGUNDA CAMADA
             VStack {
                 Spacer(minLength: 100)
-                Text("\(guardianName) Family!")
+                Text("\(guardianName)'s family!")
                     .font(Font.custom("Pally-Bold", size: 48).weight(.heavy))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .center)
