@@ -8,15 +8,17 @@ struct EditChildView: View {
     @ScaledMetric(relativeTo: .largeTitle) var imageSize = 150
     @State private var newName: String
     @State private var selectedIcon: String
+    var upDateChildProfile: (_ name: String, _ image: String) -> Void
     
     // Ícones disponíveis
     private let icons = ["Cat", "Dog", "Tiger", "Bird"]
     
-    init(child: ChildModel) {
+    init(child: ChildModel, upDateChildProfile: @escaping (_ name: String, _ image: String) -> Void) {
         self.child = child
 //        self.parentViewModel = parentViewModel
         _newName = State(initialValue: child.name)
         _selectedIcon = State(initialValue: child.profileImage ?? "Cat")
+        self.upDateChildProfile = upDateChildProfile
     }
     
     var body: some View {
@@ -69,7 +71,7 @@ struct EditChildView: View {
             
             Button("Save") {
                 //TODO: Não esquecer de implementar
-                print("Implementar update no Edit Child View")
+                upDateChildProfile(newName, selectedIcon)
                 dismiss()
             }.font(Font.custom("Pally-Regular", size: 34).weight(.medium))
                 .buttonStyle(.borderedProminent).tint(Color(red: 0.16, green: 0, blue: 0.25))
