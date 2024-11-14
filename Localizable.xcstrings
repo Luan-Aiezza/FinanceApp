@@ -51,6 +51,9 @@
         }
       }
     },
+    "'%@'" : {
+
+    },
     "%@" : {
       "localizations" : {
         "pt-BR" : {
@@ -126,6 +129,19 @@
           }
         }
       }
+    },
+    "%lld/%lld coins saved" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld coins saved"
+          }
+        }
+      }
+    },
+    "%lld%%" : {
+
     },
     "+" : {
       "localizations" : {
@@ -550,6 +566,9 @@
         }
       }
     },
+    "It costs   %@" : {
+
+    },
     "Key" : {
       "extractionState" : "manual",
       "shouldTranslate" : false
@@ -877,6 +896,9 @@
         }
       }
     },
+    "You completed a piggy bank:" : {
+
+    },
     "You earned" : {
       "localizations" : {
         "pt-BR" : {
@@ -896,6 +918,9 @@
           }
         }
       }
+    },
+    "You need %lld more coins" : {
+
     },
     "You still need %@ coincs to complete" : {
       "localizations" : {
