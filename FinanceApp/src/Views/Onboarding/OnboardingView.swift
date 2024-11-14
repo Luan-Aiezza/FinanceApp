@@ -4,6 +4,7 @@ import SwiftData
 struct OnboardingView: View {
     @State private var currentPage = 0
     @Binding var hasCompletedOnboarding: Bool
+    @State var isDisabled: Bool = false
     
     var body: some View {
         ZStack {
@@ -16,7 +17,10 @@ struct OnboardingView: View {
                 } else if currentPage == 1 {
                     OnboardingPage1()
                 } else if currentPage == 2 {
-                    OnboardingPage2()
+                    OnboardingPage2(isDisabled: $isDisabled)
+                        .onAppear{
+                            isDisabled = true
+                        }
                 } else if currentPage == 3 {
                     OnboardingPage3()
                 } else {
@@ -27,7 +31,9 @@ struct OnboardingView: View {
                     // Botão "Back", aparece apenas quando não está na primeira página
                     if currentPage > 0 {
                         Button(action: {
-                            currentPage -= 1
+                            if currentPage > 0{
+                                currentPage -= 1
+                            }
                         }) {
                             ZStack {
                                 Color(red: 0.99, green: 0.99, blue: 0.99)
@@ -52,7 +58,7 @@ struct OnboardingView: View {
                     // Botão "Continue" / "Finish"
                     Button(action: {
                         if currentPage < 4 {
-                            currentPage += 1
+                                currentPage += 1
                         } else {
                             UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
                             hasCompletedOnboarding = true
@@ -74,6 +80,8 @@ struct OnboardingView: View {
                                 .offset(x: 0, y: 6)
                         )
                     }
+                    .disabled(isDisabled)
+                    .opacity(isDisabled ? 0.2 : 1)
                 }
             }                .padding(.horizontal, 85)
                 .padding(.vertical, 85)

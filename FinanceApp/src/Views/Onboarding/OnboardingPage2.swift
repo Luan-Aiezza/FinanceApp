@@ -5,9 +5,9 @@ struct OnboardingPage2: View {
     
     @State private var showIconSelection = false
     @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "guardianIcon"
-    
     @AppStorage("guardianName") private var guardianName: String = ""
     @AppStorage("password") private var password: String = "" // Armazenando o hash
+    @Binding var isDisabled: Bool
     
     var body: some View {
         VStack(spacing: 36) {
@@ -87,8 +87,13 @@ struct OnboardingPage2: View {
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 10.0))
                             .font(Font.custom("Pally-Regular", size: 17).weight(.medium))
+                            .onChange(of: guardianName){
+                                if !guardianName.isEmpty && !password.isEmpty{
+                                    isDisabled = false
+                                }
+                            }
                         
-                        TextField(" Create 4-digit PIN", text: $password)
+                        SecureField(" Create 4-digit PIN", text: $password)
                             .keyboardType(.numberPad) // Limita a entrada para números
                             .frame(minHeight: 44)
                             .background(Color.white)
@@ -98,6 +103,11 @@ struct OnboardingPage2: View {
                                 // Limita a senha para 4 dígitos
                                 if password.count > 4 {
                                     password = String(password.prefix(4))
+                                }
+                                if !guardianName.isEmpty && (!password.isEmpty && password.count >= 4){
+                                    isDisabled = false
+                                } else {
+                                    isDisabled = true
                                 }
                             }
                     }
