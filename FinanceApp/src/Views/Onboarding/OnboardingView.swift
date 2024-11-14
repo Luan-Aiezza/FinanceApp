@@ -31,7 +31,7 @@ struct OnboardingView: View {
                     // Botão "Back", aparece apenas quando não está na primeira página
                     if currentPage > 0 {
                         Button(action: {
-                            if currentPage > 0{
+                            if currentPage > 0 {
                                 currentPage -= 1
                             }
                         }) {
@@ -51,6 +51,8 @@ struct OnboardingView: View {
                                     .offset(x: 0, y: 6)
                             )
                         }
+                        .disabled(isDisabled) // Desativa o botão quando `isDisabled` for true
+                        .opacity(isDisabled ? 0.2 : 1) // Altera a opacidade para refletir o estado de desativação
                     }
                     
                     Spacer()
