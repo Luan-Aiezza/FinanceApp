@@ -16,6 +16,8 @@ struct TestCashBoxView: View {
     
     @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
     @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 17
+    @ScaledMetric(relativeTo: .largeTitle) var border = 64
+    @ScaledMetric(relativeTo: .largeTitle) var borderButton = 44
     
     init(viewModel: TestCashBoxViewModel){
         self.viewModel = viewModel
@@ -49,6 +51,7 @@ struct TestCashBoxView: View {
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
+                                .frame(height: borderButton)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
@@ -60,6 +63,7 @@ struct TestCashBoxView: View {
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(24)
+                                .frame(height: borderButton)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
@@ -68,14 +72,13 @@ struct TestCashBoxView: View {
                             
                             
                         }
-                        
+                        .padding(.horizontal,24)
+                        .padding(.vertical,16)
+                        .frame(height: border, alignment: .center)
+                        .background(Color(red:0.36, green:0, blue:0.55))
+                        .clipShape(.rect(cornerRadius: 24))
                         
                     }
-                    .padding(.horizontal,24)
-                    .padding(.vertical,16)
-                    .frame(maxWidth: .infinity,minHeight:64, alignment: .center)
-                    .background(Color(red:0.36, green:0, blue:0.55))
-                    .clipShape(.rect(cornerRadius: 24))
 
                     // Lista de piggy banks
                     TestLoadCashBoxesModal(goals: $viewModel.goals)
