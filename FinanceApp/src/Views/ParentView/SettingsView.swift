@@ -2,8 +2,11 @@ import SwiftUI
 import SwiftData
 
 struct SettingsView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var showDeleteAlert = false
     @State private var showEditView = false // Variável para controlar exibição da view de edição
+    var upDateChildProfile: (_ name: String, _ image: String) -> Void
+    var deleteChildProfile: () -> Void
     
     @Binding var selectedChild: ChildModel
     @Environment(\.modelContext) private var modelContext: ModelContext
@@ -30,7 +33,7 @@ struct SettingsView: View {
                 .padding()
                 .sheet(isPresented: $showEditView) {
 //                    let selectedChild = selectedChild {
-                        EditChildView(child: selectedChild)
+                    EditChildView(child: selectedChild, upDateChildProfile: upDateChildProfile)
 //                    }
                 }
                 .background(Color(red: 0.7, green: 0.7, blue: 0.7))
@@ -57,7 +60,10 @@ struct SettingsView: View {
                         title: Text("Remove child"),
                         message: Text("Are you sure you want to delete this child?"),
                         primaryButton: .destructive(Text("Remove")) {
-                            print("Não implementado no SettingsView")
+                            
+                            //TODO: Implementar função de delete
+                            deleteChildProfile()
+                            dismiss()
                         },
                         secondaryButton: .cancel()
                     )

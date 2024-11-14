@@ -43,6 +43,8 @@ class ParentViewModel: ObservableObject{
 //        }
 //    }
     
+    
+    
     func setup(modelContext: ModelContext){
         parentService = .init(modelContext: modelContext)
         childService = .init(modelContext: modelContext)
@@ -86,11 +88,46 @@ class ParentViewModel: ObservableObject{
     func removeTask() -> Void {
         print("removeTask not implemented")
     }
+    
+    // Child Section
+    
     func addChild(name: String) -> ChildModel{
         let newChild = ChildModel(name: name)
         parent?.childs.append(newChild)
         return newChild
     }
+    
+    func upDateChildProfile(name: String?, image: String?){
+        if let parentService = parentService,
+           let childService = childService,
+           let child = childdren.first(where: {$0.id == childID}),
+           let parent = parent{
+            let _ = childService.update(child) { child in
+                if let name = name {
+                    child.name = name
+                }
+                if let image = image {
+                    child.profileImage = image
+                }
+               let _ = parentService.update(parent){ parent in
+                   if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
+                       parent.childs[index] = child
+                   }
+                }
+            }
+        }
+        
+    }
+    
+    func deleteChildProfile() {
+        if let childService = childService,
+           let childToDelete = childdren.first(where: {$0.id == childID}){
+            let _ = childService.delete(childToDelete)
+        }
+        fetch()
+    }
+    
+    // Task Section
     
     func addTaskChild(child: ChildModel, taskDescription: String, value: String, recurrent: Bool, effort: EffortTypes, frequency: FrequencyTypes) {
         let taskModel = createTask(taskDescription: taskDescription, value: value, recurrent: recurrent, effort: effort, frequency: frequency)
@@ -127,6 +164,8 @@ class ParentViewModel: ObservableObject{
             return 0
         }
     }
+    
+    // History Section
     
     private func countActivePiggyBank(child: ChildModel) -> Int {
         let activePiggyBanks = child.goals.count(where: {$0.finishDate != nil})
