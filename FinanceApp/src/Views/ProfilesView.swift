@@ -95,13 +95,7 @@ struct ProfilesView: View {
                             .alert("Enter Child's Name", isPresented: $showAlert) {
                                 TextField("Child's name", text: $childName)
                                 Button("Create") {
-                                    if let parent = parents.first {
-                                        let newChild = ChildModel(name: childName)
-                                        parent.childs.append(newChild)
-                                        modelContext.insert(newChild)
-                                        parentViewModel.fetch()
-                                        try? modelContext.save()
-                                    }
+                                    parentViewModel.addChild(name: childName)
                                     childName = "" // Limpa o campo após a criação
                                 }
                                 Button("Cancel", role: .cancel) {

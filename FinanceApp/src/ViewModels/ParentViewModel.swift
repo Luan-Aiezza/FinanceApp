@@ -22,6 +22,7 @@ class ParentViewModel: ObservableObject{
     private var parentService: Service<ParentModel>? = nil
     private var childService: Service<ChildModel>? = nil
     private var taskService: Service<TaskModel>? = nil
+    private var cashBoxService: Service<CashBoxModel>? = nil
     
     @Published var activePiggyBank: Int = 0
     @Published var coinsInPiggyBank: Int = 0
@@ -52,6 +53,7 @@ class ParentViewModel: ObservableObject{
         parentService = .init(modelContext: modelContext)
         childService = .init(modelContext: modelContext)
         taskService = .init(modelContext: modelContext)
+        cashBoxService = .init(modelContext: modelContext)
     }
     
     func fetch(id: UUID? = nil) {
@@ -94,10 +96,23 @@ class ParentViewModel: ObservableObject{
     
     // Child Section
     
-    func addChild(name: String) -> ChildModel{
+    func addChild(name: String) {
+        
         let newChild = ChildModel(name: name)
-        parent?.childs.append(newChild)
-        return newChild
+        let wallet = CashBoxModel(cashBoxDescription: "Wallet")
+        
+        if let childService = childService,
+           let parentService = parentService,
+           let cashboxService = cashBoxService,
+           let parent = parent
+        {
+            let _ = parentService.update(parent) { parent in
+                let _ = cashBoxService?.create(wallet)
+                newChild.cashBoxes.append(wallet)
+                let _ = childService.create(newChild)
+                parent.childs.append(newChild)
+            }
+        }
     }
     
     func upDateChildProfile(name: String?, image: String?){
