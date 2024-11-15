@@ -14,7 +14,7 @@ struct OnboardingPage2: View {
         VStack(spacing: 36) {
             VStack(alignment: .leading) {
                 Text("Create guardian profile")
-                    .font(Font.custom("Pally-Bold", size: 36).weight(.medium))
+                    .font(Font.custom("Pally-Bold", size: 24).weight(.medium))
                     .foregroundColor(.white)
             }
             .padding(16)
@@ -22,16 +22,9 @@ struct OnboardingPage2: View {
             .background(Color(red: 0.36, green: 0, blue: 0.55))
             .cornerRadius(24)
             
-            VStack(alignment: .center) {
-                Text("Now let's create your guardian profile! Fill in the fields below, if you want you can also change the profile icon.")
-                    .font(Font.custom("Pally-Regular", size: 30).weight(.medium))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-            }
-            
             VStack(alignment: .leading, spacing: 20) {
                 Text("Guardian")
-                    .font(Font.custom("Pally-Bold", size: 22).weight(.bold))
+                    .font(Font.custom("Pally-Bold", size: 17).weight(.bold))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 
                 HStack(alignment: .center, spacing: 40) {
@@ -55,7 +48,7 @@ struct OnboardingPage2: View {
                             ).popover(isPresented: $showIconSelection) {
                                 VStack(spacing: 20) {
                                     Text("Choose an Icon")
-                                        .font(Font.custom("Pally-Bold", size: 24))
+                                        .font(Font.custom("Pally-Bold", size: 22))
                                         .padding()
                                     
                                     HStack(spacing: 20) {
@@ -76,10 +69,13 @@ struct OnboardingPage2: View {
                                 .cornerRadius(20)
                                 .padding()
                             }
-                        Image(systemName: "pencil.circle.fill")
-                            .foregroundColor(.mediumPurple)
-                            .offset(x: 25, y: -15) // Ajuste o valor de x e y para posicionar a coroa
-                            .scaleEffect(2.0)
+                        Image("CanetaOnboarding")
+                            .background(
+                                RoundedRectangle(cornerRadius: 100)
+                                    .fill(Color(red: 0.36, green: 0, blue: 0.55))
+                                    .stroke(Color(red: 0.36, green: 0, blue: 0.55), lineWidth: 10)
+                                    )
+                            .offset(x: 45, y: -25) // Ajuste o valor de x e y para posicionar a coroa
                     }
                     
                     VStack(spacing: 10) {
@@ -115,13 +111,36 @@ struct OnboardingPage2: View {
                             }
                     }
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, 85)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(20)
             .background(Color(red: 0.94, green: 0.9, blue: 0.95))
-            .cornerRadius(24)
-            
+            .clipShape(.rect(cornerRadius: 24.0))
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.85, green: 0.76, blue: 0.89))
+                    .offset(x:0, y: 6)
+                    )
+            Spacer()
+            ZStack{
+                Image("Rectangle 3")
+                    .resizable()
+                    .frame(width: 775, height: 180)
+                    .scaledToFit()
+                
+                Text("Now let's create your guardian profile! Fill in the fields,\n if you want you can also change the profile icon.")
+                    .font(
+                        Font.custom("Pally-Bold", size: 28)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                    .multilineTextAlignment(.center)
+            }
+            Image("PiggyPurple 1")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 216, height: 264)
             Spacer()
         }
     }

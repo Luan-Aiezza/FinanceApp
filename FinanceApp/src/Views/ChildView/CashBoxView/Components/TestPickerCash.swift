@@ -12,11 +12,15 @@ struct TestPickerCash: View {
     
     var body: some View {
         HStack {
-            Image(systemName: "arrowshape.turn.up.right.circle.fill")
-                .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
-            
-            Picker("Select piggy bank", selection: $selectedGoal) {
-                Text("Select piggy bank").tag(UUID?.none)
+            Text("Select piggy bank")
+                .font(
+                    Font.custom("Pally-Regular", size: 17)
+                        .weight(.medium)
+                )
+                .foregroundColor(Color.black)
+                .opacity(0.5)
+            Spacer()
+            Picker("", selection: $selectedGoal) {
                 ForEach(goals) { goal in
                     Text(goal.cashBox.cashBoxDescription).tag(goal.cashBox.id)
                 }
@@ -25,6 +29,7 @@ struct TestPickerCash: View {
             .padding(.leading, 8)
             .foregroundColor(Color.black)
         }
+        .frame(minHeight: 40)
         .padding(10)
         .background(Color.white)
         .cornerRadius(10)

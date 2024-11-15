@@ -17,7 +17,8 @@ struct TestCashBoxView: View {
     @ScaledMetric(relativeTo: .largeTitle) var imageWidth = 272
     @ScaledMetric(relativeTo: .largeTitle) var imageHeight = 17
     @ScaledMetric(relativeTo: .largeTitle) var border = 64
-    @ScaledMetric(relativeTo: .largeTitle) var borderButton = 44
+    @ScaledMetric(relativeTo: .largeTitle) var borderButtonH = 44
+    @ScaledMetric(relativeTo: .largeTitle) var borderButtonW = 156
     
     init(viewModel: TestCashBoxViewModel){
         self.viewModel = viewModel
@@ -35,7 +36,7 @@ struct TestCashBoxView: View {
                     .ignoresSafeArea()
                 VStack (spacing: 20){
                     
-                    VStack {
+                    VStack (alignment: .center){
                         //TODO: TIRAR ESSE VALOR DE COINCS WALLET
                         HStack (){
                             Text("Active Piggy Banks")
@@ -48,32 +49,33 @@ struct TestCashBoxView: View {
                             //TODO: Colocar botão de transferir moedas aqui
                             TestButtonTransferCoins(showTransferCoinsPopover: $showTransferCoinsPopover, goals: $viewModel.goals, addCoinsToGoal: viewModel.addCoinsToGoal)
 //                                .frame(minHeight: 17)
-                                .padding()
+                                .frame(minWidth: borderButtonW, minHeight: borderButtonH)
                                 .background(Color.white)
                                 .cornerRadius(24)
-                                .frame(height: borderButton)
+//                                .frame(height: borderButton)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
                                         .offset(x:0,y: 6)
                                 )
+                                .padding(.bottom, 4)
                             
                             TestButtonCreatePiggyBank(showNewPiggyBankPopover: $showNewPiggyBankPopover, goals: $viewModel.goals, addGoal: viewModel.addGoal)
 //                                .frame(minHeight: 17)
-                                .padding()
+                                .frame(minWidth: borderButtonW, minHeight: borderButtonH)
                                 .background(Color.white)
                                 .cornerRadius(24)
-                                .frame(height: borderButton)
+//                                .frame(height: borderButton)
                                 .background(
                                     RoundedRectangle(cornerRadius: 24)
                                         .fill(Color(red:0.73, green:0.57, blue:0.8))
                                         .offset(x: 0, y: 6)
                                     )
+                                .padding(.bottom, 4)
                             
                             
                         }
                         .padding(.horizontal,24)
-                        .padding(.vertical,16)
                         .frame(height: border, alignment: .center)
                         .background(Color(red:0.36, green:0, blue:0.55))
                         .clipShape(.rect(cornerRadius: 24))

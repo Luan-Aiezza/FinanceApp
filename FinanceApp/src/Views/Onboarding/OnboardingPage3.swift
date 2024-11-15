@@ -10,7 +10,7 @@ struct OnboardingPage3: View {
             VStack(alignment: .leading) {
                 Text("Create guardian profile")
                     .font(
-                        Font.custom("Pally-Bold", size: 36)
+                        Font.custom("Pally-Bold", size: 24)
                             .weight(.medium)
                     )
                     .foregroundColor(.white)
@@ -20,29 +20,22 @@ struct OnboardingPage3: View {
             .background(Color(red: 0.36, green: 0, blue: 0.55))
             .cornerRadius(24)
             
-            Text("Now define how much a Coinc coin will be worth to your child, according to your preference.")
-                .font(
-                    Font.custom("Pally-Regular", size: 30)
-                        .weight(.medium)
-                )
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-            
             VStack(alignment: .leading, spacing: 20) {
                 Text("Allowance settings")
                     .font(
-                        Font.custom("Pally-Bold", size: 24)
+                        Font.custom("Pally-Bold", size: 22)
                             .weight(.bold)
                     )
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                 
                 Text("How much is an in-app coinc worth in real life?")
-                    .font(Font.custom("Pally-Regular", size: 20))
+                    .font(Font.custom("Pally-Regular", size: 17))
                     .foregroundColor(Color.black)
                 
                 HStack() {
                     
                     Text("$")
+                        .font(Font.custom("Pally-Regular", size: 17).weight(.medium))
                     
                     TextField(" 1,00", text: $valueCoinc)
                         .padding(.leading)
@@ -58,7 +51,33 @@ struct OnboardingPage3: View {
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(red: 0.94, green: 0.9, blue: 0.95))
-            .cornerRadius(24)
+            .clipShape(.rect(cornerRadius: 24.0))
+            .background(
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.85, green: 0.76, blue: 0.89))
+                    .offset(x:0, y: 6)
+                    )
+            
+            Spacer()
+            ZStack{
+                Image("Rectangle 3")
+                    .resizable()
+                    .frame(width: 775, height: 180)
+                    .scaledToFit()
+                
+                Text("Now define how much a Coinc coin will be worth\n to your child, according to your preference.")
+                    .font(
+                        Font.custom("Pally-Bold", size: 28)
+                            .weight(.medium)
+                    )
+                    .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
+                    .multilineTextAlignment(.center)
+            }
+            Image("PiggyPurple 1")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 216, height: 264)
+            
             Spacer()
         }
     }

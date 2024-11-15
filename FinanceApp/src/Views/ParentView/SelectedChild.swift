@@ -31,7 +31,7 @@ struct SelectedChild: View {
             TaskSection(selectedChild: $selectedChild, addTask: parentViewModel.addTaskChild)
             TaskRegisters(tasks: $parentViewModel.tasks)
         }
-        .padding(.horizontal, 32)
+        .padding(.horizontal, 85)
         .padding(.vertical, 32)
 
         ZStack {
@@ -102,7 +102,8 @@ struct ProfilesSelectView: View {
                     }
                 }
             }
-            .frame(width: UIScreen.main.bounds.width / 1.1)
+            .padding(.vertical)
+            .frame(width: UIScreen.main.bounds.width / 1.2)
         }
         .onAppear {
             // Define o primeiro filho como selecionado por padrão

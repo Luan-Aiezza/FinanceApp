@@ -210,7 +210,7 @@
         }
       }
     },
-    "By creating tasks from your account, your child completes these tasks and can earn coins, exchanging them with you for real value if they wish!" : {
+    "By creating tasks from your account, your child\n completes these tasks and can earn coins, exchanging\n them with you for real value if they wish!" : {
 
     },
     "Cancel" : {
@@ -660,13 +660,13 @@
         }
       }
     },
-    "Now define how much a Coinc coin will be worth to your child, according to your preference." : {
+    "Now define how much a Coinc coin will be worth\n to your child, according to your preference." : {
 
     },
-    "Now let's create your guardian profile! Fill in the fields below, if you want you can also change the profile icon." : {
+    "Now let's create your guardian profile! Fill in the fields,\n if you want you can also change the profile icon." : {
 
     },
-    "Now, let's get started!" : {
+    "Now let's get started!" : {
 
     },
     "OK" : {
@@ -701,6 +701,7 @@
 
     },
     "Price %@ coincs" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
@@ -709,6 +710,9 @@
           }
         }
       }
+    },
+    "Price: %@ coincs" : {
+
     },
     "Remove" : {
 
@@ -905,7 +909,7 @@
     "Warning" : {
 
     },
-    "Welcome to Coinc, your app to help your child learn the value of money!" : {
+    "Welcome to Coinc, your app to help your child learn\n the value of money!" : {
 
     },
     "What do you want to buy?" : {

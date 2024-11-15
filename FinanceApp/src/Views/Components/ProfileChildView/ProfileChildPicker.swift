@@ -25,7 +25,6 @@ struct ProfileChildPicker: View {
                         }
                 }
             }
-            .padding(.horizontal, 24)
             .padding(.vertical, 4)
             .frame(maxWidth: .infinity, alignment: .center)
             .background(Color(red: 0.36, green: 0, blue: 0.55))

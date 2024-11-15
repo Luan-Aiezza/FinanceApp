@@ -61,7 +61,7 @@ struct ProfileChildView: View {
                     .transition(.opacity)
                 
             }
-            .padding(.horizontal, 32)
+            .padding(.horizontal, 85)
             .onAppear(){
                 if let child = childs.first(where: { $0.id == id }){
                     self.child = child

@@ -33,9 +33,9 @@ struct TaskCreateCard: View {
                 .padding()
                 .background(Color.white)
                 .foregroundColor(.black)
-                .cornerRadius(20)
+                .cornerRadius(24)
                 .background(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 24)
                         .fill(Color(red: 0.73, green: 0.57, blue: 0.8))
                         .offset(x:0, y: 6)
                 )

@@ -26,7 +26,7 @@ struct GoalCardView: View {
                     .foregroundColor(.cardTextTP)
                 
                 Spacer()
-                Text("Price \(String(format: "%.1f", goalAmount)) coincs")
+                Text("Price: \(String(format: "%.1f", goalAmount)) coincs")
                     .font(
                         Font.custom("Pally-Bold", size: 22)
                             .weight(.medium)

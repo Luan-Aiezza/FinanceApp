@@ -44,6 +44,11 @@ struct FinanceAppApp: App {
                         navigation.getDestination(to: view)
                     }
             }
+            .tint(Color.purple)
+            .font(
+                Font.custom("Pally-Regular", size: 17)
+                    .weight(.medium)
+            )
         }
         .modelContainer(sharedModelContainer)
     }

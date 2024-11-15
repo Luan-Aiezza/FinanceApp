@@ -21,8 +21,9 @@ struct CEffortTag: View {
         HStack(alignment: .center, spacing: 8) {
             Text(effortText)
                 .font(
-                    Font.custom("Pally Variable", size: 14)
+                    Font.custom("Pally-Bold", size: 14)
                         .weight(.medium)
+                        .bold()
                 )
                 .multilineTextAlignment(.center)
                 .foregroundColor(effortColorText)
@@ -35,7 +36,7 @@ struct CEffortTag: View {
                   .frame(width: 16, height: 16)
                 Text("\(taskValue)")
                   .font(
-                    Font.custom("Pally Variable", size: 15)
+                    Font.custom("Pally-Bold", size: 15)
                       .weight(.medium)
                   )
                   .foregroundColor(effortColorText)

@@ -150,8 +150,9 @@ struct EffortPicker: View {
                     .padding()
             }
         }
+        .frame(minHeight: 35)
         .pickerStyle(MenuPickerStyle())
         .padding(.leading, 8)
-        .foregroundColor(Color.black)
+        .tint(Color(red: 0.36, green: 0.0, blue: 0.55))
     }
 }
