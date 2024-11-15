@@ -25,6 +25,7 @@ struct TestButtonTransferCoins: View {
                     )
             }
         }
+        .padding(.horizontal)
         .disabled(goals.isEmpty) // Desativa o botão se não houver metas
         .popover(isPresented: $showTransferCoinsPopover) {
             TransferCoinsPopover(isPresented: $showTransferCoinsPopover, addCoinsToGoal: addCoinsToGoal, goals: $goals)

@@ -31,7 +31,7 @@ struct TestButtonCreatePiggyBank: View {
             }
             
         }
-                
+        .padding(.horizontal)
         .popover(isPresented: $showNewPiggyBankPopover) {
             TestNewPiggyBankModal(
                 isPresented: $showNewPiggyBankPopover,

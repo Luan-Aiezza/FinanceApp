@@ -4,7 +4,7 @@ import SwiftData
 struct OnboardingPage2: View {
     
     @State private var showIconSelection = false
-    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "Bird"
+    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = ""
     @AppStorage("guardianName") private var guardianName: String = ""
     @AppStorage("password") private var password: String = "" // Armazenando o hash
     @Binding var isDisabled: Bool
