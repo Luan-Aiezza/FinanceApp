@@ -5,32 +5,42 @@
 //  Created by Grecia Cristina on 08/11/24.
 //
 import SwiftUI
+import SwiftUI
+
 struct TestLoadCashBoxesModal: View {
     @Binding var goals: [GoalBankModel]
-    @State private var showEditDeleteOptions: UUID? = nil // Armazena o ID do card atualmente selecionado para edição/exclusão
-    @State private var showDeleteConfirmation: Bool = false // Controla a exibição do alerta de confirmação
-    @State private var showEditPopover: Bool = false // Controla a exibição do popover de edição
-    @State private var selectedGoal: GoalBankModel? // Armazena o objetivo selecionado para edição
-    
+    @State private var showEditDeleteOptions: UUID? = nil // Stores the ID of the card currently selected for editing/deleting
+    @State private var showDeleteConfirmation: Bool = false // Controls the display of the confirmation alert
+    @State private var showEditPopover: Bool = false // Controls the display of the edit popover
+    @State private var selectedGoal: GoalBankModel? // Stores the selected goal for editing
+
+    // Define a grid layout with 3 columns
+    let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+
     var body: some View {
         ScrollView {
-            VStack() {
+            LazyVGrid(columns: columns, spacing: 20) { // Adjust spacing as needed
                 ForEach(goals, id: \.cashBox.id) { goal in
                     ZStack {
-                        GoalCardView(
+                        CashBoxCardView(
                             goalName: goal.cashBox.cashBoxDescription,
                             goalAmount: Float(goal.goalAmount),
                             savedAmount: Float(goal.cashBox.coins)
-                        ).padding(.horizontal, -28)
+                        )
+                        .frame(width: 290, height: 340) // Adjust width and height as needed
+                        .background(Color.white) // Ensures a white background within each card
+                        .cornerRadius(16) // Rounded corners for each card
+                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4) // Shadow for a floating effect
+                        .padding(.horizontal, 8)
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
                         }
 
-                        // Mostra os botões de editar, deletar e cancelar quando o card é pressionado
+                        // Show edit, delete, and cancel buttons when the card is pressed
                         if showEditDeleteOptions == goal.cashBox.id {
                             HStack {
                                 Button(action: {
-                                    // Abre o popover de edição e carrega os dados do objetivo selecionado
+                                    // Opens the edit popover and loads data of the selected goal
                                     selectedGoal = goal
                                     showEditPopover = true
                                     showEditDeleteOptions = nil
@@ -47,7 +57,7 @@ struct TestLoadCashBoxesModal: View {
                                     .cornerRadius(10)
                                 }
 
-                                Divider() // Linha divisória entre os botões
+                                Divider() // Divider between the buttons
 
                                 Button(action: {
                                     showDeleteConfirmation = true
@@ -65,10 +75,10 @@ struct TestLoadCashBoxesModal: View {
                                     .cornerRadius(10)
                                 }
 
-                                Divider() // Linha divisória entre os botões
+                                Divider() // Divider between the buttons
 
                                 Button(action: {
-                                    // Oculta as opções sem realizar nenhuma ação
+                                    // Hides options without taking any action
                                     showEditDeleteOptions = nil
                                 }) {
                                     VStack {
@@ -85,33 +95,13 @@ struct TestLoadCashBoxesModal: View {
                             }
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
-                            .frame(width: 300) // Ajuste a largura conforme necessário
+                            .frame(width: 300) // Adjust width as needed
                         }
                     }
                     .padding()
-//                    .alert(isPresented: $showDeleteConfirmation) {
-//                        Alert(
-//                            title: Text("Confirm delete"),
-//                            message: Text("Do you want to delete this Piggy Bank? You cannot undo this action."),
-//                            primaryButton: .destructive(Text("Delete")) {
-//                                viewModel.removeGoal(goal: goal)
-//                            },
-//                            secondaryButton: .cancel()
-//                        )
-//                    }
                 }
             }
             .padding(.horizontal, 16)
-//            .popover(isPresented: $showEditPopover) {
-//                if let goal = selectedGoal {
-//                    TestNewPiggyBankModal(
-//                        isPresented: $showEditPopover,
-//                        viewModel: viewModel,
-//                        goalToEdit: goal // Passa o objetivo para edição
-//                    )
-//                }
-//            }
         }
     }
 }
-
