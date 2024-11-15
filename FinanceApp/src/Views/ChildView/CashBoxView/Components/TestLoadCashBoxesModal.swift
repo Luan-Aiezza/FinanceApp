@@ -1,25 +1,22 @@
-//
-//  Untitled.swift
 //  FinanceApp
 //
 //  Created by Grecia Cristina on 08/11/24.
 //
-import SwiftUI
-import SwiftUI
 
+import SwiftUI
 struct TestLoadCashBoxesModal: View {
     @Binding var goals: [GoalBankModel]
-    @State private var showEditDeleteOptions: UUID? = nil // Stores the ID of the card currently selected for editing/deleting
-    @State private var showDeleteConfirmation: Bool = false // Controls the display of the confirmation alert
-    @State private var showEditPopover: Bool = false // Controls the display of the edit popover
-    @State private var selectedGoal: GoalBankModel? // Stores the selected goal for editing
+    @State private var showEditDeleteOptions: UUID? = nil
+    @State private var showDeleteConfirmation: Bool = false
+    @State private var showEditPopover: Bool = false
+    @State private var selectedGoal: GoalBankModel?
 
-    // Define a grid layout with 3 columns
+    // Define a grid layout with 3 columns and reduced row spacing
     let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) { // Adjust spacing as needed
+            LazyVGrid(columns: columns, spacing: 12) { // Reduced spacing to 12 for tighter rows
                 ForEach(goals, id: \.cashBox.id) { goal in
                     ZStack {
                         CashBoxCardView(
@@ -27,20 +24,15 @@ struct TestLoadCashBoxesModal: View {
                             goalAmount: Float(goal.goalAmount),
                             savedAmount: Float(goal.cashBox.coins)
                         )
-                        .frame(width: 290, height: 340) // Adjust width and height as needed
-                        .background(Color.white) // Ensures a white background within each card
-                        .cornerRadius(16) // Rounded corners for each card
-                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4) // Shadow for a floating effect
-                        .padding(.horizontal, 8)
+                        .frame(width: 270, height: 340) // Ensuring consistent width and height across cards
+                        .cornerRadius(16)
                         .onLongPressGesture {
                             showEditDeleteOptions = goal.cashBox.id
                         }
 
-                        // Show edit, delete, and cancel buttons when the card is pressed
                         if showEditDeleteOptions == goal.cashBox.id {
                             HStack {
                                 Button(action: {
-                                    // Opens the edit popover and loads data of the selected goal
                                     selectedGoal = goal
                                     showEditPopover = true
                                     showEditDeleteOptions = nil
@@ -57,7 +49,7 @@ struct TestLoadCashBoxesModal: View {
                                     .cornerRadius(10)
                                 }
 
-                                Divider() // Divider between the buttons
+                                Divider()
 
                                 Button(action: {
                                     showDeleteConfirmation = true
@@ -75,10 +67,9 @@ struct TestLoadCashBoxesModal: View {
                                     .cornerRadius(10)
                                 }
 
-                                Divider() // Divider between the buttons
+                                Divider()
 
                                 Button(action: {
-                                    // Hides options without taking any action
                                     showEditDeleteOptions = nil
                                 }) {
                                     VStack {
@@ -95,13 +86,12 @@ struct TestLoadCashBoxesModal: View {
                             }
                             .background(Color.gray.opacity(0.1))
                             .cornerRadius(10)
-                            .frame(width: 300) // Adjust width as needed
+                            .frame(width: 270)
                         }
                     }
-                    .padding()
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, 16) // Adjust as necessary
         }
     }
 }

@@ -1,20 +1,20 @@
 import SwiftUI
-
 struct CashBoxCardView: View {
     var goalName: String
     var goalAmount: Float = 0
     var savedAmount: Float
     
     var body: some View {
-        VStack(alignment: .center, spacing: 12) {
+        VStack(alignment: .center) {
             if savedAmount >= goalAmount {
-                // Completed View
                 Text("Congratulations!")
+                    .padding(.bottom, 10)
                     .font(
                         Font.custom("Pally-Bold", size: 22)
                             .weight(.medium)
                     )
                     .foregroundColor(.cardTextTP)
+                    //.lineSpacing(10)
                 
                 Text("You completed a piggy bank:")
                     .font(
@@ -29,7 +29,6 @@ struct CashBoxCardView: View {
                             .weight(.medium)
                     )
                     .foregroundColor(.cardTextTP)
-                
                 
                 HStack(spacing: 4) {
                     RoundedRectangle(cornerRadius: 12)
@@ -47,10 +46,9 @@ struct CashBoxCardView: View {
                             }
                         )
                 }
-                
+                .padding(.bottom, 10) // Add padding to avoid inconsistency in height
                 Image("PiggyBankCompleted")
             } else {
-                // In Progress View
                 Text(goalName)
                     .font(
                         Font.custom("Pally-Bold", size: 20)
@@ -58,9 +56,8 @@ struct CashBoxCardView: View {
                     )
                     .foregroundColor(.cardTextTP)
                 
-                HStack(spacing: 6) {
-                    
-                    Text("It costs   \(String(format: "%.0f", goalAmount))")
+                HStack {
+                    Text("It costs \(String(format: "%.0f", goalAmount))")
                         .font(
                             Font.custom("Pally-Regular", size: 20)
                                 .weight(.medium)
@@ -73,7 +70,7 @@ struct CashBoxCardView: View {
                 ProgressView(value: savedAmount, total: goalAmount)
                     .progressViewStyle(LinearProgressViewStyle(tint: Color.purple))
                 
-                HStack{
+                HStack {
                     Text("\(Int(savedAmount))/\(Int(goalAmount)) coins saved")
                         .font(
                             Font.custom("Pally-Regular", size: 17)
@@ -87,7 +84,8 @@ struct CashBoxCardView: View {
                                 .weight(.medium)
                         )
                         .foregroundColor(.cardTextTP)
-                }.padding(.bottom)
+                }
+                .padding(.bottom, 10) // Uniform bottom padding
                 
                 Text("You need \(Int(goalAmount - savedAmount)) more coins")
                     .font(
@@ -99,10 +97,16 @@ struct CashBoxCardView: View {
                 Image("PiggyBankIncompleted")
             }
         }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(20)
+        .frame(width: 270) // Enforce consistent width
         .background(savedAmount >= goalAmount ? Color("CardPiggybankBackground") : Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)
-        //.shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 8)
+        .background(
+            RoundedRectangle(cornerRadius: 24)
+                .fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                .offset(x: 0, y: 6)
+        )
+        .padding(.bottom, 4)
     }
 }
+
