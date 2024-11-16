@@ -586,7 +586,11 @@
         }
       }
     },
+    "It costs  " : {
+
+    },
     "It costs %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

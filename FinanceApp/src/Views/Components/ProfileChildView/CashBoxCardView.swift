@@ -34,6 +34,7 @@ struct CashBoxCardView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color.white)
                         .frame(width: 100, height: 40)
+                        .cornerRadius(30)
                         .overlay(
                             HStack(spacing: 6) {
                                 Image("blackIconCoin")
@@ -57,7 +58,8 @@ struct CashBoxCardView: View {
                     .foregroundColor(.cardTextTP)
                 
                 HStack {
-                    Text("It costs \(String(format: "%.0f", goalAmount))")
+                    //Image("blackIconCoin")
+                    Text("It costs  ")
                         .font(
                             Font.custom("Pally-Regular", size: 20)
                                 .weight(.medium)
@@ -65,6 +67,15 @@ struct CashBoxCardView: View {
                         .foregroundColor(.cardTextTP)
                     
                     Image("blackIconCoin")
+                    
+                    Text("\(String(format: "%.0f", goalAmount))")
+                        .font(
+                            Font.custom("Pally-Regular", size: 20)
+                                .weight(.medium)
+                        )
+                        .foregroundColor(.cardTextTP)
+                    
+                    //Image("blackIconCoin")
                 }
                 
                 ProgressView(value: savedAmount, total: goalAmount)
