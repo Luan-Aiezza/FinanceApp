@@ -59,6 +59,21 @@ class ParentViewModel: ObservableObject{
     func fetch(id: UUID? = nil) {
         let parents = parentService?.read()
         parent = parents?.first
+        
+        if let existingParent = parents?.first {
+                parent = existingParent
+            } else {
+                // Criar e salvar o novo Parent
+                let newParent = ParentModel(name: "Default Parent")
+                modelContext?.insert(newParent)
+                do {
+                    try modelContext?.save()
+                    parent = newParent
+                } catch {
+                    print("Error saving parent: \(error)")
+                }
+            }
+        
         if let childdren = parent?.childs {
             self.childdren = childdren
         }
@@ -78,6 +93,10 @@ class ParentViewModel: ObservableObject{
             
             valueOfTasksDoneInCurrentMonth = valueOfCoinsInMonth(tasks: tasksDoneInMonth)
             tasks = child.tasks
+        }
+        
+        if let parent = parent {
+            childdren = parent.childs
         }
         
         print("Instanciei o ParentViewModel \(childID)")

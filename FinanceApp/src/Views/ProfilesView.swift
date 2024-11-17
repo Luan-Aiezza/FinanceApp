@@ -120,16 +120,11 @@ struct ProfilesView: View {
             
         }
         .tint(Color(red: 0.73, green: 0.57, blue: 0.8))
-        .onAppear{
-            parentViewModel.setup(modelContext: modelContext)
-            parentViewModel.fetch()
-            
-            if let _ = parents.first{
-                return
-            }else {
-                modelContext.insert(thisParent)
+        .onAppear {
+            if parentViewModel.modelContext == nil {
+                parentViewModel.setup(modelContext: modelContext)
             }
-            try! modelContext.save()
+            parentViewModel.fetch()
         }
     }
     

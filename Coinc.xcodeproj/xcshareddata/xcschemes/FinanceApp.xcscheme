@@ -18,7 +18,7 @@
                BlueprintIdentifier = "CF88A2F32CC00070005A5001"
                BuildableName = "FinanceApp.app"
                BlueprintName = "FinanceApp"
-               ReferencedContainer = "container:FinanceApp.xcodeproj">
+               ReferencedContainer = "container:Coinc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -38,7 +38,7 @@
                BlueprintIdentifier = "CF88A3052CC00071005A5001"
                BuildableName = "FinanceAppTests.xctest"
                BlueprintName = "FinanceAppTests"
-               ReferencedContainer = "container:FinanceApp.xcodeproj">
+               ReferencedContainer = "container:Coinc.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "CF88A30F2CC00071005A5001"
                BuildableName = "FinanceAppUITests.xctest"
                BlueprintName = "FinanceAppUITests"
-               ReferencedContainer = "container:FinanceApp.xcodeproj">
+               ReferencedContainer = "container:Coinc.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -72,7 +72,7 @@
             BlueprintIdentifier = "CF88A2F32CC00070005A5001"
             BuildableName = "FinanceApp.app"
             BlueprintName = "FinanceApp"
-            ReferencedContainer = "container:FinanceApp.xcodeproj">
+            ReferencedContainer = "container:Coinc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -89,7 +89,7 @@
             BlueprintIdentifier = "CF88A2F32CC00070005A5001"
             BuildableName = "FinanceApp.app"
             BlueprintName = "FinanceApp"
-            ReferencedContainer = "container:FinanceApp.xcodeproj">
+            ReferencedContainer = "container:Coinc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
