@@ -62,7 +62,7 @@ struct OnboardingPage3: View {
             ZStack{
                 Image("Rectangle 3")
                     .resizable()
-                    .frame(width: 775, height: 180)
+                    .frame(minWidth: 775, minHeight: 220)
                     .scaledToFit()
                 
                 Text("Now define how much a Coinc coin will be worth\n to your child, according to your preference.")
@@ -72,6 +72,9 @@ struct OnboardingPage3: View {
                     )
                     .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
                     .multilineTextAlignment(.center)
+                    .frame(width: 634, alignment: .center) // Defina os limites
+                    .lineLimit(nil) // Permite várias linhas (ou ajuste o limite, se necessário)
+                    .padding(.horizontal, 20) // Adiciona espaçamento interno
             }
             Image("PiggyPurple 1")
                 .resizable()
