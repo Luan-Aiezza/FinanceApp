@@ -9,13 +9,14 @@ struct TestLoadCashBoxesModal: View {
     @State private var showEditDeleteOptions: UUID? = nil
     @State private var showEditPopover: Bool = false
     @State private var selectedGoal: GoalBankModel?
+    @ScaledMetric(relativeTo: .body) var dynamicSpacing: CGFloat = 32
     var deleteGoal: (_ id: UUID) -> Void
 
     var body: some View {
         ZStack {
             
             ScrollView {
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 250))], spacing: dynamicSpacing) {
                     ForEach(goals, id: \.cashBox.id) { goal in
                         ZStack {
                             CashBoxCardView(
@@ -23,6 +24,8 @@ struct TestLoadCashBoxesModal: View {
                                 goalAmount: Float(goal.goalAmount),
                                 savedAmount: Float(goal.cashBox.coins)
                             )
+                            .frame(maxWidth:.infinity)
+                            .padding(8)
                             .cornerRadius(16)
                             .onTapGesture {
                                 showEditDeleteOptions = goal.cashBox.id
@@ -30,7 +33,7 @@ struct TestLoadCashBoxesModal: View {
 
                             // Exibir as opções de Editar/Excluir
                             if showEditDeleteOptions == goal.cashBox.id {
-                                HStack(spacing: 0) {
+                                HStack(spacing: 16) {
                                     Button(action: {
                                         selectedGoal = goal
                                         showEditPopover = true
@@ -81,7 +84,7 @@ struct TestLoadCashBoxesModal: View {
                         }
                     }
                 }
-                .padding(.horizontal, 16)
+                .padding(.horizontal, 20)
             }
 
                         if showEditPopover, let selectedGoal = selectedGoal {

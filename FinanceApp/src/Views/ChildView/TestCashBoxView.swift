@@ -20,10 +20,10 @@ struct TestCashBoxView: View {
     @ScaledMetric(relativeTo: .largeTitle) var border = 64
     @ScaledMetric(relativeTo: .largeTitle) var borderButtonH = 44
     @ScaledMetric(relativeTo: .largeTitle) var borderButtonW = 156
+    @ScaledMetric(relativeTo: .body) var dynamicSpacing: CGFloat = 32
     
     let columns = [
-            GridItem(.flexible(), spacing: 16),
-            GridItem(.flexible(), spacing: 16)
+        GridItem(.adaptive(minimum: 300))
         ]
     
     init(viewModel: TestCashBoxViewModel) {
@@ -39,7 +39,7 @@ struct TestCashBoxView: View {
             Color(red: 0.11, green: 0, blue: 0.16)
                 .ignoresSafeArea()
             
-            VStack(spacing: 20) {
+            VStack(spacing: dynamicSpacing) {
                 VStack(alignment: .center) {
                     HStack {
                         Text("Active Piggy Banks")
@@ -88,3 +88,4 @@ struct TestCashBoxView: View {
         }
     }
 }
+

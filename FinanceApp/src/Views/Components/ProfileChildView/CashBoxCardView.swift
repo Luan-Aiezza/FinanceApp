@@ -109,7 +109,7 @@ struct CashBoxCardView: View {
             }
         }
         .padding(20)
-        .frame(width: 270) // Enforce consistent width
+        .frame(width: 250) // Enforce consistent width
         .background(savedAmount >= goalAmount ? Color("CardPiggybankBackground") : Color(red: 0.94, green: 0.9, blue: 0.95))
         .cornerRadius(24)
         .background(
