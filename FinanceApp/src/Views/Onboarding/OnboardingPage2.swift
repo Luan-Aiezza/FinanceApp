@@ -21,11 +21,13 @@ struct OnboardingPage2: View {
             .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
             .background(Color(red: 0.36, green: 0, blue: 0.55))
             .cornerRadius(24)
+            .preferredColorScheme(.light) // Força o modo claro
             
             VStack(alignment: .leading, spacing: 20) {
                 Text("Guardian")
                     .font(Font.custom("Pally-Bold", size: 17).weight(.bold))
                     .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .preferredColorScheme(.light) // Força o modo claro
                 
                 HStack(alignment: .center, spacing: 40) {
                     VStack{
@@ -80,6 +82,7 @@ struct OnboardingPage2: View {
                     
                     VStack(spacing: 10) {
                         TextField(" Enter your name", text: $guardianName)
+                            .preferredColorScheme(.light) // Força o modo claro
                             .padding(.leading)
                             .frame(minHeight: 44)
                             .background(Color.white)
@@ -89,9 +92,10 @@ struct OnboardingPage2: View {
                                 if !guardianName.isEmpty && !password.isEmpty{
                                     isDisabled = false
                                 }
-                            }
+                            }.preferredColorScheme(.light) // Força o modo claro
                         
                         SecureField(" Create 4-digit PIN", text: $password)
+                            .preferredColorScheme(.light) // Força o modo claro
                             .padding(.leading)
                             .keyboardType(.numberPad) // Limita a entrada para números
                             .frame(minHeight: 44)
@@ -108,7 +112,7 @@ struct OnboardingPage2: View {
                                 } else {
                                     isDisabled = true
                                 }
-                            }
+                            }.preferredColorScheme(.light) // Força o modo claro
                     }
                 }
                 .padding(.horizontal, 85)
