@@ -174,15 +174,11 @@
       }
     },
     "0" : {
-
-    },
-    "50,00" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "50,00"
+            "value" : "0"
           }
         }
       }
@@ -591,11 +587,13 @@
       }
     },
     "It costs  " : {
-
-    },
-    "It costs %@" : {
-      "extractionState" : "stale",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It costs %@"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -716,6 +714,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Senha"
+          }
+        }
+      }
+    },
+    "Please enter a valid amount greater than 0." : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor adicione um número maior que 0"
           }
         }
       }
