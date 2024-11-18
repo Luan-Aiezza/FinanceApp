@@ -15,6 +15,7 @@ struct CEffortTag: View {
     @State var effortColorText: Color = Color("EffortAnyText")
     @State var effortText: String = "LOW EFFORT"
     @State var taskValue: Int
+    @State var effortCoinImage: String = ""
 
     
     var body: some View {
@@ -32,7 +33,7 @@ struct CEffortTag: View {
               .frame(width: 1, height: 20)
               .background(effortStroke)
             HStack(spacing: 4) {
-                Image("EffortCoin")
+                Image(effortCoinImage)
                   .frame(width: 16, height: 16)
                 Text("\(taskValue)")
                   .font(
@@ -71,17 +72,20 @@ extension CEffortTag{
             effortColor = Color("EffortLow")
             effortStroke = Color("EffortLowStroke")
             effortColorText = Color("EffortAnyText")
-            effortText = "Low Effort"
+            effortText = "LOW EFFORT"
+            effortCoinImage = "whiteIconCoin"
         case .medium:
             effortColor = Color("EffortMedium")
             effortStroke = Color("EffortMediumStroke")
             effortColorText = Color("EffortMediumText")
-            effortText = "Medium Effort"
+            effortText = "MEDIUM EFFORT"
+            effortCoinImage = "blackIconCoin2"
         case .hard:
             effortColor = Color("EffortHigh")
             effortStroke = Color("EffortHighStroke")
             effortColorText = Color("EffortAnyText")
-            effortText = "High Effort"
+            effortText = "HIGH EFFORT"
+            effortCoinImage = "whiteIconCoin"
         }
     }
 }
