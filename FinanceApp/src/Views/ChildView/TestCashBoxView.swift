@@ -80,7 +80,7 @@ struct TestCashBoxView: View {
                 // Lista de cofrinhos
                 TestLoadCashBoxesModal(goals: $viewModel.goals, deleteGoal: viewModel.deleteGoal)
                 Spacer()
-            }
+            }.padding(.horizontal)
         }
         .onAppear {
             viewModel.setup(modelContext: modelContext)

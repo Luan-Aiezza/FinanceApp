@@ -8,7 +8,7 @@ struct OnboardingPage4: View {
             ZStack{
                 Image("Rectangle 3")
                     .resizable()
-                    .frame(width: 694, height: 180)
+                    .frame(minWidth: 694, minHeight: 180)
                     .scaledToFit()
                 
                 Text("Now let's get started!")
