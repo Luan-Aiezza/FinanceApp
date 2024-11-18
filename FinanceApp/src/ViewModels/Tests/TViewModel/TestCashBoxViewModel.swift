@@ -135,4 +135,28 @@ class TestCashBoxViewModel: ObservableObject {
         fetch()
     }
     
+    func deleteGoal(id: UUID){
+        if let goal = goals.first(where: {$0.cashBox.id == id}),
+           let wallet = wallet,
+           let cashBoxService = cashBoxService,
+           let childService = childService,
+           let parentService = parentService,
+           let child = child,
+           let parent = parent {
+            let _ = cashBoxService.update(wallet) { wallet in
+                let _ = childService.update(child) { child in
+                    let _ = parentService.update(parent) { parent in
+                        wallet.coins += goal.cashBox.coins
+                        if let indexWallet = child.cashBoxes.firstIndex(where: {$0.cashBoxDescription == "Wallet"}),
+                           let indexChild = parent.childs.firstIndex(where: {$0.id == child.id}){
+                            child.cashBoxes[indexWallet] = wallet
+                            parent.childs[indexChild] = child
+                        }
+                    }
+                }
+            }
+            let _ = goalService?.delete(goal)
+        }
+        fetch()
+    }
 }

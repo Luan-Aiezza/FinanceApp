@@ -9,6 +9,7 @@ struct TestLoadCashBoxesModal: View {
     @State private var showEditDeleteOptions: UUID? = nil
     @State private var showEditPopover: Bool = false
     @State private var selectedGoal: GoalBankModel?
+    var deleteGoal: (_ id: UUID) -> Void
 
     var body: some View {
         ZStack {
@@ -54,7 +55,7 @@ struct TestLoadCashBoxesModal: View {
                                         .background(Color.gray.opacity(0.5))
 
                                     Button(action: {
-                                        goals.removeAll { $0.cashBox.id == goal.cashBox.id }
+                                        deleteGoal(goal.cashBox.id)
                                         showEditDeleteOptions = nil
                                     }) {
                                         VStack {

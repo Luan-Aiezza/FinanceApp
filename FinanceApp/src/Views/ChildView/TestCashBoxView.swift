@@ -78,7 +78,7 @@ struct TestCashBoxView: View {
                 }
                 
                 // Lista de cofrinhos
-                TestLoadCashBoxesModal(goals: $viewModel.goals)
+                TestLoadCashBoxesModal(goals: $viewModel.goals, deleteGoal: viewModel.deleteGoal)
                 Spacer()
             }
         }
