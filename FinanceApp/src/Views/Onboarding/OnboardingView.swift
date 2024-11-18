@@ -84,9 +84,11 @@ struct OnboardingView: View {
                     }
                     .disabled(isDisabled)
                     .opacity(isDisabled ? 0.2 : 1)
-                }
-            }                .padding(.horizontal, 85)
-                .padding(.vertical, 85)
+                }.padding(.vertical, 32)
+                    .padding(.horizontal, 32)
+                
+            }.padding(.horizontal, 32)
+            .padding(.vertical, 32)
         }
     }
 }

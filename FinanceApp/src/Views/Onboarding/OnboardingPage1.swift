@@ -8,7 +8,7 @@ struct OnboardingPage1: View {
             ZStack{
                 Image("Rectangle 3")
                     .resizable()
-                    .frame(minWidth: 775, minHeight: 220)
+                    .frame(minWidth: 775, minHeight: 240)
                     .scaledToFit()
                 
                 Text("By creating tasks from your account, your child\n completes these tasks and can earn coins, exchanging\n them with you for real value if they wish!")

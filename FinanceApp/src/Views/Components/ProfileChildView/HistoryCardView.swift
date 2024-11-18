@@ -51,6 +51,7 @@ struct HistoryCardView: View {
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                     )
+                    .preferredColorScheme(.light)
                 //Contar quantas tasks foram feitas naquele mes (countTasks)
                 Text("tasks done sucessfully")
                     .font(
