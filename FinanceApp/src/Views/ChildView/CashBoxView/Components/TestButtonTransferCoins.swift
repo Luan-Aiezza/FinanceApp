@@ -21,7 +21,7 @@ struct TestButtonTransferCoins: View {
                     .foregroundColor(Color(red: 0.16, green: 0, blue: 0.25))
                     .font(
                         Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
+//                            .weight(.medium)
                     )
             }
         }

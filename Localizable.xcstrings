@@ -173,7 +173,11 @@
         }
       }
     },
+    "0" : {
+
+    },
     "50,00" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

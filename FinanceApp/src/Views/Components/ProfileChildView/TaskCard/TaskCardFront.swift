@@ -25,7 +25,7 @@ struct TaskCardFront: View {
     @ViewBuilder
     private func renderDescription(description: String) -> some View {
         Text(description)
-            .font(Font.custom("Pally Variable", size: 17).weight(.medium))
+            .font(Font.custom("Pally-Regular", size: 17).weight(.medium))
             .multilineTextAlignment(.center)
             .foregroundColor(Color(red: 0.2, green: 0.17, blue: 0.25))
             .accessibilityHidden(isFlipped)  // Oculta descrição do VoiceOver quando virado

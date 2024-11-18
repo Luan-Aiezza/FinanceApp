@@ -26,7 +26,7 @@ struct TaskCardSuccess: View {
         HStack(alignment: .center, spacing: 6) {
             Text("+")
               .font(
-                Font.custom("Pally Variable", size: 17)
+                Font.custom("Pally-Regular", size: 17)
                   .weight(.medium)
               )
               .foregroundColor(Color("CardTextTP"))
@@ -34,7 +34,7 @@ struct TaskCardSuccess: View {
                 .frame(width: 20, height: 20)
             Text("\(task.value.formatted(.number))")
               .font(
-                Font.custom("Pally Variable", size: 17)
+                Font.custom("Pally-Regular", size: 17)
                   .weight(.medium)
               )
               .foregroundColor(Color("CardTextTP"))
@@ -54,7 +54,7 @@ struct TaskCardSuccess: View {
     func renderTittle() -> some View {
         Text("Congratulations!")
           .font(
-            Font.custom("Pally Variable", size: 28)
+            Font.custom("Pally-Regular", size: 28)
               .weight(.medium)
           )
           .multilineTextAlignment(.center)
@@ -80,7 +80,7 @@ struct TaskCardSuccess: View {
         VStack(alignment: .center, spacing: 8) {
             Text("You earned")
               .font(
-                Font.custom("Pally Variable", size: 17)
+                Font.custom("Pally-Regular", size: 17)
                   .weight(.medium)
               )
               .multilineTextAlignment(.center)

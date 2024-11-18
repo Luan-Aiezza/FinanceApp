@@ -30,14 +30,16 @@ struct TestNewPiggyBankModal: View {
                 Button("Cancel") {
                     isPresented = false
                 }
-                .font(Font.custom("Pally-Bold", size: 17).weight(.medium)
+                .font(Font.custom("Pally-Bold", size: 17)
+//                    .weight(.medium)
                 ).foregroundColor(.mediumPurple)
                 
                 Spacer()
                 
                 Text(goalToEdit == nil ? "New Piggy Bank" : "Edit Piggy Bank")
                     .foregroundColor(.primary)
-                    .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
+                    .font(Font.custom("Pally-Bold", size: 17))
+//                        .weight(.medium))
                 
                 Spacer()
                 
@@ -76,7 +78,7 @@ struct TestNewPiggyBankModal: View {
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                     .foregroundColor(Color.black.opacity(0.7))
                 
-                TextField("50,00", text: $goalAmount)
+                TextField("0", text: $goalAmount)
                     .keyboardType(.numberPad)
                     .padding()
                     .background(Color.white)

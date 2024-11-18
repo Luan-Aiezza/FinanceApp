@@ -9,7 +9,7 @@ struct CButton: View {
             Button(action: {action()}) {
                 HStack(alignment: .center, spacing: 8) { Text(text)
                         .font(
-                          Font.custom("Pally Variable", size: 17)
+                          Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
                         )
                         .multilineTextAlignment(.center)

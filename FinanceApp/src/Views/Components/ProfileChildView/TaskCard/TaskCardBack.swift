@@ -39,7 +39,7 @@ struct TaskCardBack: View {
     func renderTittle() -> some View {
         VStack(alignment: .center, spacing: 24) {
             Text(NSLocalizedString("Did you complete this task?", comment: "Prompt asking if the task was completed"))
-                .font(Font.custom("Pally Variable", size: 28).weight(.medium))
+                .font(Font.custom("Pally-Regular", size: 28).weight(.medium))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("CardTextTP"))
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -47,7 +47,7 @@ struct TaskCardBack: View {
             
             VStack(alignment: .center, spacing: 8) {
                 Text("\(task.taskDescription)")
-                    .font(Font.custom("Pally Variable", size: 14).weight(.medium))
+                    .font(Font.custom("Pally-Regular", size: 14).weight(.medium))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("CardTextTP"))
                     .accessibilityHidden(!isFlipped)  // Visível apenas quando o card está virado

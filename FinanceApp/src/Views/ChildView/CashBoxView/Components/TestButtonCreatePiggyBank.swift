@@ -26,7 +26,7 @@ struct TestButtonCreatePiggyBank: View {
                     .multilineTextAlignment(.center)
                     .font(
                         Font.custom("Pally-Bold", size: 17)
-                            .weight(.medium)
+//                            .weight(.medium)
                     )
             }
             
