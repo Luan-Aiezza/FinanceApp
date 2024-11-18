@@ -4,6 +4,7 @@
 //
 //  Created by Grecia Cristina on 08/11/24.
 //
+
 import SwiftUI
 
 struct TestNewPiggyBankModal: View {
@@ -14,12 +15,22 @@ struct TestNewPiggyBankModal: View {
     
     @State var addGoal: (_ name: String, _ amount: Int) -> Void
     
-   
+    // Propriedade para validar o valor do campo goalAmount
     private var isGoalAmountValid: Bool {
         if let amount = Int(goalAmount), amount > 0 {
             return true
         }
         return false
+    }
+    
+    // Propriedade para validar o valor do campo goalName
+    private var isGoalNameValid: Bool {
+        return !goalName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    // Propriedade para determinar se o botão Done deve ser ativado
+    private var canSubmit: Bool {
+        return isGoalAmountValid && isGoalNameValid
     }
     
     init(isPresented: Binding<Bool>, goalToEdit: GoalBankModel? = nil, addGoal: @escaping (_ name: String, _ amount: Int) -> Void) {
@@ -55,7 +66,7 @@ struct TestNewPiggyBankModal: View {
                 }
                 .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                 .foregroundColor(.mediumPurple)
-                .disabled(!isGoalAmountValid) // Desativa o botão se o valor for inválido
+                .disabled(!canSubmit) // Desativa o botão se os valores forem inválidos
             }
             .padding([.top, .horizontal])
             
@@ -71,7 +82,9 @@ struct TestNewPiggyBankModal: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.5)))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(isGoalNameValid ? Color.gray.opacity(0.5) : Color.red)) // Mostra vermelho se inválido
+                
+                
                 
                 Text("How much does it cost?")
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
@@ -85,12 +98,25 @@ struct TestNewPiggyBankModal: View {
                     .font(Font.custom("Pally-Bold", size: 17).weight(.medium))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(isGoalAmountValid ? Color.gray.opacity(0.5) : Color.red)) // Mostra vermelho se inválido
                 
-                if !isGoalAmountValid && !goalAmount.isEmpty {
+                
+                if !isGoalNameValid {
+                    Text("Please enter a valid name.")
+                        .font(Font.custom("Pally-Regular", size: 14))
+                        .foregroundColor(.red)
+                        .padding(.top, 4)
+                }else if !isGoalAmountValid && !goalAmount.isEmpty {
                     Text("Please enter a valid amount greater than 0.")
                         .font(Font.custom("Pally-Regular", size: 14))
                         .foregroundColor(.red)
                         .padding(.top, 4)
                 }
+                
+//                if !isGoalAmountValid && !goalAmount.isEmpty {
+//                    Text("Please enter a valid amount greater than 0.")
+//                        .font(Font.custom("Pally-Regular", size: 14))
+//                        .foregroundColor(.red)
+//                        .padding(.top, 4)
+//                }
             }
             .padding(.horizontal)
             
