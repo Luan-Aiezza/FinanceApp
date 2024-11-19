@@ -991,6 +991,12 @@
     },
     "You need %lld more coins" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You need %lld more coincs"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
