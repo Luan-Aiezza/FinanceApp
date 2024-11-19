@@ -98,7 +98,7 @@ struct CashBoxCardView: View {
                 }
                 .padding(.bottom, 10) // Uniform bottom padding
                 
-                Text("You need \(Int(goalAmount - savedAmount)) more coins")
+                Text("You need \(Int(goalAmount - savedAmount)) more coincs")
                     .font(
                         Font.custom("Pally-Regular", size: 17)
                             .weight(.medium)
