@@ -58,7 +58,7 @@ struct SelectedChild: View {
                         .foregroundColor(Color(red: 0.73, green: 0.57, blue: 0.8))
                 }
                 .popover(isPresented: $showPopover, arrowEdge: .bottom) {
-                    SettingsView(updateChildProfile: parentViewModel.upDateChildProfile, deleteChildProfile: parentViewModel.deleteChildProfile, selectedChild: $selectedChild)
+                    SettingsView(upDateChildProfile: parentViewModel.upDateChildProfile, deleteChildProfile: parentViewModel.deleteChildProfile, selectedChild: $selectedChild)
                         .frame(minWidth: 250, minHeight: 132)
                         .background(Color.white)
                         .preferredColorScheme(.light)

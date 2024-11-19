@@ -34,18 +34,18 @@ class ParentViewModel: ObservableObject{
     
     
     // Método para remover a criança da lista
-//    func removeChild(_ child: ChildModel) {
-//        // Verifica se o array não é nil
-//        if var children = childdren {
-//            // Tenta encontrar o índice da criança
-//            if let index = children.firstIndex(where: { $0.id == child.id }) {
-//                // Remove a criança pelo índice
-//                children.remove(at: index)
-//                // Atualiza a lista de crianças
-//                childdren = children
-//            }
-//        }
-//    }
+    //    func removeChild(_ child: ChildModel) {
+    //        // Verifica se o array não é nil
+    //        if var children = childdren {
+    //            // Tenta encontrar o índice da criança
+    //            if let index = children.firstIndex(where: { $0.id == child.id }) {
+    //                // Remove a criança pelo índice
+    //                children.remove(at: index)
+    //                // Atualiza a lista de crianças
+    //                childdren = children
+    //            }
+    //        }
+    //    }
     
     
     
@@ -61,18 +61,18 @@ class ParentViewModel: ObservableObject{
         parent = parents?.first
         
         if let existingParent = parents?.first {
-                parent = existingParent
-            } else {
-                // Criar e salvar o novo Parent
-                let newParent = ParentModel(name: "Default Parent")
-                modelContext?.insert(newParent)
-                do {
-                    try modelContext?.save()
-                    parent = newParent
-                } catch {
-                    print("Error saving parent: \(error)")
-                }
+            parent = existingParent
+        } else {
+            // Criar e salvar o novo Parent
+            let newParent = ParentModel(name: "Default Parent")
+            modelContext?.insert(newParent)
+            do {
+                try modelContext?.save()
+                parent = newParent
+            } catch {
+                print("Error saving parent: \(error)")
             }
+        }
         
         if let childdren = parent?.childs {
             self.childdren = childdren
@@ -102,15 +102,9 @@ class ParentViewModel: ObservableObject{
         print("Instanciei o ParentViewModel \(childID)")
     }
     
-
+    
     func changeCoinValue() -> Void {
         print("changeCoinValue not implemented")
-    }
-    func updateTask(taskToUpdate: TaskModel) {
-        print("updateTask not implemented")
-    }
-    func removeTask() -> Void {
-        print("removeTask not implemented")
     }
     
     // Child Section
@@ -146,10 +140,10 @@ class ParentViewModel: ObservableObject{
                 if let image = image {
                     child.profileImage = image
                 }
-               let _ = parentService.update(parent){ parent in
-                   if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
-                       parent.childs[index] = child
-                   }
+                let _ = parentService.update(parent){ parent in
+                    if let index = parent.childs.firstIndex(where: {$0.id == child.id}){
+                        parent.childs[index] = child
+                    }
                 }
             }
         }
@@ -199,6 +193,37 @@ class ParentViewModel: ObservableObject{
             return value
         } else {
             return 0
+        }
+    }
+    
+    func deleteTask(task: TaskModel){
+        if let taskService = taskService {
+            let _ = taskService.delete(task)
+        }
+        fetch()
+    }
+    
+    func updateTask(task: TaskModel, description: String, value:Int, effort: EffortTypes){
+        
+        if let taskService = taskService,
+           let parentService = parentService,
+           let childService = childService,
+           let parent = parent{
+            if let childIndex = parent.childs.firstIndex(where: {$0.id == childID}),
+               let taskIndex = parent.childs[childIndex].tasks.firstIndex(where: {$0.id == task.id}){
+                let _ =  childService.update(parent.childs[childIndex]) { child in
+                    let _ = parentService.update(parent) { parent in
+                        let _ = taskService.update(parent.childs[childIndex].tasks[taskIndex]) { task in
+                            task.taskDescription = description
+                            task.value = value
+                            task.effort = effort
+                            child.tasks[taskIndex] = task
+                            parent.childs[childIndex] = child
+                        }
+                    }
+                }
+                
+            }
         }
     }
     
