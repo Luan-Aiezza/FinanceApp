@@ -989,7 +989,11 @@
         }
       }
     },
+    "You need %lld more coincs" : {
+
+    },
     "You need %lld more coins" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
