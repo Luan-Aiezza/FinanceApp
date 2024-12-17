@@ -66,13 +66,10 @@ struct SelectedChild: View {
                 }
             }
         }
-        .onAppear {
-            parentViewModel.setup(modelContext: modelContext)
-            parentViewModel.fetch()
-        }
         .onChange(of: parentViewModel.isChangeTaskDone) {
             parentViewModel.fetch(id: parentViewModel.currentChild)
         }
+        .environmentObject(parentViewModel)
     }
 }
 
@@ -95,7 +92,8 @@ struct ProfilesSelectView: View {
                         Button(action: {
                             fetch(child.id) // Seleciona o filho
                             parentViewModel.currentChild = child.id
-                            selectedChild = child // Atualiza o filho selecionado
+                            selectedChild = child// Atualiza o filho selecionado
+                            print(selectedChild.name)
                         }) {
                             ProfileSelect(imageSize: imageSize, child: child, isSelected: selectedChild.id == child.id)
                         }
@@ -109,7 +107,8 @@ struct ProfilesSelectView: View {
             // Define o primeiro filho como selecionado por padrão
             if let firstChild = children.first {
                 selectedChild = firstChild
-                fetch(firstChild.id) // Chama a função para buscar as informações do primeiro filho
+                fetch(firstChild.id)
+                // Chama a função para buscar as informações do primeiro filho
             }
         }
     }

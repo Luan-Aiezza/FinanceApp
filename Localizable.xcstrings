@@ -436,6 +436,9 @@
         }
       }
     },
+    "Edit Task" : {
+
+    },
     "Edit this child" : {
       "localizations" : {
         "pt-BR" : {
@@ -517,6 +520,7 @@
       }
     },
     "Fetch manual" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pt-BR" : {
           "stringUnit" : {

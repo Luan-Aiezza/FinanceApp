@@ -33,22 +33,6 @@ class ParentViewModel: ObservableObject{
     @Published var currentChild: UUID?
     
     
-    // Método para remover a criança da lista
-    //    func removeChild(_ child: ChildModel) {
-    //        // Verifica se o array não é nil
-    //        if var children = childdren {
-    //            // Tenta encontrar o índice da criança
-    //            if let index = children.firstIndex(where: { $0.id == child.id }) {
-    //                // Remove a criança pelo índice
-    //                children.remove(at: index)
-    //                // Atualiza a lista de crianças
-    //                childdren = children
-    //            }
-    //        }
-    //    }
-    
-    
-    
     func setup(modelContext: ModelContext){
         parentService = .init(modelContext: modelContext)
         childService = .init(modelContext: modelContext)
@@ -83,6 +67,7 @@ class ParentViewModel: ObservableObject{
             childID = childdren.first?.id
         }
         if let child = childdren.first(where: {$0.id == childID}){
+            tasks = child.tasks
             activePiggyBank = countActivePiggyBank(child: child)
             
             coinsInPiggyBank = countCoinsInPiggyBanks(child: child)
@@ -92,7 +77,6 @@ class ParentViewModel: ObservableObject{
             tasksDoneInCurrentMonth = countTaskDoneInMonth(tasks: tasksDoneInMonth)
             
             valueOfTasksDoneInCurrentMonth = valueOfCoinsInMonth(tasks: tasksDoneInMonth)
-            tasks = child.tasks
         }
         
         if let parent = parent {
@@ -203,7 +187,8 @@ class ParentViewModel: ObservableObject{
         fetch()
     }
     
-    func updateTask(task: TaskModel, description: String, value:Int, effort: EffortTypes){
+    func updateTask(task: TaskModel, description: String, effort: EffortTypes){
+        let value = setValueEffort(effort: effort)
         
         if let taskService = taskService,
            let parentService = parentService,
@@ -221,9 +206,20 @@ class ParentViewModel: ObservableObject{
                             parent.childs[childIndex] = child
                         }
                     }
+                    tasks = child.tasks
                 }
-                
             }
+        }
+    }
+    
+    private func setValueEffort(effort: EffortTypes) -> Int{
+        switch effort {
+        case .easy:
+            return 1
+        case .medium:
+            return 3
+        case .hard:
+            return 5
         }
     }
     
