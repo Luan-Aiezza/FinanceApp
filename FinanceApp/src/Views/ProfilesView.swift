@@ -1,0 +1,202 @@
+import SwiftUI
+import SwiftData
+
+struct ProfilesView: View {
+    @Environment(\.modelContext) private var modelContext
+    @ObservedObject private var parentViewModel: ParentViewModel
+    
+    @State private var selectedChildIcon: String = "Cat" // Ícone padrão
+    @State private var showChildIconSelection = false
+    
+    @State private var showIconSelection = false
+    @State private var showChildRequiredAlert = false
+    
+    @AppStorage("selectedGuardianIcon") private var selectedGuardianIcon: String = "guardianIcon"
+    @AppStorage("guardianName") private var guardianName: String = ""
+    @AppStorage("password") private var password: String = ""
+    
+    @State private var showPasswordAlert = false
+    @State private var inputPassword: String = ""
+    @State private var isAuthenticated = false
+    
+    @State private var showLimitAlert = false
+    
+    @State private var childName: String = ""
+    @State private var showAlert = false
+    @Query private var childs: [ChildModel]
+    @Query private var parents: [ParentModel]
+    
+    @ObservedObject private var navigation = AppNavigation.shared
+    
+    //TODO: Remover variável "thisParent" depois
+    private let thisParent = ParentModel(name: "Luan")
+    private let thisChild = ChildModel(name: "Rodrigo")
+    
+    let gridItem = [GridItem(.adaptive(minimum: 200))]
+    
+    init(parentViewModel: ParentViewModel) {
+        self.parentViewModel = parentViewModel
+    }
+    
+    var body: some View {
+        //PRIMEIRA CAMADA
+        //        NavigationStack(path: $path) {
+        ZStack{
+            Color.init(red: 0.11, green: 0, blue: 0.16)
+                .ignoresSafeArea()
+            //SEGUNDA CAMADA
+            VStack {
+                Spacer(minLength: 100)
+                Text("\(guardianName)'s family!")
+                    .font(Font.custom("Pally-Bold", size: 48).weight(.heavy))
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .multilineTextAlignment(.center)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    Spacer(minLength: 100)
+                    //                    ForEach(parents){ parent in
+                    VStack {
+                        Image("Crow")
+                            .rotationEffect(.degrees(15)) // Gira a coroa em 15 graus
+                            .offset(x: 15) // Ajuste o valor de x e y para posicionar a coroa
+                        
+                        createProfileView(parentViewModel.parent ?? ParentModel(name: "No Parent")) // Imagem de perfil circular
+                    }
+                    //                    }
+                    
+                    LazyVGrid(columns: gridItem){
+                        Button(action: {
+                            if let parent = parents.first, parent.childs.count >= 3 {
+                                // Exibe o alerta de limite se já houver 3 crianças
+                                showLimitAlert = true
+                            } else {
+                                // Exibe o alerta para adicionar uma nova criança
+                                showAlert = true
+                            }                            }) {
+                                VStack {
+                                    Image("Add Profile")
+                                        .frame(width: 150, height: 150)
+                                        .aspectRatio(contentMode: .fill)
+                                        .background(Color.white)
+                                        .clipShape(Circle())
+                                        .overlay(
+                                            Circle().stroke(Color.white, lineWidth: 4)
+                                        )
+                                        .shadow(radius: 5)
+                                    Text("Add child")
+                                        .font(
+                                            Font.custom("Pally-Bold", size: 22)
+                                                .weight(.medium)
+                                        )
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                            .alert("Enter Child's Name", isPresented: $showAlert) {
+                                TextField("Child's name", text: $childName)
+                                Button("Create") {
+                                    parentViewModel.addChild(name: childName)
+                                    childName = "" // Limpa o campo após a criação
+                                }
+                                Button("Cancel", role: .cancel) {
+                                    childName = ""
+                                }
+                            }.alert("Limit reached! In this version, you can only add up to 3 children.", isPresented: $showLimitAlert) {
+                                Button("OK", role: .cancel) { }
+                            }
+                        
+                        ForEach(childs) { child in
+                            createProfileView(child)
+                        }
+                    }
+                    .position(x: UIScreen.main.bounds.width / 2.15, y: UIScreen.main.bounds.height / 6)
+                }
+                
+                //                        .padding(.top, 500)
+                Spacer()
+                
+            }.padding(.horizontal, 32)
+            
+            
+        }
+        .tint(Color(red: 0.73, green: 0.57, blue: 0.8))
+        .onAppear {
+            if parentViewModel.modelContext == nil {
+                parentViewModel.setup(modelContext: modelContext)
+            }
+            parentViewModel.fetch()
+        }
+    }
+    
+    @ViewBuilder
+    private func createProfileView(_ child: ChildModel) -> some View{
+        Button(action: {navigation.navigateTo(to: .childProfile(id: child.id))}) {
+            VStack{
+                Image(child.profileImage ?? "Cat")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.cyan)
+                    .background(
+                        Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8))
+                            .offset(x:0, y: 6)// Borda branca opcional para destaque
+                    )
+                
+                Text(child.name)
+                    .font(
+                        Font.custom("Pally-Bold", size: 22)
+                            .weight(.medium)
+                    )
+                    .foregroundStyle(.white)
+                    .scaledToFit()
+                    .multilineTextAlignment(.trailing)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func createProfileView(_ parent: ParentModel) -> some View {
+        Button(action: {
+            if childs.isEmpty {
+                showChildRequiredAlert = true
+            } else {
+                showPasswordAlert = true
+            }
+        }) {
+            VStack {
+                Image(selectedGuardianIcon) // Use @AppStorage diretamente
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.cyan)
+                    .background(Circle().fill(Color(red: 0.73, green: 0.57, blue: 0.8)).offset(x: 0, y: 6))
+                
+                Text(guardianName) // Use @AppStorage diretamente
+                    .font(.custom("Pally-Bold", size: 22))
+                    .foregroundStyle(.white)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        .alert("You need to add at least one child to access the parent's profile.", isPresented: $showChildRequiredAlert) {
+            Button("OK", role: .cancel) { }
+        }
+        .alert("Enter Password", isPresented: $showPasswordAlert) {
+            SecureField("Password", text: $inputPassword)
+                .keyboardType(.numberPad)
+            Button("Confirm") {
+                isAuthenticated = (inputPassword == password)
+                if isAuthenticated {
+                    navigation.navigateTo(to: .parentProfile)
+                }
+                inputPassword = ""
+            }
+            Button("Cancel", role: .cancel) { inputPassword = "" }
+        }
+    }
+}
+
+
+//#Preview {
+//    ProfilesView()
+//        .modelContainer(for: Item.self, inMemory: true)
+//}

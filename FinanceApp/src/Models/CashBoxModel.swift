@@ -1,33 +1,65 @@
-//
-//  CashBoxModel.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 16/10/24.
-//
-
-//
-//  TaskModel.swift
-//  FinanceApp
-//
-//  Created by Joseph Pereira on 16/10/24.
-//
 import Foundation
 import SwiftData
 
-@Model
-class CashBoxModel {
-    var coins: Int
-    var cashBoxDescription: String
+
+// Classe para carteira
+class Wallet: CashBoxModel {
     
-    init(cashBoxDescription: String) {
-        self.coins = 0
-        self.cashBoxDescription = cashBoxDescription
+    // Método para gastar moedas
+    func spendCoins(amount: Int) {
+        guard amount > 0, amount <= self.coins else {
+            print("Erro: Quantidade inválida ou saldo insuficiente.")
+            return
+        }
+        self.coins -= amount
+        print("Coins spented: \(amount). Current balance: \(self.coins)")
+    }
+}
+
+// Classe para metas
+class GoalBank: CashBoxModel {
+    
+    required init(backingData: any SwiftData.BackingData<CashBoxModel>) {
+        fatalError("init(backingData:) has not been implemented")
+    }
+    var goalID: UUID
+    var goalName: String
+    var goalAmount: Int
+    var goalAchievedDate: Date?
+   // @Published var coins: Int = 0
+    
+    init(goalName: String, goalAmount: Int) {
+            self.goalID = UUID()
+            self.goalName = goalName
+            self.goalAmount = goalAmount
+        super.init(cashBoxDescription: goalName)
+        }
+    
+    // Método para adicionar moedas à meta
+    override func addCoins(amount: Int) {
+        guard amount > 0 else { return }
+        let possibleAddition = min(amount, goalAmount - self.coins)
+        self.coins += possibleAddition
+        
+        if self.coins >= self.goalAmount {
+            self.goalAchievedDate = Date()
+            print("CONGRATULATIONS! Goal '\(goalName)' achieved on \(self.goalAchievedDate!)")
+        }
     }
     
-    func addCoins() -> Void {
-        print("addCoins not implemented.")
+    // Método para gastar moedas da meta
+    func spendCoins(amount: Int) {
+        guard amount > 0, amount <= self.coins else {
+            print("Erro: Quantidade inválida ou saldo insuficiente.")
+            return
+        }
+        self.coins -= amount
+        print("Coins spented: \(amount). Current balance: \(self.coins)")
+        
     }
-    func removeCoins() -> Void {
-        print("removeCoins not implemented.")
-    }
+    
+//    func addCoins(amount: Int) {
+//            coins += amount // Aumenta o saldo salvo com o valor transferido
+//        }
+    
 }
